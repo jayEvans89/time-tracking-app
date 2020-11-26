@@ -1,4 +1,3 @@
-import { AxiosPromise } from 'axios'
 import http from '../http'
 
 class LoginService {
@@ -9,6 +8,11 @@ class LoginService {
 
   async checkSession() {
     const response = await http.post('/login/auth')
+    return response.data
+  }
+
+  async logout() {
+    const response = await http.post('/logout')
     return response.data
   }
 }

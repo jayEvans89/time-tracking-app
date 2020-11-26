@@ -57,16 +57,26 @@ export default class LoginController {
       console.log(error)
     }
 
-    res.cookie('refreshToken', session,  {
+    console.log('refresh token: ', session)
+    return res.cookie('refreshToken', session,  {
       expires: session.expiry,
       httpOnly: true,
       secure: true
-    })
-    res.status(201).send({
+    }).status(201).send({
       status: 'success',
       message: 'Login accepted',
       data: user,
       token: token
+    })
+  }
+
+  async logout(req: Request, res: Response) {
+    const cookie: ISession = req.cookies.refreshToken
+    const sessionId = cookie._id
+    await this.sessionController.removeSession(sessionId)
+    return res.status(200).send({
+      status: 'Success',
+      message: 'Session removed. Logout'
     })
   }
 }

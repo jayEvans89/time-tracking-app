@@ -9,9 +9,7 @@ export default class AuthMiddleware {
   async checkSession(req: Request, res: Response, next: NextFunction) {
     this.sessionController.validateSession(req, res).then((response) => {
       if (response.status === 'Success') {
-        res.status(201).send({
-          response
-        })
+        res.locals.token = response.token
         next()
       } else {
         return res.status(403).send({

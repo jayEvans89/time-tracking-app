@@ -15,7 +15,6 @@ export default class SessionController {
    */
   async createSession(user: IUser) {
     let token = randdomString.generate({ length: 12 })
-    const saltRounds = 10
     token = await bcrypt.hash(token, 10)
 
     let date = new Date()
@@ -35,15 +34,24 @@ export default class SessionController {
    * Validates a JWT
    * @param jwt The JWT to validate
    */
-  async validateJWT(jwt: any): Promise<boolean> {
-    return false
-    // return jwt.verify(jwt, 'randomString', (err) => {
-    //     if (err) {
-    //       return false
-    //     } else {
-    //       return true
-    //     }
-    //   })
+  async validateJWT(token: any): Promise<boolean> {
+    const jwtToken = () => {
+      return new Promise((resolve, reject) => {
+        jwt.verify(token, 'randomString', (err, decoded) => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(decoded)
+          }
+        })
+      })
+    }
+
+    return jwtToken().then((res: any) => {
+      return res
+    }).catch(error => {
+      return false
+    })
   }
 
   /**
@@ -51,9 +59,8 @@ export default class SessionController {
    * @param cookie Session Token
    */
   async validateRefreshToken(cookie: ISession) {
-    
+
     if (cookie === undefined) {
-      console.log('no cookie')
       return {
         valid: false,
         message: "No session cookie"
@@ -101,8 +108,11 @@ export default class SessionController {
    * @param id The session to remove
    */
   async removeSession(id: number) {
-    await SessionModel.deleteOne({ id: id })
-    return
+    return await SessionModel.deleteOne({ _id: id }, (err) => {
+      if (err) {
+        console.log(err)
+      }
+    })
   }
 
   /**
@@ -110,7 +120,6 @@ export default class SessionController {
    * @param userId The user id to create a new JWT 
    */
   async createJWT(userId: number) {
-    console.log('create JWT: ', userId)
     const payload = {
       user: {
         id: userId
@@ -141,30 +150,27 @@ export default class SessionController {
   }
 
   /**
-   * Gets the users ID from their JWT token
-   * @param token The JWT token to get the user ID from
+   * Validates the current session
+   * @param req 
+   * @param res 
    */
-  async getUserIdFromToken(token: string) {
-    const decodedToken: any = jwt.decode(token)
-    return decodedToken.id
-  }
-
   async validateSession(req: Request, res: Response) {
 
     // Check JWT
     let bearer: Array<string>
     let bearerToken = ''
+    let validToken = false
 
     if (req.headers.authorization) {
       bearer = req.headers.authorization.split(' ')
       bearerToken = bearer[1]
-    }
-
-    let validToken = false
-    try {
-      validToken = await this.validateJWT(bearerToken)
-    } catch (error) {
-      console.log(error)
+      if (bearer.length == 2) {
+        try {
+          validToken = await this.validateJWT(bearerToken)
+        } catch (error) {
+          console.log(error)
+        }
+      }
     }
 
     if (!validToken) {

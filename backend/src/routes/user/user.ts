@@ -9,7 +9,7 @@ const userController  = new UserController()
 // Get all users
 user.get('/getAll', (req, res) => {
   console.log('get all: ')
-  userController.getAll(req, res)
+  userController.getAllUsers(res)
 })
 
 // Get a specific user
@@ -19,7 +19,7 @@ user.get('/get/:id', (req, res) => {
 
 // Create a user
 user.post('/create', (req, res) => {
-  userController.findOneOrCreate(req, res)
+  userController.createUser(req, res)
 })
 
 // Update a user

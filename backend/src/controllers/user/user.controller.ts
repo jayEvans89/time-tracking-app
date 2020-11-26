@@ -35,12 +35,13 @@ export default class UserController {
    * @param req 
    * @param res 
    */
-  async getAll(req: Request, res: Response): Promise<void> {
+  async getAllUsers(res: Response): Promise<void> {
     const users = (await UserModel.find())
     res.status(200).send({
       status: 'success',
       message: 'got all users',
-      data: users
+      data: users,
+      token: res.locals.token
     })
   }
 
@@ -49,7 +50,7 @@ export default class UserController {
    * @param req 
    * @param res 
    */
-  async findOneOrCreate(req: Request, res: Response): Promise<void> {
+  async createUser(req: Request, res: Response): Promise<void> {
     const body = req.body as IUser
 
     const user: IUser = new UserModel({
