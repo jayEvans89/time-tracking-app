@@ -1,0 +1,34 @@
+
+:root {
+  --trypan-blue: #3b01ab;
+  --electric-indigo: #6902ef;
+  --medium-purple: #9e59f2;
+  --raisin-black: #212124;
+  --eerie-black: #1f1f1f;
+  --jet: #333;
+  --white: #fff;
+
+  --color-primary: var(--medium-purple);
+  --color-secondary: var(--electric-indigo);
+
+  --color-text-primary: var(--raisin-black);
+
+  --color-button-primary: var(--white);
+  --color-button-secondary: var(--raisin-black);
+
+  --border-primary: rgba(255, 255, 255, .2);
+  --border-active: var(--electric-indigo);
+
+  @media (prefers-color-scheme: dark) {
+
+    --color-background-primary: var(--raisin-black);
+    --color-background-secondary: var(--eerie-black);
+    --color-background-tertiary: var(--jet);
+
+    --color-text-primary: var(--white);
+    --color-text-secondary: var(--medium-purple);
+    --color-text-placeholder: rgba(255, 255, 255, .8);
+
+    --border-primary: rgba(255, 255, 255, .2);
+  }
+}
