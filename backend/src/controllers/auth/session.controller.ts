@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt'
 import randdomString from 'randomstring'
-import { ISession } from '../../types/auth/session'
+import { Session, SessionValidation } from '../../types/auth/session'
 import { SessionModel } from '../../models/auth/refreshToken'
-import { IUser } from '../../types/user/user'
+import { User } from '../../types/user/user'
 import jwt from 'jsonwebtoken'
 import util from 'util'
 import { Request, Response } from 'express'
@@ -13,14 +13,14 @@ export default class SessionController {
    * Creates a new session
    * @param user The user to create a session for
    */
-  async createSession(user: IUser) {
+  async createSession(user: User) {
     let token = randdomString.generate({ length: 12 })
     token = await bcrypt.hash(token, 10)
 
     let date = new Date()
     const expiry = date.setDate(date.getDate() + 30)
 
-    const refreshToken: ISession = new SessionModel({
+    const refreshToken: Session = new SessionModel({
       token: token,
       expiry: expiry,
       userId: user.id
@@ -49,7 +49,7 @@ export default class SessionController {
 
     return jwtToken().then((res: any) => {
       return res
-    }).catch(error => {
+    }).catch(() => {
       return false
     })
   }
@@ -58,7 +58,7 @@ export default class SessionController {
    * Validates the session token
    * @param cookie Session Token
    */
-  async validateRefreshToken(cookie: ISession) {
+  async validateRefreshToken(cookie: Session) {
 
     if (cookie === undefined) {
       return {
@@ -174,7 +174,7 @@ export default class SessionController {
     }
 
     if (!validToken) {
-      let validSession
+      let validSession: SessionValidation
 
       try {
         validSession = await this.validateRefreshToken(req.cookies.refreshToken)

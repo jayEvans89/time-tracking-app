@@ -15,17 +15,15 @@ login.post('/auth', (req, res) => {
   sessionController.validateSession(req, res).then((response) => {
     if (response.status === 'Success') {
       return res.status(201).send({
-        response
-      })
-    }
-
-    if (response.status === 'Success') {
-      return res.status(201).send({
-        response
+        status: response.status,
+        message: response.message,
+        token: response.token
       })
     } else {
       return res.status(201).send({
-        response
+        status: response.status,
+        message: response.message,
+        token: response.token
       })
     }
   }).catch(error => {

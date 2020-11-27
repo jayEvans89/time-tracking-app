@@ -1,4 +1,4 @@
-import { IUser } from '../../types/user/user'
+import { User } from '../../types/user/user'
 import { model, Schema } from 'mongoose'
 import * as Mongoose from "mongoose";
 
@@ -25,7 +25,7 @@ const userSchema: Schema = new Schema ({
   timestamps: true
 })
 
-export const UserModel = Mongoose.model<IUser>(
+export const UserModel = Mongoose.model<User>(
   'user',
   userSchema
 )

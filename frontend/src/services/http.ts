@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from '../store'
 
-export default axios.create({
+const http = axios.create({
   baseURL: store.state.baseUrl + '/api',
   headers: {
     'Content-type': 'application/json',
@@ -9,3 +9,13 @@ export default axios.create({
   },
   withCredentials: true
 })
+
+http.interceptors.response.use((res) => {
+  console.log('response interceptor: ', res.data)
+  if (res.data.token) {
+    store.commit('setToken', res.data.token)
+  }
+  return res
+})
+
+export default http

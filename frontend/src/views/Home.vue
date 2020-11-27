@@ -8,12 +8,12 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import axios from 'axios'
+import http from '../services/http'
 
 @Component({})
 export default class Home extends Vue {
   test() {
-    axios({
+    http({
       url: 'http://localhost:3001/api/user/getAll',
       method: 'get',
       withCredentials: true
