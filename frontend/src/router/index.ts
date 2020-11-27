@@ -25,8 +25,7 @@ async function routeGuard(to: Route, from: Route, next: NavigationGuardNext) {
       console.log(error)
     }
 
-    if (response.response.status === 'Success') {
-      store.commit('setToken', response.response.token)
+    if (response.status === 'Success') {
       if (to.fullPath == '/login') {
         next('/')
       } else {

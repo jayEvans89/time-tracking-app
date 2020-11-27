@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { IUser } from '../../types/user/user'
+import { User } from '../../types/user/user'
 import { UserModel } from '../../models/user/user.model'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
@@ -35,12 +35,13 @@ export default class UserController {
    * @param req 
    * @param res 
    */
-  async getAll(req: Request, res: Response): Promise<void> {
+  async getAllUsers(res: Response): Promise<void> {
     const users = (await UserModel.find())
     res.status(200).send({
       status: 'success',
       message: 'got all users',
-      data: users
+      data: users,
+      token: res.locals.token
     })
   }
 
@@ -49,10 +50,10 @@ export default class UserController {
    * @param req 
    * @param res 
    */
-  async findOneOrCreate(req: Request, res: Response): Promise<void> {
-    const body = req.body as IUser
+  async createUser(req: Request, res: Response): Promise<void> {
+    const body = req.body as User
 
-    const user: IUser = new UserModel({
+    const user: User = new UserModel({
       first_name: body.first_name,
       last_name: body.last_name,
       email: body.email,
@@ -111,7 +112,7 @@ export default class UserController {
   }
 
   async updateUser(req: Request, res: Response): Promise<void> {
-    const body = req.body as IUser
+    const body = req.body as User
     const id = req.body._id
 
     await UserModel.findByIdAndUpdate({ _id: id }, {

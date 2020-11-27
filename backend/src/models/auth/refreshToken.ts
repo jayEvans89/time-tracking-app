@@ -1,4 +1,4 @@
-import { ISession } from '../../types/auth/session'
+import { Session } from '../../types/auth/session'
 import { model, Schema } from 'mongoose'
 import * as Mongoose from "mongoose";
 
@@ -21,7 +21,7 @@ const sessionSchema: Schema = new Schema ({
   timestamps: true
 })
 
-export const SessionModel = Mongoose.model<ISession>(
+export const SessionModel = Mongoose.model<Session>(
   'refreshToken',
   sessionSchema
 )

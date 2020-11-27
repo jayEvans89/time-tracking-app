@@ -13,6 +13,9 @@ export default new Vuex.Store<RootState>({
     setToken(state, token) {
       state.token = token
       axios.defaults.headers.Authorization = 'Bearer ' + token
+    },
+    logout(state) {
+      state.token = ''
     }
   },
   actions: {

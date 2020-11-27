@@ -2,6 +2,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import { user } from './user/user'
 import { login } from './login/login'
+import { logout } from './login/logout'
 import AuthMiddleware from '../middleware/auth'
 
 export const router = express.Router()
@@ -19,10 +20,12 @@ router.get('/test', (req, res) => {
 // Login Route
 router.use('/login', login)
 
+// Logout
+router.use('/logout', logout)
+
 // User Routes
 router.use('/user', (req: Request, res: Response, next: NextFunction) => {
-  // auth.checkSession(req, res, next)
-  next()
+  auth.checkSession(req, res, next)
 }, (req, res, next) => {
   user(req, res, next)
 })

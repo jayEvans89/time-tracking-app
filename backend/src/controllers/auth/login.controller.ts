@@ -1,16 +1,16 @@
 import { Request, Response } from 'express'
-import { IUser } from '../../types/user/user'
+import { User } from '../../types/user/user'
 import { UserModel } from '../../models/user/user.model'
 import SessionController from './session.controller'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { ISession } from '../../types/auth/session'
+import { Session } from '../../types/auth/session'
 
 export default class LoginController {
   public sessionController = new SessionController()
 
   async login(req: Request, res: Response): Promise<void> {
-    const body = req.body as IUser
+    const body = req.body as User
     const email = body.email
     const password = body.password
 
@@ -41,8 +41,8 @@ export default class LoginController {
     }
   }
 
-  async authenticateUser(user: IUser, res: Response) {
-    let session: ISession
+  async authenticateUser(user: User, res: Response) {
+    let session: Session
     let token: string
 
     try {
@@ -57,16 +57,25 @@ export default class LoginController {
       console.log(error)
     }
 
-    res.cookie('refreshToken', session,  {
+    return res.cookie('refreshToken', session,  {
       expires: session.expiry,
       httpOnly: true,
       secure: true
-    })
-    res.status(201).send({
+    }).status(201).send({
       status: 'success',
       message: 'Login accepted',
       data: user,
       token: token
+    })
+  }
+
+  async logout(req: Request, res: Response) {
+    const cookie: Session = req.cookies.refreshToken
+    const sessionId = cookie._id
+    await this.sessionController.removeSession(sessionId)
+    return res.status(200).send({
+      status: 'Success',
+      message: 'Session removed. Logout'
     })
   }
 }
