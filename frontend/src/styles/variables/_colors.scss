@@ -1,34 +1,59 @@
 
 :root {
-  --trypan-blue: #3b01ab;
+  --xiketic: #1a1826;
+  --cinder: #121018;
+  --space-cadet: #2c293e;
   --electric-indigo: #6902ef;
-  --medium-purple: #9e59f2;
-  --raisin-black: #212124;
-  --eerie-black: #1f1f1f;
-  --jet: #333;
+  --lavender-web: #d9dfff;
+  --cool-grey: #8d90a9;
   --white: #fff;
+  --rose-madder: #dd3939;
 
-  --color-primary: var(--medium-purple);
-  --color-secondary: var(--electric-indigo);
+  // --trypan-blue: #3b01ab;
+  // --medium-purple: #9e59f2;
+  // --raisin-black: #212124;
+  // --eerie-black: #1f1f1f;
+  // --jet: #333;
 
-  --color-text-primary: var(--raisin-black);
+  // Main color variables
+  // Nav color variables
+  // Text color variables
+  // Button color variables
+  // Border color variables
+  // Input color variables
 
-  --color-button-primary: var(--white);
-  --color-button-secondary: var(--raisin-black);
+  // --color-primary: var(--medium-purple);
+  // --color-secondary: var(--electric-indigo);
 
-  --border-primary: rgba(255, 255, 255, .2);
-  --border-active: var(--electric-indigo);
+  // --color-background-primary: var(--white);
+
+  // --color-text-primary: var(--raisin-black);
+
+  // --color-button-primary: var(--white);
+  // --color-button-secondary: var(--raisin-black);
+
+  // --border-primary: #21212440;
+  // --border-active: var(--electric-indigo);
 
   @media (prefers-color-scheme: dark) {
 
-    --color-background-primary: var(--raisin-black);
-    --color-background-secondary: var(--eerie-black);
-    --color-background-tertiary: var(--jet);
+    // Background Colors
+    --color-background-primary: var(--xiketic);
+    --color-background-secondary: var(--cinder);
+    --color-background-error: rgba(211, 57, 57, .2);
 
-    --color-text-primary: var(--white);
-    --color-text-secondary: var(--medium-purple);
-    --color-text-placeholder: rgba(255, 255, 255, .8);
+    // Text Colors
+    --color-text-primary: var(--lavender-web);
+    --color-text-placeholder: var(--cool-grey);
+    --color-button-text-primary: var(--white);
+    --color-text-error: var(--rose-madder);
 
-    --border-primary: rgba(255, 255, 255, .2);
+    // Border Colors
+    --color-border-primary: rgba(255, 255, 255, .2);
+    --color-border-active: var(--electric-indigo);
+    --color-border-error: var(--rose-madder);
+
+    // Button Colors
+    --color-button-primary: var(--electric-indigo);
   }
 }

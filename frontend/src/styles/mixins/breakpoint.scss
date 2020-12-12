@@ -1,6 +1,6 @@
-@use "sass:meta";
+@use 'sass:meta';
 
-@mixin breakpoint ($min: 0, $max: 0) {
+@mixin min ($min: 0, $max: 0) {
   $type: meta.type-of($min);
 
   @if $type == string {
