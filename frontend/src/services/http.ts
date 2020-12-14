@@ -5,7 +5,8 @@ const http = axios.create({
   baseURL: store.state.baseUrl + '/api',
   headers: {
     'Content-type': 'application/json',
-    'Authorization': 'bearer ' + store.state.token
+    Authorization: 'bearer ' + store.state.token,
+    Credentials: 'include'
   },
   withCredentials: true
 })

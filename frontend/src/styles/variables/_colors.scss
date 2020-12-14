@@ -4,13 +4,13 @@
   --cinder: #121018;
   --space-cadet: #2c293e;
   --electric-indigo: #6902ef;
+  --medium-purple: #9e59f2;
   --lavender-web: #d9dfff;
   --cool-grey: #8d90a9;
   --white: #fff;
   --rose-madder: #dd3939;
 
   // --trypan-blue: #3b01ab;
-  // --medium-purple: #9e59f2;
   // --raisin-black: #212124;
   // --eerie-black: #1f1f1f;
   // --jet: #333;
@@ -39,7 +39,8 @@
 
     // Background Colors
     --color-background-primary: var(--xiketic);
-    --color-background-secondary: var(--cinder);
+    --color-background-secondary: var(--space-cadet);
+    --color-background-tertiary: var(--cinder);
     --color-background-error: rgba(211, 57, 57, .2);
 
     // Text Colors
@@ -55,5 +56,8 @@
 
     // Button Colors
     --color-button-primary: var(--electric-indigo);
+
+    // Icon Colors
+    --color-icon-highlight: var(--medium-purple);
   }
 }

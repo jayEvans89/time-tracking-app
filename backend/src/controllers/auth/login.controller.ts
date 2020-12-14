@@ -60,7 +60,7 @@ export default class LoginController {
     return res.cookie('refreshToken', session,  {
       expires: session.expiry,
       httpOnly: true,
-      secure: true
+      secure: false,
     }).status(201).send({
       status: 'success',
       message: 'Login accepted',
