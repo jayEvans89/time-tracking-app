@@ -13,8 +13,8 @@ export interface Client extends Document {
   /** The clients address */
   contacts: Array<ClientContact>;
 
-  /** The id of the user it belongs to */
-  userId: string;
+  /** The id of the company it belongs to */
+  companyId: string;
 }
 
 export interface ClientAddress {

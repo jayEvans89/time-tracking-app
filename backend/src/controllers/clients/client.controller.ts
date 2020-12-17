@@ -15,7 +15,7 @@ export default class ClientController {
       address: body.address,
       description: body.description,
       contacts: body.contacts,
-      userId: body.userId
+      companyId: body.companyId
     })
 
     const newClient = await ClientModel.create(client)
@@ -27,6 +27,14 @@ export default class ClientController {
   }
 
   // Update client
+  updateClient(req: Request, res: Response) {
+    const body = req.body as Client
+    const client: Client = new ClientModel({
+      name: body.name,
+      address: body.address,
+      description: body.description
+    })
+  }
   
   /**
    * Deletes a client
