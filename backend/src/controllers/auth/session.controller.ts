@@ -67,12 +67,12 @@ export default class SessionController {
       }
     }
 
-    const id = cookie.id
+    const id = cookie._id
     const token = cookie.token
     const expiry = new Date(cookie.expiry)
     const currentDate = new Date()
 
-    const session = await SessionModel.findOne({ id: id })
+    const session = await SessionModel.findById(id)
 
     if (!session) {
       return {
@@ -80,7 +80,8 @@ export default class SessionController {
         message: "Session doesn't exsits"
       }
     }
-
+    console.log('cookie: ', token)
+    console.log('Stoken: ', session.token)
     if (token !== session.token) {
       await this.removeSession(id)
       return {

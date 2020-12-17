@@ -1,0 +1,63 @@
+@use "../mixins/breakpoint" as b;
+
+
+html,
+body {
+  overflow-x: hidden;
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+}
+
+main {
+  min-height: 100vh;
+  position: relative;
+}
+
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+
+  @include b.min(sm) {
+    width: 540px;
+  }
+
+  @include b.min(md) {
+    width: 720px;
+  }
+
+  @include b.min(lg) {
+    width: 992px;
+  }
+
+  @include b.min(xl) {
+    width: 1255px;
+  }
+
+  &--no-padding-bottom {
+    padding-bottom: 0;
+  }
+}
+
+.center-align {
+  align-items: center;
+}
+
+img {
+  max-width: 100%;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: .3s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}

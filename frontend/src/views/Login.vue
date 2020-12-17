@@ -1,45 +1,121 @@
 
 <template>
-  <form v-on:submit.prevent="login">
-    <div>
-      <label>Email</label>
-      <input type="email" v-model="email" placeholder="Enter email">
+  <section class="login-page">
+    <div class="login-page__title">
+      <h1>Login</h1>
     </div>
-    <div>
-      <label>Password</label>
-      <input type="password" v-model="password" placeholder="Enter email">
-    </div>
-
-    <button>Submit</button>
-  </form>
+    <form v-on:submit.prevent="validateForm">
+      <input-field
+        name="email"
+        type="email"
+        placeholder="Enter email"
+        :required="true"
+        :response-error="userError"
+        :response-message="userErrorMessage"
+        @clear-error="clearError"
+      ></input-field>
+      <input-field
+        name="password"
+        type="password"
+        placeholder="Enter password"
+        :required="true"
+        :response-error="passwordError"
+        :response-message="passwordErrorMessage"
+        @clear-error="clearError"
+      ></input-field>
+      <button class="btn btn--primary">Submit</button>
+    </form>
+  </section>
 </template>
+
+<style lang="scss">
+.login-page {
+  width: 440px;
+  margin: 170px auto;
+
+  &__title {
+    text-align: center;
+  }
+
+  h1 {
+    margin-bottom: 45px;
+  }
+}
+</style>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import LoginService from '../services/login/login'
+import InputField from '@/components/shared/form/Input.vue'
+import InputValidationResponse from '../models/form/inputValidationResponse'
+import FormData from '../models/form/formData'
 
-@Component({})
+@Component({
+  components: {
+    InputField
+  }
+})
 export default class Login extends Vue {
   public email = ''
   public password = ''
 
-  async login() {
-    const data = {
-      email: this.email,
-      password: this.password
+  public passwordError = false
+  public passwordErrorMessage = ''
+  public userError = false
+  public userErrorMessage = ''
+
+  async validateForm() {
+    this.passwordError = false
+    this.userError = false
+    const array = await Promise.all(this.$children.map((child: Vue) => {
+      const component = child as InputValidationResponse
+      return component.validate()
+    }))
+
+    let validCount = 0
+    const data = {} as FormData
+    for (const component of array) {
+      if (!component.valid) {
+        break
+      } else {
+        validCount++
+        data[component.type] = component.value
+      }
     }
 
-    await LoginService.login(data).then(res => {
-      console.log('success: ', res.message, res.data)
-      this.setToken(res.token)
-    }).catch(err => {
-      console.log('error: ', err.response.data.message)
-    })
+    if (validCount === array.length) {
+      this.login(data)
+    }
   }
 
-  setToken(token: any) {
-    this.$store.commit('setToken', token)
-    this.$router.push('/')
+  async login(data: FormData) {
+    try {
+      const res = await LoginService.login(data)
+      if (res.status === 'success') {
+        this.$router.push('/')
+      } else {
+        if (res.status === 'Password Error') {
+          this.passwordError = true
+          this.passwordErrorMessage = res.message
+        } else {
+          this.userError = true
+          this.userErrorMessage = res.message
+        }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  clearError(type: string) {
+    if (type === 'email') {
+      this.userError = false
+      this.userErrorMessage = ''
+    }
+    if (type === 'password') {
+      this.passwordError = false
+      this.passwordErrorMessage = ''
+    }
   }
 }
 </script>

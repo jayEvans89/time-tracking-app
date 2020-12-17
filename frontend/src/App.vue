@@ -1,22 +1,28 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link v-if="!isAuthed" to="/login">Login</router-link> |
-      <router-link v-if="isAuthed" to="/">Home</router-link> |
-      <router-link v-if="isAuthed" to="/about">About</router-link>
-      <p v-if="isAuthed" @click="logout">Logout</p>
+  <main>
+    <sidebar></sidebar>
+    <div class="container">
+      <router-view />
     </div>
-    <router-view/>
-  </div>
+  </main>
 </template>
+
+<style lang="scss">
+main {
+  display: flex;
+}
+</style>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import LoginService from './services/login/login'
+import Sidebar from '@/components/shared/sidebar/Sidebar.vue'
 
-@Component({})
+@Component({
+  components: {
+    Sidebar
+  }
+})
 export default class App extends Vue {
-
   mounted() {
     console.log('mounted')
   }
@@ -26,14 +32,6 @@ export default class App extends Vue {
       return true
     } else {
       return false
-    }
-  }
-
-  async logout() {
-    const response = await LoginService.logout()
-    if (response.status === 'Success') {
-      this.$store.commit('logout')
-      this.$router.push('/login')
     }
   }
 }

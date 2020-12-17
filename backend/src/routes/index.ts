@@ -3,6 +3,7 @@ import express, { NextFunction, Request, Response } from "express";
 import { user } from './user/user'
 import { login } from './login/login'
 import { logout } from './login/logout'
+import { client } from './client/client'
 import AuthMiddleware from '../middleware/auth'
 
 export const router = express.Router()
@@ -29,3 +30,6 @@ router.use('/user', (req: Request, res: Response, next: NextFunction) => {
 }, (req, res, next) => {
   user(req, res, next)
 })
+
+// Client
+router.use('/client', client)
