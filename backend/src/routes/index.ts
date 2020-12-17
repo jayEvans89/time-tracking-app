@@ -4,6 +4,7 @@ import { user } from './user/user'
 import { login } from './login/login'
 import { logout } from './login/logout'
 import { client } from './client/client'
+import { signUp } from './signUp/signUp'
 import AuthMiddleware from '../middleware/auth'
 
 export const router = express.Router()
@@ -17,6 +18,9 @@ router.get('/', (req: Request, res: Response) => {
 router.get('/test', (req, res) => {
   res.send('test route is working!')
 })
+
+// Sign up
+router.use('/signup', signUp)
 
 // Login Route
 router.use('/login', login)

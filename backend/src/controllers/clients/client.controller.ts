@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { Client } from '../../types/client/client'
+import { Client } from '@/types/client/client'
 import { ClientModel } from '../../models/client/client.model'
 
 export default class ClientController {
