@@ -25,6 +25,13 @@
       ></input-field>
       <button class="btn btn--primary">Submit</button>
     </form>
+
+    <div class="no-account">
+      <div class="no-account__line"></div>
+      <p class="no-account__text">Don't have an account?</p>
+      <div class="no-account__line"></div>
+    </div>
+    <router-link to="/signup" class="btn btn--secondary">Get Started</router-link>
   </section>
 </template>
 
@@ -41,14 +48,33 @@
     margin-bottom: 45px;
   }
 }
+
+.no-account {
+  justify-content: center;
+  margin: 70px 0 30px;
+  display: flex;
+  align-items: center;
+
+  &__line {
+    height: 1px;
+    background: var(--color-text-primary);
+    flex: 1 0 auto;
+  }
+
+  &__text {
+    font-size: 16px;
+    flex: 0 0 auto;
+    margin: 0 30px;
+  }
+}
 </style>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import LoginService from '../services/login/login'
+import LoginService from '@/services/login/login'
 import InputField from '@/components/shared/form/Input.vue'
-import InputValidationResponse from '../models/form/inputValidationResponse'
-import FormData from '../models/form/formData'
+import InputValidationResponse from '@/models/form/inputValidationResponse'
+import FormData from '@/models/form/formData'
 
 @Component({
   components: {

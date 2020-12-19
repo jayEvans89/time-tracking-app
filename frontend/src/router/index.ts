@@ -44,23 +44,28 @@ const routes: Array<RouteConfig> = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
+    component: () => import(/* webpackChunkName: "login" */ '../views/login/Login.vue')
   },
   {
     path: '/',
     name: 'Dashboard',
-    component: () => import(/* webpackChunkName: "dashboard" */ '../views/Home.vue'),
+    component: () => import(/* webpackChunkName: "dashboard" */ '../views/dashboard/Home.vue'),
     beforeEnter: routeGuard
   },
   {
     path: '/clients',
     name: 'Clients',
-    component: () => import(/* webpackChunkName: "clients" */ '../views/Clients.vue'),
+    component: () => import(/* webpackChunkName: "clients" */ '../views/clients/Clients.vue'),
     beforeEnter: routeGuard,
     children: [{
       path: '',
       component: NoClients
     }]
+  },
+  {
+    path: '/signup',
+    name: 'Signup',
+    component: () => import(/* webpackChunkName: "login" */ '../views/sign-up/SignUp.vue')
   }
 ]
 
