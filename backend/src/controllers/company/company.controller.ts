@@ -13,7 +13,10 @@ export default class CompanyController {
     const companyData: Company = new CompanyModel({
       name: company.name,
       address: company.address,
-      ownerId: userId
+      ownerId: userId,
+      contact_number: company.contact_number,
+      contact_email: company.contact_email,
+      busniess_type: company.busniess_type
     })
 
     const newCompany = await CompanyModel.create(companyData)
@@ -37,6 +40,9 @@ export default class CompanyController {
     await CompanyModel.findByIdAndUpdate({ _id: id }, {
       name: body.name,
       address: body.address,
+      contact_number: body.contact_number,
+      contact_email: body.contact_email,
+      busniess_type: body.busniess_type
     }, (err, result) => {
       if (err) {
         res.status(404).send({

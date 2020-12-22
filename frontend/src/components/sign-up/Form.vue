@@ -102,7 +102,7 @@ export default class SignUpForm extends Vue {
         user: res.data.user,
         company: {
           ...res.data.companyDetails as {},
-          ...res.data.companyAddress as {}
+          address: res.data.companyAddress
         }
       }
 
