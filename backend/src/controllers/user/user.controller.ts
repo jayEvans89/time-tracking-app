@@ -50,8 +50,8 @@ export default class UserController {
    * @param req 
    * @param res 
    */
-  async createUser(req: Request, res: Response): Promise<void> {
-    const body = req.body as User
+  async createUser(newUser: User): Promise<CreateUserResponse> {
+    const body = newUser
 
     const user: User = new UserModel({
       first_name: body.first_name,
@@ -64,11 +64,11 @@ export default class UserController {
     const userExsits = await UserModel.findOne({ email: user.email })
 
     if (userExsits) {
-      res.status(400).send({
+      const response = {
         status: 'error',
-        message: 'A user with email already exsists, please sign in'
-      })
-      return
+        message: 'A user with email already exsists, please sign in',
+      }
+      return response
     }
 
     // Hash the password
@@ -77,38 +77,14 @@ export default class UserController {
     await user.save()
 
     // Create the user
-    const newUser = await UserModel.create(user)
+    const userData = await UserModel.create(user)
 
-    // Create the token
-    if (newUser) {
-      const payload = {
-        user: {
-          id: newUser._id
-        }
-      }
-
-      jwt.sign(
-        payload,
-        "randomString", {
-        expiresIn: 10000
-      },
-        (err, token) => {
-          if (err) {
-            res.status(400).send({
-              status: 'error',
-              message: 'User couldnt be saved'
-            })
-          } else {
-            res.status(201).send({
-              status: 'success',
-              message: 'User created',
-              data: newUser,
-              token: token
-            })
-          }
-        }
-      )
+    const response = {
+      status: 'success',
+      message: 'User created',
+      data: userData
     }
+    return response
   }
 
   async updateUser(req: Request, res: Response): Promise<void> {
@@ -163,4 +139,10 @@ export default class UserController {
       }
     })
   }
+}
+
+export interface CreateUserResponse {
+  status: string;
+  message: string;
+  data?: User;
 }

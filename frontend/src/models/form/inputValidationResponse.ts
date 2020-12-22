@@ -1,5 +1,6 @@
+import { InputFormData } from './formData'
 
-export default interface InputValidationResponse extends Vue {
+export interface InputValidationResponse extends Vue {
   validate(): {
     /** Whether the input is valid */
     valid: boolean;
@@ -9,5 +10,21 @@ export default interface InputValidationResponse extends Vue {
 
     /** The value of the input */
     value: string | number;
+  };
+}
+
+export interface ParentValidationResponse extends Vue {
+  validate(parent: boolean): {
+    /** Whether the Fomr section is valid */
+    valid: boolean;
+
+    /** The page of the section */
+    page: number;
+
+    /** The values of the section */
+    data: InputFormData;
+
+    /** The type of form section */
+    type: string;
   };
 }

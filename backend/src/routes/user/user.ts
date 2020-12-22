@@ -18,9 +18,9 @@ user.get('/get/:id', (req, res) => {
 })
 
 // Create a user
-user.post('/create', (req, res) => {
-  userController.createUser(req, res)
-})
+// user.post('/create', (req, res) => {
+//   userController.createUser(req, res)
+// })
 
 // Update a user
 user.put('/update', (req, res) => {

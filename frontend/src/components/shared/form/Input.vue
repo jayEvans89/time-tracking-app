@@ -1,7 +1,7 @@
 
 <template>
   <div class="input-group">
-    <label :class="{ 'label--error': error || responseError }" :for="name">{{ name }}</label>
+    <label :class="{ 'label--error': error || responseError }" :for="name">{{ label }}</label>
     <input
       :class="{ 'input--error': error || responseError }"
       :type="type"
@@ -25,6 +25,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 export default class InputField extends Vue {
   @Prop() type!: string
   @Prop() name!: string
+  @Prop() label!: string
   @Prop() placeholder!: string
   @Prop({ default: false }) required!: boolean
   @Prop({ default: false }) responseError!: boolean
@@ -35,7 +36,7 @@ export default class InputField extends Vue {
   public errorMessage = ''
   public validationResponse = {
     valid: false,
-    type: this.type,
+    type: this.name,
     value: this.value
   }
 
@@ -54,6 +55,8 @@ export default class InputField extends Vue {
     if (this.required) {
       if (this.type === 'email') {
         return this.validateEmail()
+      } else if (this.type === 'tel') {
+        return this.telephoneValidation()
       } else {
         return this.defaultValidation()
       }
@@ -96,6 +99,21 @@ export default class InputField extends Vue {
     return re.test(this.value)
   }
 
+  telephoneValidation() {
+    if (this.value !== '') {
+      this.error = false
+      this.errorMessage = ''
+      this.validationResponse.valid = true
+      this.validationResponse.value = this.value
+      return this.validationResponse
+    } else {
+      this.error = true
+      this.errorMessage = 'Please enter a contact number'
+      this.validationResponse.valid = false
+      return this.validationResponse
+    }
+  }
+
   defaultValidation() {
     if (this.value !== '') {
       this.error = false
@@ -106,7 +124,7 @@ export default class InputField extends Vue {
       return response
     } else {
       this.error = true
-      this.errorMessage = 'Please enter your ' + this.type
+      this.errorMessage = 'Please enter your ' + this.label.toLowerCase()
       const response = this.validationResponse
       response.valid = false
       return response
@@ -116,7 +134,6 @@ export default class InputField extends Vue {
 </script>
 
 <style lang="scss">
-@use '@/styles/components/buttons';
 
 label {
   display: block;

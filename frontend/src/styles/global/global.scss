@@ -1,5 +1,4 @@
-@use "../mixins/breakpoint" as b;
-
+@use "../mixins/breakpoint" as breakpoint;
 
 html,
 body {
@@ -21,19 +20,19 @@ main {
   display: flex;
   justify-content: space-between;
 
-  @include b.min(sm) {
+  @include breakpoint.min(sm) {
     width: 540px;
   }
 
-  @include b.min(md) {
+  @include breakpoint.min(md) {
     width: 720px;
   }
 
-  @include b.min(lg) {
+  @include breakpoint.min(lg) {
     width: 992px;
   }
 
-  @include b.min(xl) {
+  @include breakpoint.min(xl) {
     width: 1255px;
   }
 
