@@ -22,6 +22,15 @@ const companySchema: Schema = new Schema ({
   subscription: {
     type: String
   },
+  contact_number: {
+    type: Number
+  },
+  contact_email: {
+    type: String
+  },
+  business_type: {
+    type: String
+  }
 },
 {
   timestamps: true

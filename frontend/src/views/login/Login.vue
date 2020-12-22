@@ -1,38 +1,44 @@
 
 <template>
-  <section class="login-page">
-    <div class="login-page__title">
-      <h1>Login</h1>
-    </div>
-    <form v-on:submit.prevent="validateForm">
-      <input-field
-        name="email"
-        type="email"
-        placeholder="Enter email"
-        :required="true"
-        :response-error="userError"
-        :response-message="userErrorMessage"
-        @clear-error="clearError"
-      ></input-field>
-      <input-field
-        name="password"
-        type="password"
-        placeholder="Enter password"
-        :required="true"
-        :response-error="passwordError"
-        :response-message="passwordErrorMessage"
-        @clear-error="clearError"
-      ></input-field>
-      <button class="btn btn--primary">Submit</button>
-    </form>
+  <div class="container">
+    <section class="login-page">
+      <div class="login-page__title">
+        <h1>Login</h1>
+      </div>
+      <form v-on:submit.prevent="validateForm">
+        <input-field
+          name="email"
+          type="email"
+          placeholder="Enter email"
+          :required="true"
+          :response-error="userError"
+          :response-message="userErrorMessage"
+          @clear-error="clearError"
+          ref="email"
+        ></input-field>
+        <input-field
+          name="password"
+          type="password"
+          placeholder="Enter password"
+          :required="true"
+          :response-error="passwordError"
+          :response-message="passwordErrorMessage"
+          @clear-error="clearError"
+          ref="password"
+        ></input-field>
+        <button class="btn btn--primary">Submit</button>
+      </form>
 
-    <div class="no-account">
-      <div class="no-account__line"></div>
-      <p class="no-account__text">Don't have an account?</p>
-      <div class="no-account__line"></div>
-    </div>
-    <router-link to="/signup" class="btn btn--secondary">Get Started</router-link>
-  </section>
+      <div class="no-account">
+        <div class="no-account__line"></div>
+        <p class="no-account__text">Don't have an account?</p>
+        <div class="no-account__line"></div>
+      </div>
+      <router-link to="/signup" class="btn btn--secondary"
+        >Get Started</router-link
+      >
+    </section>
+  </div>
 </template>
 
 <style lang="scss">
@@ -73,8 +79,8 @@
 import { Component, Vue } from 'vue-property-decorator'
 import LoginService from '@/services/login/login'
 import InputField from '@/components/shared/form/Input.vue'
-import InputValidationResponse from '@/models/form/inputValidationResponse'
-import FormData from '@/models/form/formData'
+import { InputFormData } from '@/models/form/formData'
+import formValidation from '@/components/shared/form/ValidationMethod'
 
 @Component({
   components: {
@@ -91,30 +97,18 @@ export default class Login extends Vue {
   public userErrorMessage = ''
 
   async validateForm() {
-    this.passwordError = false
-    this.userError = false
-    const array = await Promise.all(this.$children.map((child: Vue) => {
-      const component = child as InputValidationResponse
-      return component.validate()
-    }))
+    const components = [
+      this.$refs.email,
+      this.$refs.password
+    ] as Array<Vue>
 
-    let validCount = 0
-    const data = {} as FormData
-    for (const component of array) {
-      if (!component.valid) {
-        break
-      } else {
-        validCount++
-        data[component.type] = component.value
-      }
-    }
-
-    if (validCount === array.length) {
-      this.login(data)
+    const response = await formValidation.validate(components)
+    if (response.valid) {
+      this.login(response.data)
     }
   }
 
-  async login(data: FormData) {
+  async login(data: InputFormData) {
     try {
       const res = await LoginService.login(data)
       if (res.status === 'success') {

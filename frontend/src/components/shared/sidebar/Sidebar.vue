@@ -7,7 +7,7 @@
           class="navbar__item"
           exact-active-class="navbar__item--active"
           tag="li"
-          to="/"
+          to="/dashboard"
           >Dashboard</router-link
         >
         <router-link

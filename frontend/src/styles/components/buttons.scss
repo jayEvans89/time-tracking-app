@@ -12,6 +12,14 @@ button,
   transition: 250ms ease-in-out;
   text-decoration: none;
 
+  &:focus {
+    outline: 0;
+  }
+
+  &:active {
+    opacity: .7;
+  }
+
   &--primary {
     background: var(--color-button-primary);
     color: var(--color-button-text-primary);
@@ -22,6 +30,10 @@ button,
       border-color: var(--color-button-primary);
       color: var(--color-button-text-secondary);
     }
+
+    // &:focus {
+    //   opacity: .8;
+    // }
   }
 
   &--secondary {
@@ -32,6 +44,18 @@ button,
     &:hover {
       background: var(--color-button-primary);
       color: var(--color-button-text-primary);
+    }
+  }
+}
+
+.button-container {
+  display: flex;
+
+  > * {
+    flex-basis: 100%;
+
+    + * {
+      margin-left: 15px;
     }
   }
 }

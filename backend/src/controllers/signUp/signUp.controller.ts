@@ -4,6 +4,7 @@ import SessionController from '../../controllers/auth/session.controller'
 import { User } from '../../types/user/user'
 import { Company } from '../../types/company/company'
 import { Request, Response } from 'express'
+import { UserModel } from '../../models/user/user.model'
 
 const companyController  = new CompanyController()
 const userController = new UserController()
@@ -16,8 +17,8 @@ export default class SignupController {
    * @param res 
    */
   async createNewUser(req: Request, res: Response) {
-    const user = JSON.parse(req.body.user) as User
-    const company = JSON.parse(req.body.company) as Company
+    const user = req.body.user as User
+    const company = req.body.company as Company
   
     const userResponse = await userController.createUser(user)
 
@@ -32,9 +33,30 @@ export default class SignupController {
         secure: false,
       }).status(201).send({
         status: 'success',
-        message: 'Login accepted',
+        message: 'User created, welcome!',
         data: userResponse.data._id,
         token: jwt
+      })
+    }
+  }
+
+    /**
+   * Check whether a user already exsists in the database
+   * @param req 
+   * @param res 
+   */
+  async checkUserExsists(req: Request, res: Response) {
+    const email = req.body.email
+    const userExsits = await UserModel.findOne({ email: email })
+    if (!userExsits) {
+      res.status(200).send({
+        status: 'success',
+        message: "User doesn't exsist"
+      })
+    } else {
+      res.status(200).send({
+        status: 'error',
+        message: "User already exsists"
       })
     }
   }

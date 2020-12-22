@@ -18,6 +18,15 @@ export interface Company extends Document {
 
   /** The current subscription */
   subscription: string;
+
+  /** Companies contact number */
+  contact_number: number;
+
+  /** Companies contact email */
+  contact_email: string;
+
+  /** The type of business that company works in */
+  busniess_type: string;
 }
 
 /**
@@ -25,10 +34,7 @@ export interface Company extends Document {
  */
 export interface CompanyAddress {
   /** Address line 1 */
-  address_line_1: string;
-
-  /** Address line 2 */
-  addres_line_2: string;
+  address: string;
 
   /** The town or city */
   town_city: string;
