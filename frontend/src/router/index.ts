@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig, Route, NavigationGuardNext } from 'vue-router'
 import store from '../store/index'
 import LoginService from '../services/login/login'
-import NoClients from '@/components/clients/NoData.vue'
 
 async function routeGuard(to: Route, from: Route, next: NavigationGuardNext) {
   let isAuthenticated = false
@@ -12,9 +11,10 @@ async function routeGuard(to: Route, from: Route, next: NavigationGuardNext) {
   }
 
   if (isAuthenticated) {
-    console.log(to.fullPath)
     if (to.fullPath === '/login') {
-      next('/')
+      next('/dashboard')
+    } else if (to.fullPath === '/') {
+      next('/dashboard')
     } else {
       next()
     }
@@ -29,6 +29,8 @@ async function routeGuard(to: Route, from: Route, next: NavigationGuardNext) {
     if (response.status === 'Success') {
       if (to.fullPath === '/login') {
         next('/')
+      } else if (to.fullPath === '/') {
+        next('/dashboard')
       } else {
         next()
       }
@@ -61,8 +63,7 @@ const routes: Array<RouteConfig> = [
         name: 'Clients',
         component: () => import(/* webpackChunkName: "clients" */ '../views/main/clients/Clients.vue'),
         children: [{
-          path: '',
-          component: NoClients
+          path: '/:id'
         }]
       }
     ]

@@ -52,7 +52,7 @@ export default class LoginController {
     }
 
     try {
-      token = await this.sessionController.createJWT(user.id)
+      token = await this.sessionController.createJWT(user.id, user.company_id)
     } catch (error) {
       console.log(error)
     }

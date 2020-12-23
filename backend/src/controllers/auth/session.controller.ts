@@ -6,6 +6,7 @@ import { User } from '../../types/user/user'
 import jwt from 'jsonwebtoken'
 import util from 'util'
 import { Request, Response } from 'express'
+import { company } from '@/routes/company/company'
 
 export default class SessionController {
 
@@ -23,7 +24,8 @@ export default class SessionController {
     const refreshToken: Session = new SessionModel({
       token: token,
       expiry: expiry,
-      userId: user.id
+      userId: user.id,
+      companyId: user.company_id
     })
 
     const session = await SessionModel.create(refreshToken)
@@ -120,10 +122,11 @@ export default class SessionController {
    * Creates a new JWT
    * @param userId The user id to create a new JWT 
    */
-  async createJWT(userId: number) {
+  async createJWT(userId: string, compnayId: string) {
     const payload = {
       user: {
-        id: userId
+        id: userId,
+        companyId: compnayId
       }
     }
 
@@ -191,7 +194,7 @@ export default class SessionController {
       } else {
         let token = ''
         try {
-          token = await this.createJWT(req.cookies.refreshToken.userId)
+          token = await this.createJWT(req.cookies.refreshToken.userId, req.cookies.refreshToken.companyId)
         } catch (error) {
           console.log(error)
         }

@@ -23,9 +23,14 @@ export default class SignupController {
     const userResponse = await userController.createUser(user)
 
     if (userResponse.status === 'success') {
-      await companyController.createCompany(company, userResponse.data._id)
+      const newCompany = await companyController.createCompany(company, userResponse.data._id)
+
+      const updatedUser = await UserModel.findByIdAndUpdate({ _id: userResponse.data._id }, {
+        company_id: newCompany.data._id
+      })
+
       const session = await sessionController.createSession(userResponse.data)
-      const jwt = await sessionController.createJWT(userResponse.data._id)
+      const jwt = await sessionController.createJWT(updatedUser._id, updatedUser.company_id)
 
       return res.cookie('refreshToken', session,  {
         expires: session.expiry,

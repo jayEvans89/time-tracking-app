@@ -29,6 +29,7 @@
 .sidebar {
   background: var(--color-background-tertiary);
   width: 330px;
+  flex: 0 0 330px;
 }
 
 .navbar {

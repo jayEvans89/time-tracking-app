@@ -17,7 +17,8 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
 
   &__icon {
     width: 245px;

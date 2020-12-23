@@ -10,6 +10,7 @@
 <style lang="scss">
 .main {
   display: flex;
+  width: 100%;
 }
 </style>
 

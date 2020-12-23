@@ -14,7 +14,7 @@ const http = axios.create({
 http.interceptors.response.use((res) => {
   console.log('response interceptor: ', res.data)
   if (res.data.token) {
-    store.commit('setToken', res.data.token)
+    store.dispatch('setToken', res.data.token)
   }
   return res
 })

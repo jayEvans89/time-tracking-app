@@ -13,4 +13,7 @@ export interface User extends Document {
 
   /** The users password */
   password: string
+
+  /** The id of the company the user belongs to */
+  company_id: string
 }
