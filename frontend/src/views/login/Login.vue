@@ -82,7 +82,7 @@ import InputField from '@/components/shared/form/Input.vue'
 import { InputFormData } from '@/models/form/formData'
 import formValidation from '@/components/shared/form/ValidationMethod'
 
-@Component({
+Component({
   components: {
     InputField
   }

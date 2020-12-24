@@ -1,10 +1,7 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex'
 import axios from 'axios'
 
-Vue.use(Vuex);
-
-export default new Vuex.Store<RootState>({
+export default createStore({
   state: {
     token: '',
     baseUrl: 'http://localhost:3001'
@@ -21,8 +18,8 @@ export default new Vuex.Store<RootState>({
   actions: {
   },
   modules: {
-  },
-});
+  }
+})
 
 export interface RootState {
   token: string;
