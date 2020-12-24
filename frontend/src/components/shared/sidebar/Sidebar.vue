@@ -83,45 +83,30 @@
 </style>
 
 <script lang="ts">
+import { Options, Vue } from 'vue-class-component'
 import CustomerIcon from '@/components/shared/icons/CustomerIcon.vue'
 import LoginService from '@/services/login/login'
-import { defineComponent } from 'vue'
 
-export default defineComponent({
+@Options({
   components: {
     CustomerIcon
-  },
-  computed: {
-    isAuthed() {
-      if (this.$store.) {
-        return true
-      } else {
-        return false
-      }
-    }
   }
 })
+export default class Sidebar extends Vue {
+  get isAuthed() {
+    if (this.$store.state.token) {
+      return true
+    } else {
+      return false
+    }
+  }
 
-// @Component({
-//   components: {
-//     CustomerIcon
-//   }
-// })
-// export default class Sidebar extends Vue {
-//   get isAuthed() {
-//     if (this.$store.state.token) {
-//       return true
-//     } else {
-//       return false
-//     }
-//   }
-
-//   async logout() {
-//     const response = await LoginService.logout()
-//     if (response.status === 'Success') {
-//       this.$store.commit('logout')
-//       this.$router.push('/login')
-//     }
-//   }
-// }
+  async logout() {
+    const response = await LoginService.logout()
+    if (response.status === 'Success') {
+      this.$store.commit('logout')
+      this.$router.push('/login')
+    }
+  }
+}
 </script>
