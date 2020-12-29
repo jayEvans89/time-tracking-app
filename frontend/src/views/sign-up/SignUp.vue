@@ -28,11 +28,11 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 import InfoSide from '@/components/sign-up/InfoSide.vue'
 import SignUpForm from '@/components/sign-up/Form.vue'
 
-@Component({
+@Options({
   components: {
     InfoSide,
     SignUpForm

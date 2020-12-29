@@ -19,18 +19,31 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Options, Vue, prop } from 'vue-class-component'
 
-@Component({})
-export default class InputField extends Vue {
-  @Prop() type!: string
-  @Prop() name!: string
-  @Prop() label!: string
-  @Prop() placeholder!: string
-  @Prop({ default: false }) required!: boolean
-  @Prop({ default: false }) responseError!: boolean
-  @Prop({ default: '' }) responseMessage!: string
+class Props {
+  type!: string
+  name!: string
+  label!: string
+  placeholder!: string
+  required = prop({
+    type: Boolean,
+    default: false
+  })
 
+  responseError = prop({
+    type: Boolean,
+    default: false
+  })
+
+  responseMessage = prop({
+    type: String,
+    default: ''
+  })
+}
+
+@Options({})
+export default class InputField extends Vue.with(Props) {
   public value = ''
   public error = false
   public errorMessage = ''
@@ -133,7 +146,7 @@ export default class InputField extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 
 label {
   display: block;

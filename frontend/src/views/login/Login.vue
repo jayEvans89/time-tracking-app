@@ -76,13 +76,14 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 import LoginService from '@/services/login/login'
 import InputField from '@/components/shared/form/Input.vue'
 import { InputFormData } from '@/models/form/formData'
 import formValidation from '@/components/shared/form/ValidationMethod'
+import { DefineComponent } from 'vue'
 
-@Component({
+@Options({
   components: {
     InputField
   }
@@ -100,7 +101,7 @@ export default class Login extends Vue {
     const components = [
       this.$refs.email,
       this.$refs.password
-    ] as Array<Vue>
+    ] as Array<DefineComponent>
 
     const response = await formValidation.validate(components)
     if (response.valid) {

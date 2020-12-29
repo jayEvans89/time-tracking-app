@@ -1,7 +1,8 @@
+import { InputFormData } from '@/models/form/formData'
 import http from '../http'
 
 class LoginService {
-  async login(data: any) {
+  async login(data: InputFormData) {
     const response = await http.post('/login', data)
     return response.data
   }

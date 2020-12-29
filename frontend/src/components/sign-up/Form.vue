@@ -50,14 +50,15 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 import CompanyDetails from '@/components/sign-up/form-sections/CompanyDetails.vue'
 import CompanyAddress from '@/components/sign-up/form-sections/CompanyAddress.vue'
 import UserDetails from '@/components/sign-up/form-sections/UserDetails.vue'
 import ValidationMethod from '../shared/form/ValidationMethod'
 import userService from '@/services/user/userService'
+import { DefineComponent } from 'vue'
 
-@Component({
+@Options({
   components: {
     CompanyDetails,
     CompanyAddress,
@@ -74,6 +75,8 @@ export default class SignUpForm extends Vue {
       return 'Your company address'
     } else if (this.page === 3) {
       return 'User details'
+    } else {
+      return ''
     }
   }
 
@@ -93,7 +96,7 @@ export default class SignUpForm extends Vue {
       this.$refs.companyDetails,
       this.$refs.companyAddress,
       this.$refs.userDetails
-    ] as Array<Vue>
+    ] as Array<DefineComponent>
 
     const res = await ValidationMethod.validateParentComponent(components)
     console.log(res)

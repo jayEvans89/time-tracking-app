@@ -40,10 +40,10 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 import CustomerIcon from '@/components/shared/icons/CustomerIcon.vue'
 
-@Component({
+@Options({
   components: {
     CustomerIcon
   }

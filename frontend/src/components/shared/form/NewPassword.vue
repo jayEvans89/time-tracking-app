@@ -35,9 +35,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 
-@Component({})
+@Options({})
 export default class NewPassword extends Vue {
   public password = ''
   public error = false
