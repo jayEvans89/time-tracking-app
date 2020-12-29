@@ -7,10 +7,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 import http from '@/services/http'
 
-@Component({})
+@Options({})
 export default class Home extends Vue {
   test() {
     http({

@@ -15,10 +15,10 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 import Sidebar from '@/components/shared/sidebar/Sidebar.vue'
 
-@Component({
+@Options({
   components: {
     Sidebar
   }

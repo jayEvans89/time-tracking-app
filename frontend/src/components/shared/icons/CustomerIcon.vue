@@ -39,10 +39,12 @@
 </template>
 
 <script lang="ts">
-import { Vue, Prop, Component } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 
-@Component({})
-export default class CustomerIcon extends Vue {
-  @Prop() classModifier!: string
+class Props {
+  classModifier!: string
 }
+
+@Options({})
+export default class CustomerIcon extends Vue.with(Props) {}
 </script>

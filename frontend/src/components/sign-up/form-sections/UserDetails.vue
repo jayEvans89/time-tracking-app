@@ -27,13 +27,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 import InputField from '@/components/shared/form/Input.vue'
 import FormValidation from '@/components/shared/form/ValidationMethod'
 import NewEmail from '@/components/shared/form/NewEmail.vue'
 import NewPassword from '@/components/shared/form/NewPassword.vue'
+import { DefineComponent } from 'vue'
 
-@Component({
+@Options({
   components: {
     InputField,
     NewEmail,
@@ -48,7 +49,7 @@ export default class UserDetails extends Vue {
       this.$refs.lastName,
       this.$refs.email,
       this.$refs.password
-    ] as Array<Vue>
+    ] as Array<DefineComponent>
 
     const response = await FormValidation.validate(components)
 

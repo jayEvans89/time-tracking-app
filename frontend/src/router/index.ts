@@ -1,9 +1,8 @@
-import Vue from 'vue'
-import VueRouter, { RouteConfig, Route, NavigationGuardNext } from 'vue-router'
+import { RouteRecordRaw, RouteLocationNormalized, NavigationGuardNext, createRouter, createWebHistory } from 'vue-router'
 import store from '../store/index'
 import LoginService from '../services/login/login'
 
-async function routeGuard(to: Route, from: Route, next: NavigationGuardNext) {
+async function routeGuard(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) {
   let isAuthenticated = false
 
   if (store.state.token) {
@@ -40,9 +39,7 @@ async function routeGuard(to: Route, from: Route, next: NavigationGuardNext) {
   }
 }
 
-Vue.use(VueRouter)
-
-const routes: Array<RouteConfig> = [
+const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'Login',
@@ -61,10 +58,7 @@ const routes: Array<RouteConfig> = [
       {
         path: '/clients',
         name: 'Clients',
-        component: () => import(/* webpackChunkName: "clients" */ '../views/main/clients/Clients.vue'),
-        children: [{
-          path: '/:id'
-        }]
+        component: () => import(/* webpackChunkName: "clients" */ '../views/main/clients/Clients.vue')
       }
     ]
   },
@@ -75,9 +69,8 @@ const routes: Array<RouteConfig> = [
   }
 ]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
   routes
 })
 

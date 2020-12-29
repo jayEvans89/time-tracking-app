@@ -1,6 +1,7 @@
 import { InputFormData } from './formData'
+import { DefineComponent } from 'vue'
 
-export interface InputValidationResponse extends Vue {
+export interface InputValidationResponse extends DefineComponent {
   validate(): {
     /** Whether the input is valid */
     valid: boolean;
@@ -13,7 +14,7 @@ export interface InputValidationResponse extends Vue {
   };
 }
 
-export interface ParentValidationResponse extends Vue {
+export interface ParentValidationResponse extends DefineComponent {
   validate(parent: boolean): {
     /** Whether the Fomr section is valid */
     valid: boolean;
