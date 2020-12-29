@@ -14,12 +14,12 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 import ClientService from '@/services/client/clientService'
 import { ClientNames } from '@/models/clients/clientModal'
 import NoClients from '@/components/clients/NoData.vue'
 
-@Component({
+@Options({
   components: {
     NoClients
   }
