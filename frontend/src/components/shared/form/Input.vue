@@ -19,175 +19,167 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
-export default defineComponent({
-  props: {
+import { Options, Vue, prop } from 'vue-class-component'
+
+class Props {
+  type!: string
+  name!: string
+  label!: string
+  placeholder!: string
+  required = prop({
+    type: Boolean,
+    default: false
+  })
+
+  responseError = prop({
+    type: Boolean,
+    default: false
+  })
+
+  responseMessage = prop({
     type: String,
-    name: String,
-    label: String,
-    placheolder: String,
-    required: Boolean,
-    responseError: Boolean,
-    responseMessage: Boolean
-  },
-  setup(props) {
-    let value = ''
-    let error = false
-    let errorMessage = ''
-    const validationResponse = reactive({
-      valid: false,
-      type: props.type,
-      value: value
-    })
+    default: ''
+  })
+}
+
+@Options({})
+export default class InputField extends Vue.with(Props) {
+  public value = ''
+  public error = false
+  public errorMessage = ''
+  public validationResponse = {
+    valid: false,
+    type: this.name,
+    value: this.value
   }
-})
 
-// @Component({})
-// export default class InputField extends Vue {
-//   @Prop() type!: string
-//   @Prop() name!: string
-//   @Prop() label!: string
-//   @Prop() placeholder!: string
-//   @Prop({ default: false }) required!: boolean
-//   @Prop({ default: false }) responseError!: boolean
-//   @Prop({ default: '' }) responseMessage!: string
+  get errorText() {
+    if (this.responseMessage !== '') {
+      return this.responseMessage
+    } else {
+      return this.errorMessage
+    }
+  }
 
-//   public value = ''
-//   public error = false
-//   public errorMessage = ''
-//   public validationResponse = {
-//     valid: false,
-//     type: this.name,
-//     value: this.value
-//   }
+  validate() {
+    this.$emit('clear-error', this.type)
+    this.error = false
 
-//   get errorText() {
-//     if (this.responseMessage !== '') {
-//       return this.responseMessage
-//     } else {
-//       return this.errorMessage
-//     }
-//   }
+    if (this.required) {
+      if (this.type === 'email') {
+        return this.validateEmail()
+      } else if (this.type === 'tel') {
+        return this.telephoneValidation()
+      } else {
+        return this.defaultValidation()
+      }
+    } else {
+      this.error = false
+      this.errorMessage = ''
+      const response = this.validationResponse
+      response.valid = true
+      return response
+    }
+  }
 
-//   validate() {
-//     this.$emit('clear-error', this.type)
-//     this.error = false
+  validateEmail() {
+    if (this.value !== '') {
+      if (!this.emailValidation()) {
+        this.error = true
+        this.errorMessage = 'Please enter a valid email address'
+        const response = this.validationResponse
+        response.valid = false
+        return response
+      } else {
+        this.error = false
+        this.errorMessage = ''
+        const response = this.validationResponse
+        response.valid = true
+        response.value = this.value
+        return response
+      }
+    } else {
+      this.error = true
+      this.errorMessage = 'Please enter your email address'
+      const response = this.validationResponse
+      response.valid = false
+      return response
+    }
+  }
 
-//     if (this.required) {
-//       if (this.type === 'email') {
-//         return this.validateEmail()
-//       } else if (this.type === 'tel') {
-//         return this.telephoneValidation()
-//       } else {
-//         return this.defaultValidation()
-//       }
-//     } else {
-//       this.error = false
-//       this.errorMessage = ''
-//       const response = this.validationResponse
-//       response.valid = true
-//       return response
-//     }
-//   }
+  emailValidation() {
+    const re = /\S+@\S+\.\S+/
+    return re.test(this.value)
+  }
 
-//   validateEmail() {
-//     if (this.value !== '') {
-//       if (!this.emailValidation()) {
-//         this.error = true
-//         this.errorMessage = 'Please enter a valid email address'
-//         const response = this.validationResponse
-//         response.valid = false
-//         return response
-//       } else {
-//         this.error = false
-//         this.errorMessage = ''
-//         const response = this.validationResponse
-//         response.valid = true
-//         response.value = this.value
-//         return response
-//       }
-//     } else {
-//       this.error = true
-//       this.errorMessage = 'Please enter your email address'
-//       const response = this.validationResponse
-//       response.valid = false
-//       return response
-//     }
-//   }
+  telephoneValidation() {
+    if (this.value !== '') {
+      this.error = false
+      this.errorMessage = ''
+      this.validationResponse.valid = true
+      this.validationResponse.value = this.value
+      return this.validationResponse
+    } else {
+      this.error = true
+      this.errorMessage = 'Please enter a contact number'
+      this.validationResponse.valid = false
+      return this.validationResponse
+    }
+  }
 
-//   emailValidation() {
-//     const re = /\S+@\S+\.\S+/
-//     return re.test(this.value)
-//   }
+  defaultValidation() {
+    if (this.value !== '') {
+      this.error = false
+      this.errorMessage = ''
+      const response = this.validationResponse
+      response.valid = true
+      response.value = this.value
+      return response
+    } else {
+      this.error = true
+      this.errorMessage = 'Please enter your ' + this.label.toLowerCase()
+      const response = this.validationResponse
+      response.valid = false
+      return response
+    }
+  }
+}
+</script>
 
-//   telephoneValidation() {
-//     if (this.value !== '') {
-//       this.error = false
-//       this.errorMessage = ''
-//       this.validationResponse.valid = true
-//       this.validationResponse.value = this.value
-//       return this.validationResponse
-//     } else {
-//       this.error = true
-//       this.errorMessage = 'Please enter a contact number'
-//       this.validationResponse.valid = false
-//       return this.validationResponse
-//     }
-//   }
+<style scoped lang="scss">
 
-//   defaultValidation() {
-//     if (this.value !== '') {
-//       this.error = false
-//       this.errorMessage = ''
-//       const response = this.validationResponse
-//       response.valid = true
-//       response.value = this.value
-//       return response
-//     } else {
-//       this.error = true
-//       this.errorMessage = 'Please enter your ' + this.label.toLowerCase()
-//       const response = this.validationResponse
-//       response.valid = false
-//       return response
-//     }
-//   }
-// }
-// </script>
+label {
+  display: block;
+  margin-bottom: 15px;
+  text-transform: capitalize;
+}
 
-// <style lang="scss">
+input {
+  appearance: none;
+  border-radius: 6px;
+  padding: 10px;
+  background: transparent !important;
+  border: 1px solid var(--color-border-primary);
+  outline: 0;
+  color: var(--color-text-primary);
+  width: 100%;
+  transition: 250ms ease-in-out;
 
-// label {
-//   display: block;
-//   margin-bottom: 15px;
-//   text-transform: capitalize;
-// }
+  &::placeholder {
+    color: var(--color-text-placeholder);
+  }
 
-// input {
-//   appearance: none;
-//   border-radius: 6px;
-//   padding: 10px;
-//   background: transparent !important;
-//   border: 1px solid var(--color-border-primary);
-//   outline: 0;
-//   color: var(--color-text-primary);
-//   width: 100%;
-//   transition: 250ms ease-in-out;
+  &:focus {
+    outline: 0;
+    border-color: var(--color-border-active);
+    caret-color: var(--color-secondary);
+    background: var(--color-background-tertiary);
+  }
 
-//   &::placeholder {
-//     color: var(--color-text-placeholder);
-//   }
-
-//   &:focus {
-//     outline: 0;
-//     border-color: var(--color-border-active);
-//     caret-color: var(--color-secondary);
-//     background: var(--color-background-tertiary);
-//   }
-
-//   &:hover {
-//     border-color: var(--color-border-active);
-//   }
-// }
+  &:hover {
+    border-color: var(--color-border-active);
+  }
+}
 
 .input-group {
   margin-bottom: 30px;

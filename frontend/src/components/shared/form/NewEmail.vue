@@ -25,10 +25,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 import userService from '@/services/user/userService'
 
-@Component({})
+@Options({})
 export default class NewEmailField extends Vue {
   public value = ''
   public error = false

@@ -1,4 +1,5 @@
 import DefaultResponse from '@/models/request/defaultResponse'
+import { NewUser } from '@/models/user/newUser'
 import http from '@/services/http'
 
 class UserService {
@@ -10,7 +11,7 @@ class UserService {
     return response.data
   }
 
-  async newUser(data: any) {
+  async newUser(data: NewUser) {
     const response = await http.post('/signup/newUser', data)
     return response.data
   }

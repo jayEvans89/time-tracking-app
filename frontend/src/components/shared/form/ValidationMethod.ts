@@ -1,10 +1,11 @@
 import { InputValidationResponse, ParentValidationResponse } from '@/models/form/inputValidationResponse'
 import { InputFormData, ParentData } from '@/models/form/formData'
+import { DefineComponent } from 'vue'
 
 class FormValidation {
-  async validate(components: Array<Vue>) {
+  async validate(components: Array<DefineComponent>) {
     console.log(components)
-    const array = await Promise.all(components.map((child: Vue) => {
+    const array = await Promise.all(components.map((child: DefineComponent) => {
       const component = child as InputValidationResponse
       return component.validate()
     }))
@@ -37,9 +38,9 @@ class FormValidation {
     }
   }
 
-  async validateParentComponent(components: Array<Vue>) {
+  async validateParentComponent(components: Array<DefineComponent>) {
     console.log(components)
-    const array = await Promise.all(components.map((child: Vue) => {
+    const array = await Promise.all(components.map((child: DefineComponent) => {
       const component = child as ParentValidationResponse
       return component.validate(true)
     }))

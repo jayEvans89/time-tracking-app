@@ -37,11 +37,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Options, Vue } from 'vue-class-component'
 import InputField from '@/components/shared/form/Input.vue'
 import FormValidation from '@/components/shared/form/ValidationMethod'
+import { DefineComponent } from 'vue'
 
-@Component({
+@Options({
   components: {
     InputField
   }
@@ -54,7 +55,7 @@ export default class CompanyAddress extends Vue {
       this.$refs.townCity,
       this.$refs.county,
       this.$refs.postcode
-    ] as Array<Vue>
+    ] as Array<DefineComponent>
 
     const response = await FormValidation.validate(components)
 

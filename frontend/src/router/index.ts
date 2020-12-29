@@ -1,7 +1,6 @@
 import { RouteRecordRaw, RouteLocationNormalized, NavigationGuardNext, createRouter, createWebHistory } from 'vue-router'
 import store from '../store/index'
 import LoginService from '../services/login/login'
-import NoClients from '@/components/clients/NoData.vue'
 
 async function routeGuard(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) {
   let isAuthenticated = false
