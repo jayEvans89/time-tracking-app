@@ -22,12 +22,11 @@
 import { Options, Vue, prop } from 'vue-class-component'
 
 class Props {
-  type!: string
+  type!: string;
   name!: string
   label!: string
   placeholder!: string
-  required = prop({
-    type: Boolean,
+  required = prop<boolean>({
     default: false
   })
 
@@ -183,10 +182,6 @@ input {
 
 .input-group {
   margin-bottom: 30px;
-
-  &:last-of-type {
-    margin-bottom: 50px;
-  }
 }
 
 .label {

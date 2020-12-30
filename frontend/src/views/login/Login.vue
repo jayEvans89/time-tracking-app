@@ -7,9 +7,9 @@
       </div>
       <form v-on:submit.prevent="validateForm">
         <input-field
-          name="email"
-          type="email"
-          placeholder="Enter email"
+          :name="'email'"
+          :type="'email'"
+          :placeholder="'Enter email'"
           :required="true"
           :response-error="userError"
           :response-message="userErrorMessage"
@@ -96,7 +96,6 @@ export default class Login extends Vue {
   public passwordErrorMessage = ''
   public userError = false
   public userErrorMessage = ''
-  public test = this.$store.getters.testGetter()
 
   async validateForm() {
     const components = [

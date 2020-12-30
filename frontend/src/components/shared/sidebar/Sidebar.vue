@@ -42,6 +42,7 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    text-decoration: none;
     transition: 250ms ease-in-out;
 
     &:hover {
@@ -91,7 +92,8 @@ import LoginService from '@/services/login/login'
 @Options({
   components: {
     CustomerIcon
-  }
+  },
+  name: 'Sidebar'
 })
 export default class Sidebar extends Vue {
   get isAuthed() {

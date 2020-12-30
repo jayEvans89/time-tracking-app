@@ -3,6 +3,7 @@
     <nav v-show="!noData" class="client-sidebar"></nav>
     <no-clients v-show="noData"></no-clients>
     <router-view></router-view>
+    <create-client-modal></create-client-modal>
   </div>
 </template>
 
@@ -18,11 +19,14 @@ import { Options, Vue } from 'vue-class-component'
 import ClientService from '@/services/client/clientService'
 import { ClientNames } from '@/models/clients/clientModal'
 import NoClients from '@/components/clients/NoData.vue'
+import CreateClientModal from '@/components/clients/modals/CreateClientModal.vue'
 
 @Options({
   components: {
-    NoClients
-  }
+    NoClients,
+    CreateClientModal
+  },
+  name: 'Clients'
 })
 export default class Clients extends Vue {
   public gettingData = false
@@ -37,7 +41,6 @@ export default class Clients extends Vue {
   }
 
   mounted() {
-    console.log('client mounted')
     this.getClientNames()
   }
 

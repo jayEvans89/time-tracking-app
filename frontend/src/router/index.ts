@@ -49,6 +49,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     component: () => import(/* webpackChunkName: "dashboard" */ '../views/main/Main.vue'),
     beforeEnter: routeGuard,
+    name: 'Main',
     children: [
       {
         path: '/dashboard',

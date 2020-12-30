@@ -90,7 +90,6 @@ export default class SignUpForm extends Vue {
   }
 
   async validateForm(e: Event) {
-    console.log('validate form')
     e.preventDefault()
     const components = [
       this.$refs.companyDetails,
@@ -99,7 +98,6 @@ export default class SignUpForm extends Vue {
     ] as Array<DefineComponent>
 
     const res = await ValidationMethod.validateParentComponent(components)
-    console.log(res)
     if (res.valid) {
       const data = {
         user: res.data.user,

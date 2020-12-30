@@ -6,6 +6,9 @@ declare module '@vue/runtime-core' {
   interface State {
     token: string;
     baseUrl: string;
+    userId: string;
+    companyId: string;
+    activeModals: Array<string>;
   }
 
   interface ComponentCustomProperties {

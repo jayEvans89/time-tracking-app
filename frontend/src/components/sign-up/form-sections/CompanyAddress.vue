@@ -49,7 +49,6 @@ import { DefineComponent } from 'vue'
 })
 export default class CompanyAddress extends Vue {
   async validate(parent = false) {
-    console.log('validate address')
     const components = [
       this.$refs.address,
       this.$refs.townCity,

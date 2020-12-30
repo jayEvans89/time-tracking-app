@@ -5,7 +5,7 @@
     <h2>You currently dont have any clients</h2>
     <h2>Click below to get started</h2>
     <div class="no-data__button-container">
-      <button class="btn btn--primary">Get Started</button>
+      <button class="btn btn--primary" @click="createClient">Get Started</button>
     </div>
   </section>
 </template>
@@ -47,7 +47,12 @@ import CustomerIcon from '@/components/shared/icons/CustomerIcon.vue'
 @Options({
   components: {
     CustomerIcon
-  }
+  },
+  name: 'Clients No Data'
 })
-export default class NoClients extends Vue {}
+export default class NoClients extends Vue {
+  createClient() {
+    this.$store.commit('addModal', 'createClient')
+  }
+}
 </script>

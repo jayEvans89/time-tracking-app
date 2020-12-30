@@ -1,8 +1,10 @@
 <template>
   <main>
-    <transition name="fade" mode="out-in">
-      <router-view />
-    </transition>
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component"></component>
+      </transition>
+    </router-view>
   </main>
 </template>
 
@@ -15,6 +17,10 @@ main {
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 
-@Options({})
-export default class App extends Vue {}
+@Options({
+  name: 'App'
+})
+export default class App extends Vue {
+
+}
 </script>

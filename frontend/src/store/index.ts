@@ -7,7 +7,8 @@ export default createStore({
     token: '',
     baseUrl: 'http://localhost:3001',
     userId: '',
-    companyId: ''
+    companyId: '',
+    activeModals: [] as Array<string>
   },
   mutations: {
     setToken(state, token) {
@@ -22,6 +23,13 @@ export default createStore({
     },
     logout(state) {
       state.token = ''
+    },
+    addModal(state, id: string) {
+      state.activeModals.push(id)
+    },
+    removeModal(state, id: string) {
+      const index = state.activeModals.indexOf(id)
+      state.activeModals.splice(index, 1)
     }
   },
   actions: {
@@ -38,4 +46,5 @@ export interface RootState {
   baseUrl: string;
   userId: string;
   companyId: string;
+  activeModals: Array<string>;
 }

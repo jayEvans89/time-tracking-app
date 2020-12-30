@@ -4,7 +4,6 @@ import { DefineComponent } from 'vue'
 
 class FormValidation {
   async validate(components: Array<DefineComponent>) {
-    console.log(components)
     const array = await Promise.all(components.map((child: DefineComponent) => {
       const component = child as InputValidationResponse
       return component.validate()
@@ -24,7 +23,6 @@ class FormValidation {
       }
     }
 
-    console.log('valid length: ', validCount)
     if (validCount === array.length) {
       return {
         valid: true,
@@ -39,7 +37,6 @@ class FormValidation {
   }
 
   async validateParentComponent(components: Array<DefineComponent>) {
-    console.log(components)
     const array = await Promise.all(components.map((child: DefineComponent) => {
       const component = child as ParentValidationResponse
       return component.validate(true)

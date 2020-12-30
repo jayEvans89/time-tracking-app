@@ -1,38 +1,204 @@
 
 <template>
-  <div
-    class="modal fade"
-    :class="(extraClasses ? extraClasses : '') + (animateModal ? ' show' : '')"
-    v-bind:style="showModal ? 'display: block' : ''"
-    :id="modalId"
-    tabindex="-1"
-    role="dialog"
-    v-if="showModal"
-    @click="backdropClick($event)"
-  >
-    <div
-      class="modal-dialog modal-dialog-centered"
-      :class="{'modal-lg' : modalSize == 'lg', 'modal-md' : modalSize == 'md', 'modal-sm' : modalSize == 'sm', 'modal-xl' : modalSize == 'xl','modal-dialog--no-background' : noBackground}"
-      role="document"
-      :id="modalId + '-dialog'"
+  <teleport to="body">
+    <section
+      :class="[
+        (extraClasses ? extraClasses : '') +
+          (animateModal ? ' modal--show' : ''),
+        'modal fade',
+        {
+          'modal--lg': modalSize == 'lg',
+          'modal--sm': modalSize == 'sm',
+        }
+      ]"
+      v-show="showModal"
+      :id="modalId"
+      tabindex="-1"
+      role="dialog"
     >
-      <div class="modal-content">
-        <slot :close="closeModal"></slot>
+      <!-- @click="backdropClick($event)" -->
+      <div
+        class="modal-dialog modal-dialog-centered"
+        :class="{
+          'modal-lg': modalSize == 'lg',
+          'modal-md': modalSize == 'md',
+          'modal-sm': modalSize == 'sm',
+          'modal-xl': modalSize == 'xl',
+          'modal-dialog--no-background': noBackground
+        }"
+        role="document"
+        :id="modalId + '-dialog'"
+      >
+        <div class="modal-content">
+          <slot :close="closeModal"></slot>
+        </div>
       </div>
-    </div>
-  </div>
+    </section>
+    <div v-show="showBackdrop" class="modal-backdrop"></div>
+  </teleport>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Options, Vue, prop } from 'vue-class-component'
 
-@Component({})
-export default class Modal extends Vue {
-  @Prop() modalId!: string;
-  @Prop() modalSize!: string;
-  @Prop({ default: true }) backdrop!: string | boolean;
-  @Prop({ default: true }) keyboard!: boolean;
-  @Prop({ default: false }) noBackground!: boolean
-  @Prop() extraClasses!: string
+class Props {
+  modalId!: string;
+  modalSize!: string;
+  extraClasses!: string
+  backdrop = prop({
+    type: Boolean,
+    default: false
+  })
+  keyboard = prop({
+    type: Boolean,
+    default: false
+  })
+  noBackground = prop({
+    type: Boolean,
+    default: false
+  })
+}
+
+@Options({
+  name: 'Modal',
+  watch: {
+    activeModal: function(newVal) {
+      this.toggleModal(newVal)
+    }
+  }
+})
+export default class Modal extends Vue.with(Props) {
+  showModal = false
+  animateModal = false
+  showBackdrop = false
+
+  get activeModal() {
+    if (this.$store.state.activeModals.includes(this.modalId)) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  toggleModal(val: boolean) {
+    if (val) {
+      this.addBackdrop()
+      this.showModal = true
+      setTimeout(() => {
+        this.animateModal = true
+      }, 50)
+    } else {
+      this.animateModal = false
+      setTimeout(() => {
+        this.showModal = false
+        this.removeBackdrop()
+      }, 250)
+    }
+  }
+
+  addBackdrop() {
+    const modals = document.getElementsByClassName('modal')
+    if (modals.length === 1) {
+      this.showBackdrop = true
+    } else {
+      this.showBackdrop = false
+    }
+  }
+
+  removeBackdrop() {
+    const modals = document.getElementsByClassName('modal')
+    if (modals.length === 1 && this.showBackdrop) {
+      this.showBackdrop = false
+    }
+  }
+
+  closeModal() {
+    this.$store.commit('removeModal', this.modalId)
+  }
 }
 </script>
+
+<style lang="scss">
+@use "@/styles/mixins/breakpoint" as breakpoint;
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -300px);
+  background: var(--color-background-secondary);
+  width: 100%;
+  z-index: 1100;
+  border-radius: 5px;
+  max-height: 90vh;
+  opacity: 0;
+  transition: 250ms ease-in-out;
+  overflow-y: scroll;
+
+  &:focus {
+    outline: 0;
+  }
+
+  @include breakpoint.min(md) {
+    max-width: 80%;
+  }
+
+  @include breakpoint.min(lg) {
+    max-width: 910px;
+  }
+
+  &--show {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  &__title {
+    font-size: 40px;
+    margin: 45px 0 25px;
+    text-align: center;
+  }
+
+  &__subtitle {
+    font-size: 30px;
+    margin-bottom: 15px;
+  }
+
+  &__body {
+    padding: 0 65px;
+  }
+
+  hr {
+    width: 100%;
+    border: 1px solid var(--color-border-primary);
+    margin: 15px 0 30px;
+  }
+
+  &__button-container {
+    padding: 30px 65px 65px;
+    display: flex;
+
+    @include breakpoint.min(xl) {
+      padding-top: 70px;
+    }
+
+    > * {
+      flex-basis: 100%;
+
+      + * {
+        margin-left: 30px;
+      }
+    }
+  }
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--color-background-tertiary);
+  opacity: 0.75;
+  z-index: 1000;
+}
+</style>

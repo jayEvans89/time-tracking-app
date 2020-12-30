@@ -43,7 +43,6 @@ import { DefineComponent } from 'vue'
 })
 export default class UserDetails extends Vue {
   async validate(parent = false) {
-    console.log('validate user details')
     const components = [
       this.$refs.firstName,
       this.$refs.lastName,
