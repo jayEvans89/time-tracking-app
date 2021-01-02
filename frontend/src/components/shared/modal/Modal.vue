@@ -119,25 +119,21 @@ export default class Modal extends Vue.with(Props) {
 </script>
 
 <style lang="scss">
-@use "@/styles/mixins/breakpoint" as breakpoint;
+@use '@/styles/mixins/breakpoint' as breakpoint;
 
 .modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -300px);
   background: var(--color-background-secondary);
-  width: 100%;
-  z-index: 1100;
   border-radius: 5px;
+  left: 50%;
   max-height: 90vh;
   opacity: 0;
-  transition: 250ms ease-in-out;
   overflow-y: scroll;
-
-  &:focus {
-    outline: 0;
-  }
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -300px);
+  transition: 250ms ease-in-out;
+  width: 100%;
+  z-index: 1100;
 
   @include breakpoint.min(md) {
     max-width: 80%;
@@ -145,6 +141,10 @@ export default class Modal extends Vue.with(Props) {
 
   @include breakpoint.min(lg) {
     max-width: 910px;
+  }
+
+  &:focus {
+    outline: 0;
   }
 
   &--show {
@@ -168,14 +168,14 @@ export default class Modal extends Vue.with(Props) {
   }
 
   hr {
-    width: 100%;
     border: 1px solid var(--color-border-primary);
     margin: 15px 0 30px;
+    width: 100%;
   }
 
   &__button-container {
-    padding: 30px 65px 65px;
     display: flex;
+    padding: 30px 65px 65px;
 
     @include breakpoint.min(xl) {
       padding-top: 70px;
@@ -192,13 +192,13 @@ export default class Modal extends Vue.with(Props) {
 }
 
 .modal-backdrop {
+  background: var(--color-background-tertiary);
+  height: 100vh;
+  left: 0;
+  opacity: 0.75;
   position: fixed;
   top: 0;
-  left: 0;
   width: 100vw;
-  height: 100vh;
-  background: var(--color-background-tertiary);
-  opacity: 0.75;
   z-index: 1000;
 }
 </style>

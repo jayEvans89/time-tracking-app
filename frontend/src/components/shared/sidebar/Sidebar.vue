@@ -28,8 +28,8 @@
 <style lang="scss">
 .sidebar {
   background: var(--color-background-tertiary);
-  width: 330px;
   flex: 0 0 330px;
+  width: 330px;
 }
 
 .navbar {
@@ -38,10 +38,10 @@
   margin: 100px 25px 0;
 
   &__item {
-    padding: 30px 120px 30px 25px;
+    align-items: center;
     cursor: pointer;
     display: flex;
-    align-items: center;
+    padding: 30px 120px 30px 25px;
     text-decoration: none;
     transition: 250ms ease-in-out;
 
@@ -56,8 +56,8 @@
     }
 
     &--active {
-      border-radius: 8px;
       background: var(--color-background-secondary);
+      border-radius: 8px;
 
       &:hover {
         color: var(--color-text-primary);
@@ -73,9 +73,9 @@
 
   &__item-icon {
     display: block;
+    height: 26px;
     margin-right: 25px;
     width: 30px;
-    height: 26px;
 
     path {
       transition: 250ms ease-in-out;

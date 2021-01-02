@@ -43,8 +43,8 @@
 
 <style lang="scss">
 .login-page {
-  width: 440px;
   margin: 170px auto;
+  width: 440px;
 
   &__title {
     text-align: center;
@@ -56,20 +56,20 @@
 }
 
 .no-account {
+  align-items: center;
+  display: flex;
   justify-content: center;
   margin: 70px 0 30px;
-  display: flex;
-  align-items: center;
 
   &__line {
-    height: 1px;
     background: var(--color-text-primary);
     flex: 1 0 auto;
+    height: 1px;
   }
 
   &__text {
-    font-size: 16px;
     flex: 0 0 auto;
+    font-size: 16px;
     margin: 0 30px;
   }
 }
@@ -89,6 +89,7 @@ import { DefineComponent } from 'vue'
   }
 })
 export default class Login extends Vue {
+
   public email = ''
   public password = ''
 
@@ -138,5 +139,6 @@ export default class Login extends Vue {
       this.passwordErrorMessage = ''
     }
   }
+
 }
 </script>

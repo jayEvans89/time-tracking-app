@@ -68,7 +68,7 @@ export default class ClientInfoSection extends Vue { }
 </script>
 
 <style scoped lang="scss">
-@use "@/styles/mixins/breakpoint" as breakpoint;
+@use '@/styles/mixins/breakpoint' as breakpoint;
 
 .row {
   display: flex;
@@ -83,8 +83,8 @@ export default class ClientInfoSection extends Vue { }
 
     + * {
       @include breakpoint.min(lg) {
-        margin-left: 30px;
         margin-bottom: 30px;
+        margin-left: 30px;
       }
     }
   }

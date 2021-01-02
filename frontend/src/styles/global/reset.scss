@@ -36,11 +36,11 @@ dd {
 
 /* Set core body defaults */
 body {
+  line-height: 1.5;
   min-height: 100vh;
-  width: 100vw;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
-  line-height: 1.5;
+  width: 100vw;
 }
 
 /* Remove list styles on ul, ol elements */
@@ -56,8 +56,8 @@ a:not([class]) {
 
 /* Make images easier to work with */
 img {
-  max-width: 100%;
   display: block;
+  max-width: 100%;
 }
 
 /* Natural flow and rhythm in articles by default */
@@ -78,7 +78,7 @@ select {
   * {
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
     scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
   }
 }

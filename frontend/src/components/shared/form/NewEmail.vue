@@ -107,24 +107,24 @@ label {
 
 input {
   appearance: none;
-  border-radius: 6px;
-  padding: 10px;
   background: transparent !important;
   border: 1px solid var(--color-border-primary);
-  outline: 0;
+  border-radius: 6px;
   color: var(--color-text-primary);
-  width: 100%;
+  outline: 0;
+  padding: 10px;
   transition: 250ms ease-in-out;
+  width: 100%;
 
   &::placeholder {
     color: var(--color-text-placeholder);
   }
 
   &:focus {
-    outline: 0;
+    background: var(--color-background-tertiary);
     border-color: var(--color-border-active);
     caret-color: var(--color-secondary);
-    background: var(--color-background-tertiary);
+    outline: 0;
   }
 
   &:hover {
@@ -154,8 +154,8 @@ input {
   &__error-box {
     background: var(--color-background-error);
     border-radius: 6px;
-    padding: 15px;
     margin-top: 15px;
+    padding: 15px;
   }
 
   &__error-box-text {

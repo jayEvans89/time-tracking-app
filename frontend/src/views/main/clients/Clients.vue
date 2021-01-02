@@ -9,8 +9,8 @@
 
 <style lang="scss">
 .clients {
-  width: 100%;
   display: flex;
+  width: 100%;
 }
 </style>
 
