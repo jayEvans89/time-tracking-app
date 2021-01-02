@@ -11,7 +11,7 @@
           'modal--sm': modalSize == 'sm',
         }
       ]"
-      v-show="showModal"
+      v-if="showModal"
       :id="modalId"
       tabindex="-1"
       role="dialog"
@@ -34,7 +34,7 @@
         </div>
       </div>
     </section>
-    <div v-show="showBackdrop" class="modal-backdrop"></div>
+    <div v-if="showBackdrop" class="modal-backdrop"></div>
   </teleport>
 </template>
 
@@ -82,10 +82,10 @@ export default class Modal extends Vue.with(Props) {
 
   toggleModal(val: boolean) {
     if (val) {
-      this.addBackdrop()
       this.showModal = true
       setTimeout(() => {
         this.animateModal = true
+        this.addBackdrop()
       }, 50)
     } else {
       this.animateModal = false
@@ -98,6 +98,7 @@ export default class Modal extends Vue.with(Props) {
 
   addBackdrop() {
     const modals = document.getElementsByClassName('modal')
+    console.log(modals.length)
     if (modals.length === 1) {
       this.showBackdrop = true
     } else {

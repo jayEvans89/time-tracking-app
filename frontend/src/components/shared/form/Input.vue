@@ -41,7 +41,9 @@ class Props {
   })
 }
 
-@Options({})
+@Options({
+  name: 'Input Field'
+})
 export default class InputField extends Vue.with(Props) {
   public value = ''
   public error = false

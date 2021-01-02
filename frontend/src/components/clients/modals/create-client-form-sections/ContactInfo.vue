@@ -3,53 +3,47 @@
   <div class="row">
     <input-field
       :type="'text'"
-      :name="'name'"
-      :label="'Name'"
-      :placholder="'Enter clients name'"
+      :name="'firstName'"
+      :label="'First Name'"
+      :placeholder="'Enter your first name'"
       :required="true"
-      ref="clientName"
+      ref="firstName"
     ></input-field>
     <input-field
       :type="'text'"
-      :name="'address1'"
-      :label="'Address 1'"
-      :placholder="'Enter address line 1'"
+      :name="'lastName'"
+      :label="'Last Name'"
+      :placeholder="'Enter your last name'"
       :required="true"
-      ref="address1"
-    ></input-field>
-  </div>
-  <div class="row">
-    <input-field
-      :type="'text'"
-      :name="'address2'"
-      :label="'Address 2'"
-      ref="address2"
-    ></input-field>
-    <input-field
-      :type="'text'"
-      :name="'county'"
-      :label="'County/State'"
-      :placholder="'Enter county/state'"
-      :required="true"
-      ref="county"
+      ref="lastName"
     ></input-field>
   </div>
   <div class="row">
     <input-field
       :type="'text'"
-      :name="'town'"
-      :label="'Town/City'"
-      :placholder="'Enter town/city'"
-      :required="true"
-      ref="town"
+      :name="'position'"
+      :label="'Position'"
+      :placeholder="'Please enter your position'"
+      ref="position"
+    ></input-field>
+    <new-email-field
+      ref="email"
+    ></new-email-field>
+  </div>
+  <div class="row">
+    <input-field
+      :type="'tel'"
+      :name="'mobileNumber'"
+      :label="'Mobile Number'"
+      :placeholder="'Enter mobile number'"
+      ref="mobile"
     ></input-field>
     <input-field
-      :type="'text'"
-      :name="'postcode'"
-      :label="'Postcode/Zipcode'"
-      :placholder="'Enter postcode/zipcode'"
-      :required="true"
-      ref="postcode"
+      :type="'tel'"
+      :name="'officeNumber'"
+      :label="'Office Number'"
+      :placeholder="'Enter office number'"
+      ref="office"
     ></input-field>
   </div>
 </template>
@@ -57,14 +51,32 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
 import InputField from '@/components/shared/form/Input.vue'
+import NewEmailField from '@/components/shared/form/NewEmail.vue'
+import FormValidation from '@/components/shared/form/ValidationMethod'
+import { DefineComponent } from 'vue'
 
 @Options({
   name: 'Client Info Form',
   components: {
-    InputField
+    InputField,
+    NewEmailField
   }
 })
-export default class ClientContactSection extends Vue { }
+export default class ClientContactSection extends Vue {
+  async validate() {
+    const components = [
+      this.$refs.firstName,
+      this.$refs.lastName,
+      this.$refs.position,
+      this.$refs.email,
+      this.$refs.mobile,
+      this.$refs.office
+    ] as Array<DefineComponent>
+
+    return await FormValidation.validate(components)
+
+  }
+}
 </script>
 
 <style scoped lang="scss">

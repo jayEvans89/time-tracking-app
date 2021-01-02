@@ -28,7 +28,9 @@
 import { Options, Vue } from 'vue-class-component'
 import userService from '@/services/user/userService'
 
-@Options({})
+@Options({
+  name: 'New Email'
+})
 export default class NewEmailField extends Vue {
   public value = ''
   public error = false
