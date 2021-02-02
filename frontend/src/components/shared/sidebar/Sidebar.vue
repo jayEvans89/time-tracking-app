@@ -28,8 +28,8 @@
 <style lang="scss">
 .sidebar {
   background: var(--color-background-tertiary);
-  flex: 0 0 330px;
-  width: 330px;
+  flex: 0 0 280px;
+  width: 280px;
 }
 
 .navbar {
@@ -41,7 +41,7 @@
     align-items: center;
     cursor: pointer;
     display: flex;
-    padding: 30px 120px 30px 25px;
+    padding: 20px 100px 20px 25px;
     text-decoration: none;
     transition: 250ms ease-in-out;
 
@@ -74,8 +74,8 @@
   &__item-icon {
     display: block;
     height: 26px;
-    margin-right: 25px;
-    width: 30px;
+    margin-right: 15px;
+    width: 25px;
 
     path {
       transition: 250ms ease-in-out;

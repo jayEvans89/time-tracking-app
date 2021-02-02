@@ -79,6 +79,7 @@ export default class InputField extends Vue.with(Props) {
       this.errorMessage = ''
       const response = this.validationResponse
       response.valid = true
+      response.value = this.value
       return response
     }
   }

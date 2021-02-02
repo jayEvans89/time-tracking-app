@@ -79,9 +79,9 @@
 import { Options, Vue } from 'vue-class-component'
 import LoginService from '@/services/login/login'
 import InputField from '@/components/shared/form/Input.vue'
-import { InputFormData } from '@/models/form/formData'
 import formValidation from '@/components/shared/form/ValidationMethod'
 import { DefineComponent } from 'vue'
+import { LoginValidationData} from '@/models/user/login'
 
 @Options({
   components: {
@@ -104,13 +104,17 @@ export default class Login extends Vue {
       this.$refs.password
     ] as Array<DefineComponent>
 
-    const response = await formValidation.validate(components)
-    if (response.valid) {
-      this.login(response.data)
+    const res = await formValidation.validate(components)
+    if (!res.valid) {
+      return
     }
+
+    const validationData = res.data as LoginValidationData
+
+    this.login(validationData)
   }
 
-  async login(data: InputFormData) {
+  async login(data: LoginValidationData) {
     try {
       const res = await LoginService.login(data)
       if (res.status === 'success') {

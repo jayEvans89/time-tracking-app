@@ -1,6 +1,6 @@
 <template>
   <div class="clients">
-    <nav v-show="!noData" class="client-sidebar"></nav>
+    <client-sidebar v-show="!noData" :clients="clientNames"></client-sidebar>
     <no-clients v-show="noData"></no-clients>
     <router-view></router-view>
     <create-client-modal></create-client-modal>
@@ -20,9 +20,12 @@ import ClientService from '@/services/client/clientService'
 import { ClientNames } from '@/models/clients/clientModal'
 import NoClients from '@/components/clients/NoData.vue'
 import CreateClientModal from '@/components/clients/modals/CreateClientModal.vue'
+import ClientSidebar from '@/components/clients/Sidebar.vue'
+import ClientStore from '@/store/client/client'
 
 @Options({
   components: {
+    ClientSidebar,
     NoClients,
     CreateClientModal
   },
@@ -42,6 +45,14 @@ export default class Clients extends Vue {
 
   mounted() {
     this.getClientNames()
+    this.checkStore()
+  }
+
+  checkStore() {
+    if (this.$store.hasModule('client')) {
+      return
+    }
+    this.$store.registerModule('client', ClientStore)
   }
 
   async getClientNames() {

@@ -26,12 +26,12 @@ class FormValidation {
     if (validCount === array.length) {
       return {
         valid: true,
-        data: data
+        data: data as unknown
       }
     } else {
       return {
         valid: false,
-        data: data
+        data: data as unknown
       }
     }
   }
@@ -47,7 +47,7 @@ class FormValidation {
     const response = {
       valid: false,
       page: 0,
-      data: {} as ParentData
+      data: {} as unknown
     }
 
     for (const component of array) {
@@ -64,7 +64,7 @@ class FormValidation {
     }
 
     if (validCount === array.length) {
-      response.data = data
+      response.data = data as unknown
       response.valid = true
       return response
     } else {

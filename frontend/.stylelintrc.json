@@ -1,7 +1,4 @@
 {
-  "plugins": [
-    "stylelint-selector-bem-pattern"
-  ],
   "extends": "stylelint-config-sass-guidelines",
   "rules": {
     "number-leading-zero": null,

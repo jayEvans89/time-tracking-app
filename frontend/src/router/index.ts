@@ -59,7 +59,14 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/clients',
         name: 'Clients',
-        component: () => import(/* webpackChunkName: "clients" */ '../views/main/clients/Clients.vue')
+        component: () => import(/* webpackChunkName: "clients" */ '../views/main/clients/Clients.vue'),
+        children: [
+          {
+            path: '/:id',
+            name: 'Client Details',
+            component: () => import(/* webpackChunkName: "client-details" */ '../views/main/clients/ClientDetails.vue')
+          }
+        ]
       }
     ]
   },

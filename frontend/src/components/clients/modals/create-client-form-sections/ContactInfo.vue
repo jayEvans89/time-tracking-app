@@ -26,9 +26,7 @@
       :placeholder="'Please enter your position'"
       ref="position"
     ></input-field>
-    <new-email-field
-      ref="email"
-    ></new-email-field>
+    <new-email-field ref="email"></new-email-field>
   </div>
   <div class="row">
     <input-field
@@ -73,7 +71,22 @@ export default class ClientContactSection extends Vue {
       this.$refs.office
     ] as Array<DefineComponent>
 
-    return await FormValidation.validate(components)
+    const res = await FormValidation.validate(components)
+    if (res.valid) {
+      return {
+        valid: true,
+        page: 1,
+        data: res.data,
+        type: 'contact'
+      }
+    } else {
+      return {
+        valid: false,
+        page: 1,
+        data: res.data,
+        type: 'contact'
+      }
+    }
 
   }
 }

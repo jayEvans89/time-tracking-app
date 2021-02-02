@@ -78,7 +78,23 @@ export default class ClientInfoSection extends Vue {
       this.$refs.postcode
     ] as Array<DefineComponent>
 
-    return await FormValidation.validate(components)
+    const res = await FormValidation.validate(components)
+
+    if (res.valid) {
+      return {
+        valid: true,
+        page: 1,
+        data: res.data,
+        type: 'info'
+      }
+    } else {
+      return {
+        valid: false,
+        page: 1,
+        data: res.data,
+        type: 'info'
+      }
+    }
   }
 }
 </script>

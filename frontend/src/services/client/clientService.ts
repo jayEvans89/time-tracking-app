@@ -1,4 +1,5 @@
 import { ClientNamesResponse } from '@/models/clients/clientModal'
+import { NewClient, NewClientResponse } from '@/models/clients/newClient'
 import http from '@/services/http'
 import store from '@/store'
 
@@ -6,6 +7,11 @@ class ClientService {
   async getClientNames(): Promise<ClientNamesResponse> {
     const companyId = store.state.companyId
     const response = await http.get(`client/getClientNames/${companyId}`)
+    return response.data
+  }
+
+  async createClient(data: NewClient): Promise<NewClientResponse> {
+    const response = await http.post('client/create', data)
     return response.data
   }
 }

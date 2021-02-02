@@ -57,6 +57,7 @@ import UserDetails from '@/components/sign-up/form-sections/UserDetails.vue'
 import ValidationMethod from '../shared/form/ValidationMethod'
 import userService from '@/services/user/userService'
 import { DefineComponent } from 'vue'
+import { NewUserValidationData } from '@/models/user/newUser'
 
 @Options({
   components: {
@@ -98,12 +99,19 @@ export default class SignUpForm extends Vue {
     ] as Array<DefineComponent>
 
     const res = await ValidationMethod.validateParentComponent(components)
-    if (res.valid) {
+
+    if (!res.valid) {
+      this.pageChange(res.page)
+      return
+    }
+
+    const validationData = res.data as NewUserValidationData
+
       const data = {
-        user: res.data.user,
+        user: validationData.user,
         company: {
-          ...res.data.companyDetails as {},
-          address: res.data.companyAddress
+          ...validationData.companyDetails,
+          address: validationData.companyAddress
         }
       }
 
@@ -111,9 +119,6 @@ export default class SignUpForm extends Vue {
       if (signupRes.status === 'success') {
         this.$router.push('/dashboard')
       }
-    } else {
-      this.pageChange(res.page)
-    }
   }
 }
 </script>
