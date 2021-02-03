@@ -14,6 +14,11 @@ class ClientService {
     const response = await http.post('client/create', data)
     return response.data
   }
+
+  async getClient(id: string) {
+    const res = await http.get(`client/getClient/${id}`)
+    return res.data
+  }
 }
 
 export default new ClientService()

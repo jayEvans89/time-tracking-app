@@ -2,7 +2,11 @@
   <div class="clients">
     <client-sidebar v-show="!noData" :clients="clientNames"></client-sidebar>
     <no-clients v-show="noData"></no-clients>
-    <router-view></router-view>
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component"></component>
+      </transition>
+    </router-view>
     <create-client-modal></create-client-modal>
   </div>
 </template>
@@ -46,6 +50,12 @@ export default class Clients extends Vue {
   mounted() {
     this.getClientNames()
     this.checkStore()
+  }
+
+  unmounted() {
+    console.log('destoyed')
+    this.$store.commit('setActiveClient', 0)
+    this.$store.unregisterModule('client')
   }
 
   checkStore() {

@@ -6,15 +6,17 @@
     </div>
     <ul class="client-sidebar__client-list">
       <li
-        class="client-sidebar__client-name"
-        :class="{
-          'client-sidebar__client-name--active': activeClient === client._id
-        }"
+        :class="[
+          {
+            'client-sidebar__client-name--active': activeClient === client._id
+          },
+          'client-sidebar__client-name'
+        ]"
         v-for="client in clients"
         :key="client._id"
         @click="setActiveClient(client._id)"
       >
-        {{ client.name }}
+        <router-link :to="'/clients/' + client.name">{{ client.name }}</router-link>
       </li>
     </ul>
   </nav>
@@ -25,8 +27,8 @@
   background: var(--color-background-secondary);
 
   &__header {
-    padding: 40px 120px 10px 20px;
     border-bottom: 1px solid var(--color-border-primary);
+    padding: 40px 120px 10px 20px;
 
     h2 {
       font-size: 30px;
@@ -34,17 +36,21 @@
   }
 
   &__client-list {
-    padding: 30px 20px;
     margin: 0;
+    padding: 30px 20px;
   }
 
   &__client-name {
-    padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
 
     &--active {
       background: var(--medium-purple);
+    }
+
+    a {
+      display: block;
+      padding: 10px 15px;
     }
   }
 }

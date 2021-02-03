@@ -52,19 +52,23 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Main',
     children: [
       {
-        path: '/dashboard',
+        path: 'dashboard',
         name: 'Dashboard',
         component: () => import(/* webpackChunkName: "dashboard" */ '../views/main/dashboard/Home.vue')
       },
       {
-        path: '/clients',
+        path: 'clients',
         name: 'Clients',
         component: () => import(/* webpackChunkName: "clients" */ '../views/main/clients/Clients.vue'),
         children: [
           {
-            path: '/:id',
+            path: ':name',
             name: 'Client Details',
-            component: () => import(/* webpackChunkName: "client-details" */ '../views/main/clients/ClientDetails.vue')
+            component: () => import(/* webpackChunkName: "client-details" */ '../views/main/clients/ClientDetails.vue'),
+            props: {
+              default: true,
+              id: true
+            }
           }
         ]
       }

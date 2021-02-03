@@ -5,14 +5,14 @@
       <ul class="navbar">
         <router-link
           class="navbar__item"
-          exact-active-class="navbar__item--active"
+          active-class="navbar__item--active"
           tag="li"
           to="/dashboard"
           >Dashboard</router-link
         >
         <router-link
           class="navbar__item"
-          exact-active-class="navbar__item--active"
+          active-class="navbar__item--active"
           tag="li"
           to="/clients"
         >

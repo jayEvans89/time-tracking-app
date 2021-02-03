@@ -6,6 +6,11 @@ export const client = express.Router()
 
 const clientController = new ClientController()
 
+// Get client
+client.get('/getClient/:id', (req, res) => {
+  clientController.getClient(req, res)
+})
+
 // Get all Clients
 client.get('/getAllFull/:id', (req, res) => {
   clientController.getAllFull(req, res)
