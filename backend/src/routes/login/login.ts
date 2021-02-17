@@ -17,7 +17,11 @@ login.post('/auth', (req, res) => {
       return res.status(201).send({
         status: response.status,
         message: response.message,
-        token: response.token
+        token: response.token,
+        response: {
+          userId: req.cookies.refreshToken.userId,
+          companyId: req.cookies.refreshToken.companyId
+        }
       })
     } else {
       return res.status(201).send({

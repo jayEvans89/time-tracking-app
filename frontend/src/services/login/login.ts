@@ -1,3 +1,4 @@
+import { CheckSession } from '@/models/auth/checkSession'
 import { LoginValidationData } from '@/models/user/login'
 import http from '../http'
 
@@ -7,7 +8,7 @@ class LoginService {
     return response.data
   }
 
-  async checkSession() {
+  async checkSession(): Promise<CheckSession> {
     const response = await http.post('/login/auth')
     return response.data
   }

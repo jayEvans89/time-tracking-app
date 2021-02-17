@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
-import jwt from 'jsonwebtoken'
+import { UserAuthDetails } from '@/models/auth/userAuthDetails'
 
 export default createStore({
   state: {
@@ -14,12 +14,12 @@ export default createStore({
     setToken(state, token) {
       state.token = token
       axios.defaults.headers.Authorization = 'Bearer ' + token
-      const decodedToken = jwt.decode(token) as any // eslint-disable-line
-      console.log('decoded token: ', decodedToken)
-      if (decodedToken) {
-        state.userId = decodedToken.user.id
-        state.companyId = decodedToken.user.companyId
-      }
+    },
+    setUserId(state, userId: string) {
+      state.userId = userId
+    },
+    setCompanyId(state, companyId: string) {
+      state.companyId = companyId
     },
     logout(state) {
       state.token = ''
@@ -35,6 +35,10 @@ export default createStore({
   actions: {
     setToken(context, token) {
       context.commit('setToken', token)
+    },
+    setUserDetails(context, userDetails: UserAuthDetails) {
+      context.commit('setUserId', userDetails.userId)
+      context.commit('setCompanyId', userDetails.companyId)
     }
   },
   modules: {

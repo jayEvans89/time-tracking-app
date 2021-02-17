@@ -18,23 +18,22 @@ async function routeGuard(to: RouteLocationNormalized, from: RouteLocationNormal
       next()
     }
   } else {
-    let response
     try {
-      response = await LoginService.checkSession()
+      const response = await LoginService.checkSession()
+      if (response.status === 'Success') {
+        store.dispatch('setUserDetails', { userId: response.response.userId, companyId: response.response.companyId })
+        if (to.fullPath === '/login') {
+          next('/')
+        } else if (to.fullPath === '/') {
+          next('/dashboard')
+        } else {
+          next()
+        }
+      } else {
+        next('/login')
+      }
     } catch (error) {
       console.log(error)
-    }
-
-    if (response.status === 'Success') {
-      if (to.fullPath === '/login') {
-        next('/')
-      } else if (to.fullPath === '/') {
-        next('/dashboard')
-      } else {
-        next()
-      }
-    } else {
-      next('/login')
     }
   }
 }
@@ -43,28 +42,28 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import(/* webpackChunkName: "login" */ '../views/login/Login.vue')
+    component: () => import(/* webpackChunkName: "login" */ '@/views/login/Login.vue')
   },
   {
     path: '/',
-    component: () => import(/* webpackChunkName: "dashboard" */ '../views/main/Main.vue'),
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/views/main/Main.vue'),
     beforeEnter: routeGuard,
     name: 'Main',
     children: [
       {
         path: 'dashboard',
         name: 'Dashboard',
-        component: () => import(/* webpackChunkName: "dashboard" */ '../views/main/dashboard/Home.vue')
+        component: () => import(/* webpackChunkName: "dashboard" */ '@/views/main/dashboard/Home.vue')
       },
       {
         path: 'clients',
         name: 'Clients',
-        component: () => import(/* webpackChunkName: "clients" */ '../views/main/clients/Clients.vue'),
+        component: () => import(/* webpackChunkName: "clients" */ '@/views/main/clients/Clients.vue'),
         children: [
           {
             path: ':name',
             name: 'Client Details',
-            component: () => import(/* webpackChunkName: "client-details" */ '../views/main/clients/ClientDetails.vue'),
+            component: () => import(/* webpackChunkName: "client-details" */ '@/views/main/clients/ClientDetails.vue'),
             props: {
               default: true,
               id: true
@@ -82,7 +81,7 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
 

@@ -16,7 +16,7 @@
           tag="li"
           to="/clients"
         >
-          <customer-icon class-modifier="navbar__item-icon"></customer-icon>
+          <customer-icon :class-modifier="'navbar__item-icon'"></customer-icon>
           Clients</router-link
         >
       </ul>
