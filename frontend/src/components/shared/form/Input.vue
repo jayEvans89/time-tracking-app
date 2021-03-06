@@ -1,7 +1,9 @@
 
 <template>
   <div class="input-group">
-    <label :class="{ 'label--error': error || responseError }" :for="name">{{ label }}</label>
+    <label :class="{ 'label--error': error || responseError }" :for="name">{{
+      label
+    }}</label>
     <input
       :class="{ 'input--error': error || responseError }"
       :type="type"
@@ -22,12 +24,29 @@
 import { Options, Vue, prop } from 'vue-class-component'
 
 class Props {
-  type!: string;
-  name!: string
-  label!: string
-  placeholder!: string
-  required = prop<boolean>({
-    default: false
+  type = prop({
+    type: String,
+    default: ''
+  })
+
+  name = prop({
+    type: String,
+    default: ''
+  })
+
+  label = prop({
+    type: String,
+    default: ''
+  })
+
+  placeholder = prop({
+    type: String,
+    default: ''
+  })
+
+  required = prop({
+    default: false,
+    type: Boolean
   })
 
   responseError = prop({
@@ -149,7 +168,6 @@ export default class InputField extends Vue.with(Props) {
 </script>
 
 <style scoped lang="scss">
-
 label {
   display: block;
   margin-bottom: 15px;

@@ -57,11 +57,15 @@
 </style>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+import { Options, Vue, prop } from 'vue-class-component'
 import { ClientNames } from '@/models/clients/clientModal'
+import { PropType } from 'vue'
 
 class Props {
-  clients!: Array<ClientNames>
+  clients = prop({
+    type: Array as PropType<Array<ClientNames>>,
+    required: true,
+  })
 }
 
 @Options({
