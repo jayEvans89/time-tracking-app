@@ -11,13 +11,13 @@ const config = {
       '@': path.join(__dirname, 'src')
     }
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: "@use '@/styles/global';"
-      }
-    }
-  }
+  // css: {
+  //   preprocessorOptions: {
+  //     scss: {
+  //       additionalData: "@use '@/styles/global';"
+  //     }
+  //   }
+  // }
 }
 
 export default config

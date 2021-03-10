@@ -32,7 +32,8 @@ import ClientService from '@/services/client/clientService'
     Modal,
     ClientInfoSection,
     ClientContactSection
-  }
+  },
+  emits: ['client-saved']
 })
 export default class CreateClientModal extends Vue {
   close() {
@@ -79,6 +80,7 @@ export default class CreateClientModal extends Vue {
 
     this.$store.commit('client/setActiveClient', res.data._id)
     this.$store.commit('removeModal', 'createClient')
+    this.$emit('client-saved')
   }
 }
 </script>

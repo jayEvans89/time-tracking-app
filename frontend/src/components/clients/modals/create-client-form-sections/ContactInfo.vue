@@ -5,7 +5,7 @@
       :type="'text'"
       :name="'firstName'"
       :label="'First Name'"
-      :placeholder="'Enter your first name'"
+      :placeholder="'Contacts first name'"
       :required="true"
       ref="firstName"
     ></input-field>
@@ -13,7 +13,7 @@
       :type="'text'"
       :name="'lastName'"
       :label="'Last Name'"
-      :placeholder="'Enter your last name'"
+      :placeholder="'Contacts last name'"
       :required="true"
       ref="lastName"
     ></input-field>
@@ -23,7 +23,7 @@
       :type="'text'"
       :name="'position'"
       :label="'Position'"
-      :placeholder="'Please enter your position'"
+      :placeholder="'Contacts position'"
       ref="position"
     ></input-field>
     <new-email-field ref="email"></new-email-field>

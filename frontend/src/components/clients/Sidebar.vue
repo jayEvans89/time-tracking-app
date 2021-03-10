@@ -3,6 +3,7 @@
   <nav class="client-sidebar">
     <div class="client-sidebar__header">
       <h2>Clients</h2>
+      <p @click="addNewClient">Add</p>
     </div>
     <ul class="client-sidebar__client-list">
       <li
@@ -16,7 +17,7 @@
         :key="client._id"
         @click="setActiveClient(client._id)"
       >
-        <router-link :to="'/clients/' + client.name">{{ client.name }}</router-link>
+        <router-link :to="'/clients/' + client._id">{{ client.name }}</router-link>
       </li>
     </ul>
   </nav>
@@ -51,6 +52,7 @@
     a {
       display: block;
       padding: 10px 15px;
+      text-decoration: none;
     }
   }
 }
@@ -78,6 +80,10 @@ export default class ClientSidebar extends Vue.with(Props) {
 
   setActiveClient(id: string) {
     this.$store.commit('client/setActiveClient', id)
+  }
+
+  addNewClient() {
+    this.$store.commit('addModal', 'createClient')
   }
 }
 </script>

@@ -82,8 +82,6 @@ export default class SessionController {
         message: "Session doesn't exsits"
       }
     }
-    console.log('cookie: ', token)
-    console.log('Stoken: ', session.token)
     if (token !== session.token) {
       await this.removeSession(id)
       return {
@@ -200,14 +198,14 @@ export default class SessionController {
         }
 
         return {
-          status: 'Success',
+          status: 'success',
           message: 'New token authorized',
           token: token
         }
       }
     } else {
       return {
-        status: 'Success',
+        status: 'success',
         message: 'Session authed'
       }
     }

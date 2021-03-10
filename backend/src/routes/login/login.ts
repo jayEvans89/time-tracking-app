@@ -13,7 +13,7 @@ login.post('/', (req, res) => {
 
 login.post('/auth', (req, res) => {
   sessionController.validateSession(req, res).then((response) => {
-    if (response.status === 'Success') {
+    if (response.status === 'success') {
       return res.status(201).send({
         status: response.status,
         message: response.message,

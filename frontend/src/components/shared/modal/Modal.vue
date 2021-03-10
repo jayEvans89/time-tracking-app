@@ -11,7 +11,6 @@
         }
       ]"
       :id="modalId"
-      tabindex="-1"
       role="dialog"
       v-show="showModal"
     >
@@ -98,18 +97,17 @@ export default class Modal extends Vue.with(Props) {
       }, 100)
     } else {
       const modal = this.$refs.modalContent as HTMLElement
-      modal.scrollTo(0, 0)
       this.animate = false
       setTimeout(() => {
         this.showModal = false
         this.removeBackdrop()
+        modal.scrollTo(0, 0)
       }, 250)
     }
   }
 
   addBackdrop() {
     const modals = document.getElementsByClassName('modal')
-    console.log(modals.length)
     if (modals.length === 1) {
       this.showBackdrop = true
     } else {
@@ -199,7 +197,7 @@ export default class Modal extends Vue.with(Props) {
     padding: 30px 65px 65px;
 
     @include breakpoint.min(xl) {
-      padding-top: 70px;
+      padding-top: 40px;
     }
 
     > * {

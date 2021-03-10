@@ -17,24 +17,28 @@ async function routeGuard(to: RouteLocationNormalized, from: RouteLocationNormal
     } else {
       next()
     }
-  } else {
-    try {
-      const response = await LoginService.checkSession()
-      if (response.status === 'Success') {
-        store.dispatch('setUserDetails', { userId: response.response.userId, companyId: response.response.companyId })
-        if (to.fullPath === '/login') {
-          next('/')
-        } else if (to.fullPath === '/') {
-          next('/dashboard')
-        } else {
-          next()
-        }
+    return
+  }
+
+  try {
+    const response = await LoginService.checkSession()
+    if (response.status === 'success') {
+      store.dispatch('setUserDetails', {
+        userId: response.response.userId,
+        companyId: response.response.companyId
+      })
+      if (to.fullPath === '/login') {
+        next('/')
+      } else if (to.fullPath === '/') {
+        next('/dashboard')
       } else {
-        next('/login')
+        next()
       }
-    } catch (error) {
-      console.log(error)
+    } else {
+      next('/login')
     }
+  } catch (error) {
+    console.log(error)
   }
 }
 
@@ -61,7 +65,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "clients" */ '@/views/main/clients/Clients.vue'),
         children: [
           {
-            path: ':name',
+            path: ':id',
             name: 'Client Details',
             component: () => import(/* webpackChunkName: "client-details" */ '@/views/main/clients/ClientDetails.vue'),
             props: {

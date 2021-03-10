@@ -1,13 +1,13 @@
 <template>
   <div class="clients">
-    <client-sidebar v-show="!noData" :clients="clientNames"></client-sidebar>
+    <client-sidebar v-show="!noData && !gettingData" :clients="clientNames"></client-sidebar>
     <no-clients v-show="noData"></no-clients>
     <router-view v-slot="{ Component }">
       <transition name="fade" mode="out-in">
         <component :is="Component"></component>
       </transition>
     </router-view>
-    <create-client-modal></create-client-modal>
+    <create-client-modal @client-saved="getClientNames"></create-client-modal>
   </div>
 </template>
 
@@ -52,9 +52,8 @@ export default class Clients extends Vue {
     this.checkStore()
   }
 
-  unmounted() {
-    console.log('destoyed')
-    this.$store.commit('setActiveClient', 0)
+  beforeUnmount() {
+    this.$store.commit('client/setActiveClient', 0)
     this.$store.unregisterModule('client')
   }
 

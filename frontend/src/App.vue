@@ -9,6 +9,8 @@
 </template>
 
 <style lang="scss">
+@use '@/styles/global';
+
 main {
   display: flex;
 }

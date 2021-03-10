@@ -1,4 +1,4 @@
-import { ClientNamesResponse } from '@/models/clients/clientModal'
+import { ClientNamesResponse, ClientDetailsResponse } from '@/models/clients/clientModal'
 import { NewClient, NewClientResponse } from '@/models/clients/newClient'
 import http from '@/services/http'
 import store from '@/store'
@@ -15,7 +15,7 @@ class ClientService {
     return response.data
   }
 
-  async getClient(id: string) {
+  async getClient(id: string): Promise<ClientDetailsResponse> {
     const res = await http.get(`client/getClient/${id}`)
     return res.data
   }

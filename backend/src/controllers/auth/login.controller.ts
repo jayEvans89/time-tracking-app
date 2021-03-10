@@ -19,8 +19,6 @@ export default class LoginController {
     if (userExists) {
       const saltRounds = 10
       const hashPassword = await bcrypt.hash(body.password, saltRounds)
-        console.log('password: ', hashPassword)
-        console.log('stored password: ', userExists.password)
       if (await bcrypt.compare(password, userExists.password)) {
         try {
           await this.authenticateUser(userExists, res)
@@ -74,7 +72,7 @@ export default class LoginController {
     const sessionId = cookie._id
     await this.sessionController.removeSession(sessionId)
     return res.status(200).send({
-      status: 'Success',
+      status: 'success',
       message: 'Session removed. Logout'
     })
   }

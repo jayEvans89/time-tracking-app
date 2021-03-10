@@ -9,6 +9,10 @@ export interface ClientNamesResponse extends DefaultResponse {
   data: Array<ClientNames>;
 }
 
+export interface ClientDetailsResponse extends DefaultResponse {
+  data: Client;
+}
+
 export interface ClientInfo {
   name: string;
 }

@@ -27,7 +27,6 @@ export default class UserController {
         })
       }
     })
-    console.log('user: ', user)
   }
 
   /**
@@ -107,11 +106,8 @@ export default class UserController {
             message: 'The user could not be updated'
           })
         } else {
-
           const updatedUser = result
           delete updatedUser.password
-
-          console.log(updatedUser)
 
           res.status(200).send({
             status: 'success',
