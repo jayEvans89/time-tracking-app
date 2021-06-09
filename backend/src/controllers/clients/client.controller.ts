@@ -112,6 +112,8 @@ export default class ClientController {
       data: clients
     })
   }
+
+  // Below needs to be in it's own class
   // Create contact
   // Update contact
   // Delete contact

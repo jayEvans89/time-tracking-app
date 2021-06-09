@@ -22,7 +22,7 @@ const userSchema: Schema = new Schema ({
   },
   company_id: {
     type: String,
-    required: true
+    required: false
   }
 },
 {

@@ -19,6 +19,7 @@ export default class LoginController {
     if (userExists) {
       const saltRounds = 10
       const hashPassword = await bcrypt.hash(body.password, saltRounds)
+
       if (await bcrypt.compare(password, userExists.password)) {
         try {
           await this.authenticateUser(userExists, res)
@@ -40,7 +41,7 @@ export default class LoginController {
   }
 
   async authenticateUser(user: User, res: Response) {
-    let session: Session
+    let session: Session | false
     let token: string
 
     try {
@@ -54,17 +55,19 @@ export default class LoginController {
     } catch (error) {
       console.log(error)
     }
-
-    return res.cookie('refreshToken', session,  {
-      expires: session.expiry,
-      httpOnly: true,
-      secure: false,
-    }).status(201).send({
-      status: 'success',
-      message: 'Login accepted',
-      data: user,
-      token: token
-    })
+    console.log('session: ', session)
+    if (session !== false) {
+      return res.cookie('refreshToken', session,  {
+        expires: session.expiry,
+        httpOnly: true,
+        secure: false,
+      }).status(201).send({
+        status: 'success',
+        message: 'Login accepted',
+        data: user,
+        token: token
+      })
+    }
   }
 
   async logout(req: Request, res: Response) {

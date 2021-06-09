@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt'
-import randdomString from 'randomstring'
+import randomString from 'randomstring'
 import { Session, SessionValidation } from '../../types/auth/session'
 import { SessionModel } from '../../models/auth/refreshToken'
 import { User } from '../../types/user/user'
@@ -15,12 +15,13 @@ export default class SessionController {
    * @param user The user to create a session for
    */
   async createSession(user: User) {
-    let token = randdomString.generate({ length: 12 })
+    console.log('create new session: ', user)
+    let token = randomString.generate({ length: 12 })
     token = await bcrypt.hash(token, 10)
 
     let date = new Date()
     const expiry = date.setDate(date.getDate() + 30)
-
+    console.log(expiry)
     const refreshToken: Session = new SessionModel({
       token: token,
       expiry: expiry,
@@ -28,8 +29,12 @@ export default class SessionController {
       companyId: user.company_id
     })
 
-    const session = await SessionModel.create(refreshToken)
-    return session
+    try {
+      return await SessionModel.create(refreshToken)
+    } catch (error) {
+      console.log(error)
+      return false
+    }
   }
 
   /**
@@ -120,11 +125,11 @@ export default class SessionController {
    * Creates a new JWT
    * @param userId The user id to create a new JWT 
    */
-  async createJWT(userId: string, compnayId: string) {
+  async createJWT(userId: string, companyId: string) {
     const payload = {
       user: {
         id: userId,
-        companyId: compnayId
+        companyId: companyId
       }
     }
 
