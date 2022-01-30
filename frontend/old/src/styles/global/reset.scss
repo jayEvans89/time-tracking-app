@@ -1,6 +1,8 @@
 
 // A modern css reset. https://github.com/hankchizljaw/modern-css-reset6
 
+// sass-lint:disable force-attribute-nesting, no-qualifying-elements, no-mergeable-selectors, force-pseudo-nesting, no-misspelled-properties, no-important
+
 /* Box sizing rules */
 *,
 *::before,
@@ -34,11 +36,11 @@ dd {
 
 /* Set core body defaults */
 body {
-  line-height: 1.5;
   min-height: 100vh;
+  width: 100vw;
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
-  width: 100vw;
+  line-height: 1.5;
 }
 
 /* Remove list styles on ul, ol elements */
@@ -54,8 +56,8 @@ a:not([class]) {
 
 /* Make images easier to work with */
 img {
-  display: block;
   max-width: 100%;
+  display: block;
 }
 
 /* Natural flow and rhythm in articles by default */
@@ -74,9 +76,9 @@ select {
 /* Remove all animations and transitions for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
   * {
-    animation-duration: 0.01ms !important;
+    animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
     scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
   }
 }
