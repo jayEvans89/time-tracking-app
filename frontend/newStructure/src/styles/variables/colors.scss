@@ -1,10 +1,72 @@
 
 :root {
-  --background-color: #fff;
-  --text-color: #000;
+  --xiketic: #1a1826;
+  --cinder: #121018;
+  --space-cadet: #2c293e;
+  --raisin-black: #212124;
+  --electric-indigo: #6902ef;
+  --medium-purple: #9e59f2;
+  --lavender-web: #d9dfff;
+  --cool-grey: #8d90a9;
+  --off-white: #fcfcff;
+  --white: #fff;
+  --rose-madder: #dd3939;
+
+  // --trypan-blue: #3b01ab;
+  // --eerie-black: #1f1f1f;
+  // --jet: #333;
+
+  // Main color variables
+  // Nav color variables
+  // Text color variables
+  // Button color variables
+  // Border color variables
+  // Input color variables
+
+  // Background Colors
+  --color-background-primary: var(--off-white);
+  --color-background-error: rgba(211, 57, 57, .2);
+
+  // Text Colors
+  --color-text-error: var(--rose-madder);
+
+  // Border Colors
+  --color-border-primary: rgba(33, 33, 36, .4);
+  --color-border-active: var(--electric-indigo);
+  --color-border-error: var(--rose-madder);
+
+  // Text Colors
+  --color-text-primary: var(--raisin-black);
+  --color-text-placeholder: rgba(33, 33, 36, .6);
+  --color-button-text-primary: var(--white);
+  --color-button-text-secondary: var(--color-text-primary);
+
+  // Button Colors
+  --color-button-primary: var(--electric-indigo);
+
+  // Icon Colors
+  --color-icon-highlight: var(--medium-purple);
 
   @media (prefers-color-scheme: dark) {
-    --background-color: #000;
-    --text-color: #fff;
+
+    // Background Colors
+    --color-background-primary: var(--xiketic);
+    --color-background-secondary: var(--space-cadet);
+    --color-background-tertiary: var(--cinder);
+
+    // Border Colors
+    --color-border-primary: rgba(255, 255, 255, .2);
+
+    // Text Colors
+    --color-text-primary: var(--lavender-web);
+    --color-text-placeholder: var(--cool-grey);
+    --color-button-text-primary: var(--white);
+    --color-button-text-secondary: var(--color-text-primary);
+
+    // Button Colors
+    --color-button-primary: var(--electric-indigo);
+
+    // Icon Colors
+    --color-icon-highlight: var(--medium-purple);
   }
 }

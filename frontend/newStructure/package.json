@@ -1,5 +1,5 @@
 {
-  "name": "vue-app-template",
+  "name": "time-tracking-app",
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
@@ -12,18 +12,18 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.2",
+    "@vuelidate/core": "^2.0.0-alpha.34",
+    "@vuelidate/validators": "^2.0.0-alpha.26",
     "axios": "^0.23.0",
     "bootstrap": "^5.1.3",
     "pinia": "^2.0.5",
     "vue": "^3.2.23",
-    "vue-router": "^4.0.12",
-    "vuelidate": "^0.7.6"
+    "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@types/bootstrap": "^5.1.8",
     "@types/jest": "^27.0.3",
-    "@types/node": "^16.11.11",
-    "@types/vuelidate": "^0.7.15",
+    "@types/node": "^16.11.21",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
     "@vitejs/plugin-vue": "^1.10.1",
@@ -92,9 +92,13 @@
     },
     "overrides": [
       {
-        "files": ["tests/**/*.ts"],
+        "files": [
+          "tests/**/*.ts"
+        ],
         "rules": {
-          "@typescript-eslint/no-explicit-any": ["off"]
+          "@typescript-eslint/no-explicit-any": [
+            "off"
+          ]
         }
       }
     ]
@@ -114,7 +118,8 @@
         {
           "ignoreAtRules": [
             "use",
-            "forward"
+            "forward",
+            "include"
           ]
         }
       ]

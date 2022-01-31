@@ -18,5 +18,8 @@ export default defineConfig({
       '@': path.join(__dirname, 'src'),
       '@styles': path.join(__dirname, 'src/styles')
     }
+  },
+  server: {
+    port: 8081
   }
 })

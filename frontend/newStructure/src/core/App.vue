@@ -1,8 +1,8 @@
 
 <template>
-  <nav-component />
+  <!-- <nav-component />
 
-  <img class="logo" alt="Vue logo" src="@/assets/logo.png">
+  <img class="logo" alt="Vue logo" src="@/assets/logo.png"> -->
 
   <router-view v-slot="{ Component }">
     <transition name="fade" mode="out-in">

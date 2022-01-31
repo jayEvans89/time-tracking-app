@@ -1,16 +1,35 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+// import { routeGuard } from './routeGuard'
+
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: () => import('@/modules/home/HomePage.vue')
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('@/modules/about/AboutPage.vue')
+    name: 'Login',
+    component: () => import('../../modules/login/Login.vue')
   }
+  // {
+  //   path: '/',
+  //   component: () => import('../views/main/Main.vue'),
+  //   beforeEnter: routeGuard,
+  //   children: [
+  //     {
+  //       path: '/dashboard',
+  //       name: 'Dashboard',
+  //       component: () => import('../views/main/dashboard/Home.vue')
+  //     },
+  //     {
+  //       path: '/clients',
+  //       name: 'Clients',
+  //       component: () => import('../views/main/clients/Clients.vue')
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/signup',
+  //   name: 'Signup',
+  //   component: () => import('../views/sign-up/SignUp.vue')
+  // }
 ]
 
 const router = createRouter({
