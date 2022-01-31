@@ -1,0 +1,17 @@
+
+// Bootstrap styles imports
+// Only import components that you need
+// Use the extra extensions file to override any default bootstrap styles
+
+// Configuration
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/utilities';
+
+// Layout & components
+@import 'bootstrap/scss/modal';
+@import 'bootstrap/scss/spinners';
+
+// Utilities
+@import 'bootstrap/scss/utilities/api';
