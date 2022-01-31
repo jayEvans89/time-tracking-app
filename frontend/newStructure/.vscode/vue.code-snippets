@@ -1,0 +1,19 @@
+{
+  "Vue 3 Composition Typescript": {
+		"prefix": "vueInit",
+		"body": [
+			"",
+			"<template>",
+			"</template>",
+			"",
+			"<script lang=\"ts\" setup>",
+			"$1",
+			"</script>",
+			"",
+			"<style lang=\"scss\">",
+			"</style>",
+			""
+		],
+		"description": "Creates a Vue SFC using typescript, the composition API and the setup syntatic sugar"
+	}
+}

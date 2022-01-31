@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "johnsoncodehk.volar",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "editorconfig.editorconfig",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "kamikillerto.vscode-colorize",
+    "rbbit.typescript-hero",
+    "streetsidesoftware.code-spell-checker",
+    "wallabyjs.wallaby-vscode"
+  ]
+}
