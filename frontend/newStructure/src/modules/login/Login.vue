@@ -16,7 +16,7 @@
             name="email"
             placeholder="Enter email"
           >
-          <div v-show="v$.email.$error || errors.userError" class="input__error-box">
+          <div v-show="v$.email.$error || errors.userError" class="input__error-box" data-test-id="emailError">
             <p class="input__error-box-text">
               {{ emailError }}
             </p>
@@ -32,13 +32,13 @@
             name="password"
             placeholder="Enter password"
           >
-          <div v-show="v$.password.$error || errors.passwordError" class="input__error-box">
+          <div v-show="v$.password.$error || errors.passwordError" class="input__error-box" data-test-id="passwordError">
             <p class="input__error-box-text">
               {{ passwordError }}
             </p>
           </div>
         </div>
-        <button class="btn btn--primary">
+        <button class="btn btn--primary" data-test-id="submitButton">
           Submit
         </button>
       </form>

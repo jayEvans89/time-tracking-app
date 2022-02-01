@@ -46,9 +46,16 @@ const subtitle = computed(() => {
 })
 
 function saveCompanyDetails(data: any) {
-  console.log(data)
   signUpData.companyDetails = data
-  page.value = 2
+  movePageForward()
+}
+
+function movePageForward() {
+  page.value++
+}
+
+function movePageBackward() {
+  page.value--
 }
 
 </script>
