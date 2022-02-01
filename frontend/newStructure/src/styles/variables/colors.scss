@@ -25,19 +25,19 @@
 
   // Background Colors
   --color-background-primary: var(--off-white);
-  --color-background-error: rgba(211, 57, 57, .2);
+  --color-background-error: rgba(211, 57, 57, 0.2);
 
   // Text Colors
   --color-text-error: var(--rose-madder);
 
   // Border Colors
-  --color-border-primary: rgba(33, 33, 36, .4);
+  --color-border-primary: rgba(33, 33, 36, 0.4);
   --color-border-active: var(--electric-indigo);
   --color-border-error: var(--rose-madder);
 
   // Text Colors
   --color-text-primary: var(--raisin-black);
-  --color-text-placeholder: rgba(33, 33, 36, .6);
+  --color-text-placeholder: rgba(33, 33, 36, 0.6);
   --color-button-text-primary: var(--white);
   --color-button-text-secondary: var(--color-text-primary);
 
@@ -55,7 +55,7 @@
     --color-background-tertiary: var(--cinder);
 
     // Border Colors
-    --color-border-primary: rgba(255, 255, 255, .2);
+    --color-border-primary: rgba(255, 255, 255, 0.2);
 
     // Text Colors
     --color-text-primary: var(--lavender-web);

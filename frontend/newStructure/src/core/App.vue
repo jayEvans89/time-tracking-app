@@ -12,18 +12,9 @@
 </template>
 
 <script setup lang="ts">
-import NavComponent from '@/core/components/NavComponent.vue'
+
 </script>
 
 <style lang="scss">
 @use '@styles/main';
-
-.app {
-  text-align: center;
-  margin-top: 60px;
-}
-
-.logo {
-  margin: 0 auto;
-}
 </style>

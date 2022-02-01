@@ -21,5 +21,17 @@ export default defineConfig({
   },
   server: {
     port: 8081
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          login: [
+            './src/modules/login/Login.vue',
+            './src/modules/login/SignUp.vue'
+          ]
+        }
+      }
+    }
   }
 })
