@@ -3,7 +3,7 @@ import { BaseResponse } from '@/types/http/baseResponse'
 
 import http from '../http'
 
-export default class LoginService {
+class LoginService {
   async login(data: LoginData): Promise<BaseResponse> {
     const response = await http.post<BaseResponse>('/login', data)
     return response.data
@@ -19,3 +19,5 @@ export default class LoginService {
     return response.data
   }
 }
+
+export default new LoginService()

@@ -3,14 +3,17 @@
   <div class="container">
     <section class="login-page">
       <div class="login-page__title">
-        <h1>Login</h1>
+        <h1 data-test-id="title">
+          Login
+        </h1>
       </div>
-      <form @submit.prevent="validateForm">
+      <form data-test-id="loginForm" @submit.prevent="validateForm">
         <div class="input-group">
           <label :class="{ 'label--error': v$.email.$error || errors.userError }" for="email">Email</label>
           <input
             id="email"
             v-model="loginDetails.email"
+            data-test-id="emailInput"
             :class="{ 'input--error': v$.email.$error || errors.userError }"
             type="email"
             name="email"
@@ -27,6 +30,7 @@
           <input
             id="password"
             v-model="loginDetails.password"
+            data-test-id="passwordInput"
             :class="{ 'input--error': v$.password.$error || errors.passwordError }"
             type="password"
             name="password"
@@ -37,6 +41,9 @@
               {{ passwordError }}
             </p>
           </div>
+        </div>
+        <div v-show="errors.fatalError" class="input__error-box" data-test-id="fatalError">
+          <p>A fatal error has occurred please try again later</p>
         </div>
         <button class="btn btn--primary" data-test-id="submitButton">
           Submit
@@ -50,7 +57,7 @@
         </p>
         <div class="no-account__line" />
       </div>
-      <router-link to="/signup" class="btn btn--secondary">
+      <router-link to="/signup" class="btn btn--secondary" data-test-id="registerButton">
         Get Started
       </router-link>
     </section>
@@ -64,7 +71,6 @@ import { required, email } from '@vuelidate/validators'
 import LoginService from '@/services/login/loginService'
 import router from '@/core/router'
 
-const loginService = new LoginService()
 const loginDetails = reactive({
   email: '',
   password: ''
@@ -79,7 +85,8 @@ const errors = reactive({
   passwordError: false,
   passwordErrorMessage: '',
   userError: false,
-  userErrorMessage: ''
+  userErrorMessage: '',
+  fatalError: false
 })
 
 const passwordError = computed(() => {
@@ -99,7 +106,8 @@ const emailError = computed(() => {
 const v$ = useVuelidate(rules, loginDetails)
 
 async function validateForm() {
-  if (await v$.value.$validate()) {
+  const formValid = await v$.value.$validate()
+  if (formValid) {
     login()
   }
 }
@@ -107,7 +115,7 @@ async function validateForm() {
 async function login() {
   clearErrors()
   try {
-    const res = await loginService.login(loginDetails)
+    const res = await LoginService.login(loginDetails)
     if (res.status === 'success') {
       router.push('/')
       return
@@ -122,6 +130,7 @@ async function login() {
     }
   } catch (error) {
     console.log(error)
+    errors.fatalError = true
   }
 }
 
@@ -130,6 +139,7 @@ function clearErrors() {
   errors.passwordErrorMessage = ''
   errors.userError = false
   errors.userErrorMessage = ''
+  errors.fatalError = false
 }
 </script>
 
