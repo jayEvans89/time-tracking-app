@@ -6,11 +6,12 @@
       <input
         id="companyName"
         v-model="companyDetails.companyName"
+        data-test-id="companyName"
         :class="{ 'input--error': v$.companyName.$error }"
         type="text"
         name="companyName"
       >
-      <div v-show="v$.companyName.$error" class="input__error-box">
+      <div v-show="v$.companyName.$error" class="input__error-box" data-test-id="companyNameError">
         <p class="input__error-box-text">
           {{ v$.companyName.required.$message }}
         </p>
@@ -22,11 +23,12 @@
       <input
         id="companyNumber"
         v-model="companyDetails.companyNumber"
+        data-test-id="companyNumber"
         :class="{ 'input--error': v$.companyNumber.$error }"
         type="tel"
         name="companyNumber"
       >
-      <div v-show="v$.companyNumber.$error" class="input__error-box">
+      <div v-show="v$.companyNumber.$error" class="input__error-box" data-test-id="companyNumberError">
         <p class="input__error-box-text">
           {{ v$.companyNumber.required.$message }}
         </p>
@@ -38,11 +40,12 @@
       <input
         id="companyEmail"
         v-model="companyDetails.companyEmail"
+        data-test-id="companyEmail"
         :class="{ 'input--error': v$.companyEmail.$error }"
         type="email"
         name="companyEmail"
       >
-      <div v-show="v$.companyEmail.$error" class="input__error-box">
+      <div v-show="v$.companyEmail.$error" class="input__error-box" data-test-id="companyEmailError">
         <p class="input__error-box-text">
           {{ v$.companyEmail.required.$message }}
         </p>
@@ -53,17 +56,18 @@
       <input
         id="businessType"
         v-model="companyDetails.businessType"
+        data-test-id="businessType"
         :class="{ 'input--error': v$.businessType.$error }"
         type="text"
         name="businessType"
       >
-      <div v-show="v$.businessType.$error" class="input__error-box">
+      <div v-show="v$.businessType.$error" class="input__error-box" data-test-id="businessTypeError">
         <p class="input__error-box-text">
           {{ v$.businessType.required.$message }}
         </p>
       </div>
     </div>
-    <button class="btn btn--primary" @click="nextPage">
+    <button class="btn btn--primary" data-test-id="nextButton" @click="nextPage">
       Next
     </button>
   </div>

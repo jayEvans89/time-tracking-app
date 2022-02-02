@@ -26,7 +26,7 @@
 
 <script lang="ts" setup>
 import { computed, reactive, ref } from 'vue'
-import CompanyDetails from './components/sign-up-form-sections/CompanyDetails.vue'
+import CompanyDetails from './components/CompanyDetails.vue'
 
 const page = ref(1)
 const signUpData = reactive({
