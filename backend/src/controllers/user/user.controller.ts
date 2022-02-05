@@ -61,12 +61,12 @@ export default class UserController {
     })
 
     // Chceck user already signed up via email
-    const userExsits = await UserModel.findOne({ email: user.email })
+    const userExists = await UserModel.findOne({ email: user.email })
 
-    if (userExsits) {
+    if (userExists) {
       const response = {
         status: 'error',
-        message: 'A user with email already exsists, please sign in',
+        message: 'A user with email already exists, please sign in',
       }
       return response
     }

@@ -18,12 +18,12 @@ export default class SignupController {
    */
   async createNewUser(req: Request, res: Response) {
     const user = req.body.user as User
-    const company = req.body.company as Company
+    // const company = req.body.company as Company
   
     const userResponse = await userController.createUser(user)
 
     if (userResponse.status === 'success') {
-      await companyController.createCompany(company, userResponse.data._id)
+      // await companyController.createCompany(company, userResponse.data._id)
       const session = await sessionController.createSession(userResponse.data)
       const jwt = await sessionController.createJWT(userResponse.data._id)
 
@@ -51,12 +51,12 @@ export default class SignupController {
     if (!userExsits) {
       res.status(200).send({
         status: 'success',
-        message: "User doesn't exsist"
+        message: "User doesn't exists"
       })
     } else {
       res.status(200).send({
         status: 'error',
-        message: "User already exsists"
+        message: "User already exists"
       })
     }
   }

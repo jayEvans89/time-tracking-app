@@ -10,54 +10,18 @@
           <h2 class="form__title">
             Create your account
           </h2>
-          <transition name="fade">
-            <p v-show="page" class="form__sub-title">
-              {{ subtitle }}
-            </p>
-          </transition>
+          <p class="form__sub-title">
+            Please enter your details
+          </p>
         </div>
-        <transition-group name="fade">
-          <company-details v-show="page === 1" :key="1" @save-company-details="saveCompanyDetails" />
-        </transition-group>
+        <new-user />
       </form>
     </div>
   </section>
 </template>
 
 <script lang="ts" setup>
-import { computed, reactive, ref } from 'vue'
-import CompanyDetails from './components/CompanyDetails.vue'
-
-const page = ref(1)
-const signUpData = reactive({
-  companyDetails: {}
-})
-
-const subtitle = computed(() => {
-  if (page.value === 1) {
-    return 'Your company details'
-  } else if (page.value === 2) {
-    return 'Your company address'
-  } else if (page.value === 3) {
-    return 'User details'
-  } else {
-    return ''
-  }
-})
-
-function saveCompanyDetails(data: any) {
-  signUpData.companyDetails = data
-  movePageForward()
-}
-
-function movePageForward() {
-  page.value++
-}
-
-function movePageBackward() {
-  page.value--
-}
-
+import NewUser from './components/NewUser.vue'
 </script>
 
 <style lang="scss" scoped>

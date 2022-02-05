@@ -6,6 +6,7 @@
     "build": "vite build",
     "serve": "vite preview",
     "test": "jest",
+    "test:watch": "jest --watch",
     "coverage": "jest --coverage --collectCoverageFrom='./src/**'",
     "stylelint": "stylelint \"src/styles/**/*.scss\" \"src/**/*.vue\"",
     "stylelint-fix": "stylelint \"src/styles/**/*.scss\" \"src/**/*.vue\" --fix"
@@ -77,6 +78,7 @@
       "camelcase": "off",
       "space-before-function-paren": "off",
       "@typescript-eslint/camelcase": "off",
+      "@typescript-eslint/no-unused-vars": ["warn", { "ignoreRestSiblings": true }],
       "@typescript-eslint/explicit-module-boundary-types": "off",
       "vue/max-attributes-per-line": [
         "error",

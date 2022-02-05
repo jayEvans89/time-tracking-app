@@ -77,10 +77,11 @@
 import { reactive } from 'vue'
 import { required, numeric, email } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
+import { ICompanyDetails } from '@/types/user/companyDetails'
 
 const emits = defineEmits(['save-company-details'])
 
-const companyDetails = reactive({
+const companyDetails: ICompanyDetails = reactive({
   companyName: '',
   companyNumber: '',
   companyEmail: '',
