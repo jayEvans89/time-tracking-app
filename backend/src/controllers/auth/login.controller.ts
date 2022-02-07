@@ -19,8 +19,7 @@ export default class LoginController {
     if (userExists) {
       const saltRounds = 10
       const hashPassword = await bcrypt.hash(body.password, saltRounds)
-        console.log('password: ', hashPassword)
-        console.log('stored password: ', userExists.password)
+
       if (await bcrypt.compare(password, userExists.password)) {
         try {
           await this.authenticateUser(userExists, res)
@@ -42,7 +41,7 @@ export default class LoginController {
   }
 
   async authenticateUser(user: User, res: Response) {
-    let session: Session
+    let session: Session | false
     let token: string
 
     try {
@@ -52,21 +51,23 @@ export default class LoginController {
     }
 
     try {
-      token = await this.sessionController.createJWT(user.id)
+      token = await this.sessionController.createJWT(user.id, user.company_id)
     } catch (error) {
       console.log(error)
     }
-
-    return res.cookie('refreshToken', session,  {
-      expires: session.expiry,
-      httpOnly: true,
-      secure: false,
-    }).status(201).send({
-      status: 'success',
-      message: 'Login accepted',
-      data: user,
-      token: token
-    })
+    console.log('session: ', session)
+    if (session !== false) {
+      return res.cookie('refreshToken', session,  {
+        expires: session.expiry,
+        httpOnly: true,
+        secure: false,
+      }).status(201).send({
+        status: 'success',
+        message: 'Login accepted',
+        data: user,
+        token: token
+      })
+    }
   }
 
   async logout(req: Request, res: Response) {
@@ -74,7 +75,7 @@ export default class LoginController {
     const sessionId = cookie._id
     await this.sessionController.removeSession(sessionId)
     return res.status(200).send({
-      status: 'Success',
+      status: 'success',
       message: 'Session removed. Logout'
     })
   }

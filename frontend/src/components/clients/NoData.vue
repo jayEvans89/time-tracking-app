@@ -5,23 +5,24 @@
     <h2>You currently dont have any clients</h2>
     <h2>Click below to get started</h2>
     <div class="no-data__button-container">
-      <button class="btn btn--primary">Get Started</button>
+      <button class="btn btn--primary" @click="createClient">Get Started</button>
     </div>
   </section>
 </template>
 
 <style lang="scss">
 .no-data {
-  text-align: center;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
   flex-direction: column;
-  width: 100%;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 700px;
+  text-align: center;
 
   &__icon {
-    width: 245px;
     margin-bottom: 80px;
+    width: 245px;
 
     path {
       fill: var(--color-icon-highlight);
@@ -33,8 +34,8 @@
   }
 
   &__button-container {
-    width: 70%;
     margin: 0 auto;
+    width: 70%;
   }
 }
 </style>
@@ -46,7 +47,12 @@ import CustomerIcon from '@/components/shared/icons/CustomerIcon.vue'
 @Options({
   components: {
     CustomerIcon
-  }
+  },
+  name: 'Clients No Data'
 })
-export default class NoClients extends Vue {}
+export default class NoClients extends Vue {
+  createClient() {
+    this.$store.commit('addModal', 'createClient')
+  }
+}
 </script>

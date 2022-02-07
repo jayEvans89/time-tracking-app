@@ -5,9 +5,7 @@ import { UserModel } from '../models/user/user.model';
 let database: Mongoose.Connection;
 
 export const connect = () => {
-  // add your own uri below
-  const uri =
-    'mongodb://localhost:27017/timeTrackingApp';
+  const uri = 'mongodb://localhost:27017/timeTrackingApp';
 
   if (database) {
     return;
@@ -15,7 +13,7 @@ export const connect = () => {
 
   Mongoose.connect(uri, {
     useNewUrlParser: true,
-    useFindAndModify: true,
+    useFindAndModify: false,
     useUnifiedTopology: true,
     useCreateIndex: true,
   });

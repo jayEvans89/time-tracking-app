@@ -27,7 +27,6 @@ export default class UserController {
         })
       }
     })
-    console.log('user: ', user)
   }
 
   /**
@@ -77,7 +76,12 @@ export default class UserController {
     await user.save()
 
     // Create the user
-    const userData = await UserModel.create(user)
+    let userData
+    try {
+      userData = await UserModel.create(user)
+    } catch (error) {
+      console.log(error)
+    }
 
     const response = {
       status: 'success',
@@ -94,7 +98,8 @@ export default class UserController {
     await UserModel.findByIdAndUpdate({ _id: id }, {
       first_name: body.first_name,
       last_name: body.last_name,
-      email: body.email
+      email: body.email,
+      company_id: body.company_id
     },
       {
         new: true,
@@ -106,11 +111,8 @@ export default class UserController {
             message: 'The user could not be updated'
           })
         } else {
-
           const updatedUser = result
           delete updatedUser.password
-
-          console.log(updatedUser)
 
           res.status(200).send({
             status: 'success',

@@ -2,9 +2,10 @@
 
 html,
 body {
-  overflow-x: hidden;
   background: var(--color-background-primary);
   color: var(--color-text-primary);
+  overflow-x: hidden;
+  position: relative;
 }
 
 main {
@@ -13,12 +14,12 @@ main {
 }
 
 .container {
-  width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  padding: 0 30px;
   display: flex;
   justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 30px;
+  width: 100%;
 
   @include breakpoint.min(sm) {
     width: 540px;

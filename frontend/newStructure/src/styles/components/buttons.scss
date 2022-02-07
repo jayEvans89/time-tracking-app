@@ -1,16 +1,16 @@
 
 button,
 .btn {
-  appearance: none;
-  width: 100%;
-  display: flex;
   align-items: center;
-  justify-content: center;
+  appearance: none;
   border-radius: 6px;
-  padding: 10px 0;
   cursor: pointer;
-  transition: 250ms ease-in-out;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
   text-decoration: none;
+  transition: 250ms ease-in-out;
+  width: 100%;
 
   &:focus {
     outline: 0;
@@ -22,29 +22,36 @@ button,
 
   &--primary {
     background: var(--color-button-primary);
-    color: var(--color-button-text-primary);
     border: 1px solid var(--color-button-primary);
+    color: var(--color-button-text-primary);
 
     &:hover {
       background: transparent;
       border-color: var(--color-button-primary);
       color: var(--color-button-text-secondary);
     }
-
-    // &:focus {
-    //   opacity: .8;
-    // }
   }
 
   &--secondary {
     background: var(--color-button-secondary);
-    color: var(--color-button-text-secondary);
     border: 1px solid var(--color-button-primary);
+    color: var(--color-button-text-secondary);
 
     &:hover {
       background: var(--color-button-primary);
       color: var(--color-button-text-primary);
     }
+  }
+
+  &--inline {
+    display: inline-flex;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: auto;
+  }
+
+  &--small {
+    max-height: 40px;
   }
 }
 

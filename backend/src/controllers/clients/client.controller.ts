@@ -89,8 +89,8 @@ export default class ClientController {
    * @param res 
    */
   async getAllFull(req: Request, res: Response) {
-    const userId = req.params.id
-    const clients = await ClientModel.find({ userId: userId })
+    const id = req.params.id
+    const clients = await ClientModel.find({ companyId: id })
     res.status(200).send({
       status: 'success',
       message: 'Got all clients',
@@ -104,14 +104,16 @@ export default class ClientController {
    * @param res 
    */
   async getAllNames(req: Request, res: Response) {
-    const userId = req.params.id
-    const clients = await ClientModel.find({ userId: userId }, { name: 1 })
+    const id = req.params.id
+    const clients = await ClientModel.find({ companyId: id }, { name: 1, _id: 1 })
     res.status(200).send({
       status: 'success',
       message: 'Got all clients',
       data: clients
     })
   }
+
+  // Below needs to be in it's own class
   // Create contact
   // Update contact
   // Delete contact

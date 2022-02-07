@@ -39,10 +39,13 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
+import { Options, Vue, prop } from 'vue-class-component'
 
 class Props {
-  classModifier!: string
+  classModifier = prop({
+    type: String,
+    default: ''
+  })
 }
 
 @Options({})

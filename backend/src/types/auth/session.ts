@@ -13,6 +13,9 @@ export interface Session extends Document {
 
   /** The id of the user that the session belongs to */
   userId: string;
+
+  /** The id of the company the user belongs to */
+  companyId: string
 }
 
 export interface SessionValidation {

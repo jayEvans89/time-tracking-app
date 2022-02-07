@@ -19,13 +19,13 @@ export interface Client extends Document {
 
 export interface ClientAddress {
   /** Address line 1 */
-  address_line_1: string;
+  addressLine1: string;
 
   /** Address line 2 */
-  addres_line_2: string;
+  addresLine2: string;
 
   /** The town or city */
-  town_city: string;
+  townCity: string;
 
   /** The county */
   county: string;
@@ -45,8 +45,8 @@ export interface ClientContact {
   email: string;
 
   /** Contact mobile number */
-  mobile_number: number;
+  mobileNumber: number;
 
   /** Contacts office number */
-  office_number: string;
+  officeNumber: string;
 }

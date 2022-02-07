@@ -13,11 +13,15 @@ login.post('/', (req, res) => {
 
 login.post('/auth', (req, res) => {
   sessionController.validateSession(req, res).then((response) => {
-    if (response.status === 'Success') {
+    if (response.status === 'success') {
       return res.status(201).send({
         status: response.status,
         message: response.message,
-        token: response.token
+        token: response.token,
+        response: {
+          userId: req.cookies.refreshToken.userId,
+          companyId: req.cookies.refreshToken.companyId
+        }
       })
     } else {
       return res.status(201).send({

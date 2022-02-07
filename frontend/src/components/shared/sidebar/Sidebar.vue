@@ -5,18 +5,18 @@
       <ul class="navbar">
         <router-link
           class="navbar__item"
-          exact-active-class="navbar__item--active"
+          active-class="navbar__item--active"
           tag="li"
           to="/dashboard"
           >Dashboard</router-link
         >
         <router-link
           class="navbar__item"
-          exact-active-class="navbar__item--active"
+          active-class="navbar__item--active"
           tag="li"
           to="/clients"
         >
-          <customer-icon class-modifier="navbar__item-icon"></customer-icon>
+          <customer-icon :class-modifier="'navbar__item-icon'"></customer-icon>
           Clients</router-link
         >
       </ul>
@@ -28,7 +28,8 @@
 <style lang="scss">
 .sidebar {
   background: var(--color-background-tertiary);
-  width: 330px;
+  flex: 0 0 280px;
+  width: 280px;
 }
 
 .navbar {
@@ -37,10 +38,11 @@
   margin: 100px 25px 0;
 
   &__item {
-    padding: 30px 120px 30px 25px;
+    align-items: center;
     cursor: pointer;
     display: flex;
-    align-items: center;
+    padding: 20px 100px 20px 25px;
+    text-decoration: none;
     transition: 250ms ease-in-out;
 
     &:hover {
@@ -54,8 +56,8 @@
     }
 
     &--active {
-      border-radius: 8px;
       background: var(--color-background-secondary);
+      border-radius: 8px;
 
       &:hover {
         color: var(--color-text-primary);
@@ -71,9 +73,9 @@
 
   &__item-icon {
     display: block;
-    margin-right: 25px;
-    width: 30px;
     height: 26px;
+    margin-right: 15px;
+    width: 25px;
 
     path {
       transition: 250ms ease-in-out;
@@ -90,7 +92,8 @@ import LoginService from '@/services/login/login'
 @Options({
   components: {
     CustomerIcon
-  }
+  },
+  name: 'Sidebar'
 })
 export default class Sidebar extends Vue {
   get isAuthed() {
