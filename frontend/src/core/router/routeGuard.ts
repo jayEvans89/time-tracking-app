@@ -5,32 +5,33 @@ import { useAuthStore } from '../store/authStore'
 
 export async function routeGuard(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) {
   const authStore = useAuthStore()
-  let isAuthenticated = false
-
-  if (authStore.token) {
-    isAuthenticated = true
-  }
+  const isAuthenticated = authStore.token !== ''
 
   if (isAuthenticated) {
     if (to.fullPath === '/login') {
       next('/')
-    } else {
-      next()
+      return
     }
-  } else {
-    try {
-      const response = await loginService.checkSession()
-      if (response.status === 'success') {
-        if (to.fullPath === '/login') {
-          next('/')
-        } else {
-          next()
-        }
-        return
-      }
-    } catch (error) {
-      console.log(error)
+
+    next()
+    return
+  }
+
+  try {
+    const res = await loginService.checkSession()
+    if (res.status !== 'success') {
       next('/login')
+      return
     }
+
+    if (to.fullPath !== '/login') {
+      next()
+      return
+    }
+
+    next('/')
+  } catch (error) {
+    console.log(error)
+    next('/login')
   }
 }

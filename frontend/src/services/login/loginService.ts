@@ -14,8 +14,8 @@ class LoginService {
     return res.data
   }
 
-  async logout() {
-    const response = await http.post('/logout')
+  async logout(): Promise<BaseResponse> {
+    const response = await http.post<BaseResponse>('/logout')
     return response.data
   }
 }

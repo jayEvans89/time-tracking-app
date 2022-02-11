@@ -6,7 +6,6 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/login',
     name: 'Login View',
-    beforeEnter: routeGuard,
     component: () => import('@/core/layouts/LoginLayout.vue'),
     children: [
       {
