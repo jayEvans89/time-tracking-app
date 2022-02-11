@@ -17,7 +17,7 @@ export default class SignupController {
    * @param res 
    */
   async createNewUser(req: Request, res: Response) {
-    const user = req.body.user as User
+    const user = req.body as User
     // const company = req.body.company as Company
   
     const userResponse = await userController.createUser(user)
@@ -25,7 +25,8 @@ export default class SignupController {
     if (userResponse.status === 'success') {
       // const newCompany = await companyController.createCompany(company, userResponse.data._id)
 
-      const updatedUser = await UserModel.findOneAndUpdate({ _id: userResponse.data._id }, { company_id: newCompany.data._id }, { new: true })
+      // const updatedUser = await UserModel.findOneAndUpdate({ _id: userResponse.data._id }, { company_id: newCompany.data._id }, { new: true })
+      const updatedUser = await UserModel.findOneAndUpdate({ _id: userResponse.data._id }, { new: true })
 
       const session = await sessionController.createSession(updatedUser)
 

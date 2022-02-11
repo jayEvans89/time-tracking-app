@@ -27,13 +27,13 @@ export default class LoginController {
           console.log(error)
         }
       } else {
-        res.status(201).send({
+        res.status(200).send({
           status: 'Password Error',
           message: 'Incorrect Password'
         })
       }
     } else {
-      res.status(201).send({
+      res.status(200).send({
         status: 'User Error',
         message: 'No user found'
       })
@@ -61,7 +61,7 @@ export default class LoginController {
         expires: session.expiry,
         httpOnly: true,
         secure: false,
-      }).status(201).send({
+      }).status(200).send({
         status: 'success',
         message: 'Login accepted',
         data: user,

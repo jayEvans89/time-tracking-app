@@ -51,10 +51,10 @@ export default class UserController {
    */
   async createUser(newUser: User): Promise<CreateUserResponse> {
     const body = newUser
-
+    console.log(newUser)
     const user: User = new UserModel({
-      first_name: body.first_name,
-      last_name: body.last_name,
+      firstName: body.firstName,
+      lastName: body.lastName,
       email: body.email,
       password: body.password
     })
@@ -96,8 +96,8 @@ export default class UserController {
     const id = req.body._id
 
     await UserModel.findByIdAndUpdate({ _id: id }, {
-      first_name: body.first_name,
-      last_name: body.last_name,
+      first_name: body.firstName,
+      last_name: body.lastName,
       email: body.email,
       company_id: body.company_id
     },

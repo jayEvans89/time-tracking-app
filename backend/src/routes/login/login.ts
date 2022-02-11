@@ -14,7 +14,7 @@ login.post('/', (req, res) => {
 login.post('/auth', (req, res) => {
   sessionController.validateSession(req, res).then((response) => {
     if (response.status === 'success') {
-      return res.status(201).send({
+      return res.status(200).send({
         status: response.status,
         message: response.message,
         token: response.token,
@@ -24,7 +24,7 @@ login.post('/auth', (req, res) => {
         }
       })
     } else {
-      return res.status(201).send({
+      return res.status(401).send({
         status: response.status,
         message: response.message,
         token: response.token

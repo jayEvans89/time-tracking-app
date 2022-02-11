@@ -1,35 +1,56 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
-// import { routeGuard } from './routeGuard'
+import { routeGuard } from './routeGuard'
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
-    path: '/',
-    name: 'Login',
-    component: () => import('@/modules/login/Login.vue')
+    path: '/login',
+    name: 'Login View',
+    beforeEnter: routeGuard,
+    component: () => import('@/core/layouts/LoginLayout.vue'),
+    children: [
+      {
+        path: '/login',
+        name: 'Login',
+        component: () => import('@/modules/login/Login.vue')
+      },
+      {
+        path: '/signup',
+        name: 'Signup',
+        component: () => import('@/modules/login/SignUp.vue')
+      }
+    ]
   },
   {
-    path: '/signup',
-    name: 'Signup',
-    component: () => import('@/modules/login/SignUp.vue')
+    path: '/',
+    beforeEnter: routeGuard,
+    component: () => import('@/core/layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '/',
+        name: 'Dashboard',
+        component: () => import('@/modules/dashboard/views/DashboardView.vue')
+      },
+      {
+        path: '/clients',
+        name: 'Clients',
+        component: () => import('@/modules/client/views/ClientsView.vue'),
+        children: [
+          {
+            path: '',
+            name: 'Client List',
+            component: () => import('@/modules/client/views/ClientList.vue')
+          },
+          {
+            path: ':id',
+            name: 'Client Details',
+            component: () => import('@/modules/client/views/ClientDetails.vue'),
+            props: true
+          }
+        ]
+      }
+    ]
   }
-  // {
-  //   path: '/',
-  //   component: () => import('../views/main/Main.vue'),
-  //   beforeEnter: routeGuard,
-  //   children: [
-  //     {
-  //       path: '/dashboard',
-  //       name: 'Dashboard',
-  //       component: () => import('../views/main/dashboard/Home.vue')
-  //     },
-  //     {
-  //       path: '/clients',
-  //       name: 'Clients',
-  //       component: () => import('../views/main/clients/Clients.vue')
-  //     }
-  //   ]
-  // },
 ]
 
 const router = createRouter({

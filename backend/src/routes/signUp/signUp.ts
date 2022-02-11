@@ -9,6 +9,7 @@ const signupController = new SignupController()
  * Creates a new user and company
  */
 signUp.post('/newUser', (req, res) => {
+  console.log(req)
   signupController.createNewUser(req, res)
   // const user = JSON.parse(req.body.user)
   // const company = JSON.parse(req.body.company)

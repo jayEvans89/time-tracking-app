@@ -25,8 +25,7 @@ export default class SessionController {
     const refreshToken: Session = new SessionModel({
       token: token,
       expiry: expiry,
-      userId: user.id,
-      companyId: user.company_id
+      userId: user.id
     })
 
     try {
@@ -125,11 +124,10 @@ export default class SessionController {
    * Creates a new JWT
    * @param userId The user id to create a new JWT 
    */
-  async createJWT(userId: string, companyId: string) {
+  async createJWT(userId: string, companyId?: string) {
     const payload = {
       user: {
-        id: userId,
-        companyId: companyId
+        id: userId
       }
     }
 
@@ -197,7 +195,7 @@ export default class SessionController {
       } else {
         let token = ''
         try {
-          token = await this.createJWT(req.cookies.refreshToken.userId, req.cookies.refreshToken.companyId)
+          token = await this.createJWT(req.cookies.refreshToken.userId)
         } catch (error) {
           console.log(error)
         }

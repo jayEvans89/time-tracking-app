@@ -3,10 +3,10 @@ import { Document } from 'mongoose'
 
 export interface User extends Document {
   /** First name of a user */
-  first_name: string
+  firstName: string
 
   /** Last name of a user */
-  last_name: string
+  lastName: string
 
   /** The users email address */
   email: string

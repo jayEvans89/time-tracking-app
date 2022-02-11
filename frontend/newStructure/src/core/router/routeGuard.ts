@@ -1,12 +1,10 @@
-import LoginService from '@/services/login/loginService'
+import loginService from '@/services/login/loginService'
 import { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 
 import { useAuthStore } from '../store/authStore'
 
-const loginService = new LoginService()
-const authStore = useAuthStore()
-
 export async function routeGuard(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) {
+  const authStore = useAuthStore()
   let isAuthenticated = false
 
   if (authStore.token) {
@@ -14,7 +12,6 @@ export async function routeGuard(to: RouteLocationNormalized, from: RouteLocatio
   }
 
   if (isAuthenticated) {
-    console.log(to.fullPath)
     if (to.fullPath === '/login') {
       next('/')
     } else {
@@ -23,8 +20,7 @@ export async function routeGuard(to: RouteLocationNormalized, from: RouteLocatio
   } else {
     try {
       const response = await loginService.checkSession()
-
-      if (response.status === 'Success') {
+      if (response.status === 'success') {
         if (to.fullPath === '/login') {
           next('/')
         } else {
@@ -34,8 +30,7 @@ export async function routeGuard(to: RouteLocationNormalized, from: RouteLocatio
       }
     } catch (error) {
       console.log(error)
+      next('/login')
     }
-
-    next('/login')
   }
 }

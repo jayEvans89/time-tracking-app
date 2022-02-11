@@ -18,7 +18,7 @@ const sessionSchema: Schema = new Schema ({
   },
   companyId: {
     type: String,
-    required: true
+    required: false
   }
 },
 {
