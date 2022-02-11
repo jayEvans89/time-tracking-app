@@ -1,29 +1,31 @@
+
 label {
   display: block;
   margin-bottom: 15px;
   text-transform: capitalize;
+  text-align: left;
 }
 
 input {
   appearance: none;
+  border-radius: 6px;
+  padding: 10px;
   background: transparent !important;
   border: 1px solid var(--color-border-primary);
-  border-radius: 6px;
-  color: var(--color-text-primary);
   outline: 0;
-  padding: 10px;
-  transition: 250ms ease-in-out;
+  color: var(--color-text-primary);
   width: 100%;
+  transition: 250ms ease-in-out;
 
   &::placeholder {
     color: var(--color-text-placeholder);
   }
 
   &:focus {
-    background: var(--color-background-tertiary);
+    outline: 0;
     border-color: var(--color-border-active);
     caret-color: var(--color-secondary);
-    outline: 0;
+    background: var(--color-background-tertiary);
   }
 
   &:hover {
@@ -32,10 +34,10 @@ input {
 }
 
 .input-group {
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 
   &:last-of-type {
-    margin-bottom: 15px;
+    margin-bottom: 50px;
   }
 }
 
@@ -53,16 +55,11 @@ input {
   &__error-box {
     background: var(--color-background-error);
     border-radius: 6px;
-    margin-top: 15px;
     padding: 15px;
+    margin-top: 15px;
   }
 
   &__error-box-text {
     color: var(--color-text-error);
-
-    a {
-      color: var(--color-text-error);
-      font-weight: 900;
-    }
   }
 }
