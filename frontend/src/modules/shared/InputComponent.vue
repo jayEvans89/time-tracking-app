@@ -7,7 +7,7 @@
       :value="modelValue"
       :data-test-id="testId"
       :class="{ 'input--error': hasError }"
-      :type="inputType"
+      :type="type"
       :name="name"
       @input="emitValue"
     >
@@ -29,9 +29,10 @@ interface Props {
   label: string;
   name: string;
   testId: string;
-  inputType: string;
-  errorMessages: ErrorObject[];
+  type: string;
+  errorMessages?: ErrorObject[];
   modelValue: string;
+  placeholder?: string;
 }
 
 defineProps<Props>()

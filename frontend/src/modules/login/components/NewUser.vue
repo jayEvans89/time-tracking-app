@@ -6,7 +6,7 @@
       label="First Name"
       name="firstName"
       :has-error="v$.firstName.$error"
-      input-type="text"
+      type="text"
       test-id="firstName"
       :error-messages="v$.firstName.$errors"
     />
@@ -16,7 +16,7 @@
       label="Last Name"
       name="lastName"
       :has-error="v$.lastName.$error"
-      input-type="text"
+      type="text"
       test-id="lastName"
       :error-messages="v$.lastName.$errors"
     />
@@ -26,7 +26,7 @@
       label="Email"
       name="email"
       :has-error="emailErrors.error"
-      input-type="email"
+      type="email"
       test-id="email"
       :error-messages="emailErrors.errorMessages"
     />
@@ -36,7 +36,7 @@
       label="Password"
       name="password"
       :has-error="v$.password.$error"
-      input-type="password"
+      type="password"
       test-id="password"
       :error-messages="v$.password.$errors"
     />
@@ -46,7 +46,7 @@
       label="Confirm Password"
       name="confirmPassword"
       :has-error="v$.confirmPassword.$error"
-      input-type="password"
+      type="password"
       test-id="confirmPassword"
       :error-messages="v$.confirmPassword.$errors"
     />

@@ -8,10 +8,14 @@ body {
   position: relative;
 }
 
-main {
+.main {
   min-height: 100vh;
   position: relative;
   display: flex;
+
+  &__content {
+    flex: 1;
+  }
 }
 
 .container {

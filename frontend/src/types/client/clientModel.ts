@@ -2,10 +2,10 @@ import { BaseResponse } from '@/types/http/baseResponse'
 
 export interface ClientAddress {
   /** Client 1st line of address */
-  addressLine1: string;
+  address1: string;
 
   /** Clients 2nd line of address */
-  addressLine2: string;
+  address2: string;
 
   /** Clients county */
   county: string;

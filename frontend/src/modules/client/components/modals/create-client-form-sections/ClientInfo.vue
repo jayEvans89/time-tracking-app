@@ -1,124 +1,127 @@
 
 <template>
   <div class="row">
-    <input-field
-      :type="'text'"
-      :name="'name'"
-      :label="'Name'"
-      :placeholder="'Enter clients name'"
-      :required="true"
-      ref="clientName"
-    ></input-field>
-    <input-field
-      :type="'text'"
-      :name="'address1'"
-      :label="'Address 1'"
-      :placeholder="'Enter address line 1'"
-      :required="true"
-      ref="address1"
-    ></input-field>
+    <input-component
+      v-model="clientInfo.clientName"
+      label="Name"
+      name="name"
+      type="text"
+      placeholder="Enter clients name"
+      test-id="name"
+      :has-error="v$.clientName.$error"
+      :error-messages="v$.clientName.$errors"
+    />
+    <input-component
+      v-model="clientInfo.address1"
+      label="Address 1"
+      name="address1"
+      type="text"
+      placeholder="Enter address line 1"
+      test-id="address1"
+      :has-error="v$.address1.$error"
+      :error-messages="v$.address1.$errors"
+    />
   </div>
   <div class="row">
-    <input-field
-      :type="'text'"
-      :name="'address2'"
-      :label="'Address 2'"
-      :placeholder="'Enter address line 2'"
-      ref="address2"
-    ></input-field>
-    <input-field
-      :type="'text'"
-      :name="'county'"
-      :label="'County/State'"
-      :placeholder="'Enter county/state'"
-      :required="true"
-      ref="county"
-    ></input-field>
+    <input-component
+      v-model="clientInfo.address2"
+      label="Address 2"
+      name="address2"
+      type="text"
+      placeholder="Enter address line 2"
+      test-id="address2"
+      :has-error="false"
+    />
+    <input-component
+      v-model="clientInfo.county"
+      label="County"
+      name="county"
+      type="text"
+      placeholder="Enter county"
+      test-id="county"
+      :has-error="v$.county.$error"
+      :error-messages="v$.county.$errors"
+    />
   </div>
   <div class="row">
-    <input-field
-      :type="'text'"
-      :name="'town'"
-      :label="'Town/City'"
-      :placeholder="'Enter town/city'"
-      :required="true"
-      ref="town"
-    ></input-field>
-    <input-field
-      :type="'text'"
-      :name="'postcode'"
-      :label="'Postcode/Zipcode'"
-      :placeholder="'Enter postcode/zipcode'"
-      :required="true"
-      ref="postcode"
-    ></input-field>
+    <input-component
+      v-model="clientInfo.town"
+      label="Town"
+      name="town"
+      type="text"
+      placeholder="Enter town/city"
+      test-id="town"
+      :has-error="v$.town.$error"
+      :error-messages="v$.town.$errors"
+    />
+    <input-component
+      v-model="clientInfo.postcode"
+      label="Postcode"
+      name="postcode"
+      type="text"
+      placeholder="Enter postcode"
+      test-id="postcode"
+      :has-error="v$.postcode.$error"
+      :error-messages="v$.postcode.$errors"
+    />
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component'
-import InputField from '@/components/shared/form/Input.vue'
-import FormValidation from '@/components/shared/form/ValidationMethod'
-import { DefineComponent } from 'vue'
+<script lang="ts" setup>
+import { reactive } from 'vue'
+import { required } from '@vuelidate/validators'
+import useVuelidate from '@vuelidate/core'
+import InputComponent from '@/modules/shared/InputComponent.vue'
+import { FormResponse } from '@/types/form/formResponse'
+import { NewClientInfo } from '@/types/client/newClient'
 
-@Options({
-  name: 'Client Info Form',
-  components: {
-    InputField
-  }
+const clientInfo = reactive({
+  clientName: '',
+  address1: '',
+  address2: '',
+  county: '',
+  town: '',
+  postcode: ''
 })
-export default class ClientInfoSection extends Vue {
-  async validate() {
-    const components = [
-      this.$refs.clientName,
-      this.$refs.address1,
-      this.$refs.address2,
-      this.$refs.county,
-      this.$refs.town,
-      this.$refs.postcode
-    ] as Array<DefineComponent>
 
-    const res = await FormValidation.validate(components)
-
-    if (res.valid) {
-      return {
-        valid: true,
-        page: 1,
-        data: res.data,
-        type: 'info'
-      }
-    } else {
-      return {
-        valid: false,
-        page: 1,
-        data: res.data,
-        type: 'info'
-      }
-    }
+const validation = {
+  clientName: {
+    required
+  },
+  address1: {
+    required
+  },
+  county: {
+    required
+  },
+  town: {
+    required
+  },
+  postcode: {
+    required
   }
 }
+
+const v$ = useVuelidate(validation, clientInfo)
+
+async function validate(): Promise<FormResponse<NewClientInfo>> {
+  const formValid = await v$.value.$validate()
+
+  if (!formValid) {
+    return {
+      valid: false,
+      data: null
+    }
+  }
+
+  return {
+    valid: true,
+    data: clientInfo
+  }
+}
+
+defineExpose({
+  validate
+})
+
 </script>
-
-<style scoped lang="scss">
-@use '@/styles/mixins/breakpoint' as breakpoint;
-
-.row {
-  display: flex;
-  flex-direction: column;
-
-  @include breakpoint.min(lg) {
-    flex-direction: row;
-  }
-
-  > * {
-    flex-basis: 100%;
-
-    + * {
-      @include breakpoint.min(lg) {
-        margin-bottom: 30px;
-        margin-left: 30px;
-      }
-    }
-  }
-}
-</style>

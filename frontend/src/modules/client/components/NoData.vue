@@ -1,14 +1,22 @@
 
 <template>
   <section class="no-data">
-    <customer-icon class-modifier="no-data__icon"></customer-icon>
-    <h2>You currently dont have any clients</h2>
-    <h2>Click below to get started</h2>
-    <div class="no-data__button-container">
-      <button class="btn btn--primary" @click="createClient">Get Started</button>
+    <customer-icon class-modifier="no-data__icon" />
+    <div class="no-data__content">
+      <h2>You currently don't have any clients</h2>
+      <h2>Click below to get started</h2>
+      <div class="no-data__button-container">
+        <button class="btn btn--primary" data-bs-toggle="modal" data-bs-target="#createClient">
+          Get Started
+        </button>
+      </div>
     </div>
   </section>
 </template>
+
+<script lang="ts" setup>
+import CustomerIcon from '@/modules/client/components/icons/CustomerIcon.vue'
+</script>
 
 <style lang="scss">
 .no-data {
@@ -16,9 +24,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 auto;
-  max-width: 700px;
+  width: 100%;
+  height: 100%;
   text-align: center;
+
+  &__content {
+    max-width: 700px;
+  }
 
   &__icon {
     margin-bottom: 80px;
@@ -39,20 +51,3 @@
   }
 }
 </style>
-
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component'
-import CustomerIcon from '@/components/shared/icons/CustomerIcon.vue'
-
-@Options({
-  components: {
-    CustomerIcon
-  },
-  name: 'Clients No Data'
-})
-export default class NoClients extends Vue {
-  createClient() {
-    this.$store.commit('addModal', 'createClient')
-  }
-}
-</script>
