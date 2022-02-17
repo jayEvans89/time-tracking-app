@@ -1,19 +1,21 @@
 
 <template>
-  <div
-    :id="modalId"
-    ref="modalContainer"
-    class="modal fade"
-    data-test-id="modal"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <slot />
+  <teleport to="body">
+    <div
+      :id="modalId"
+      ref="modalContainer"
+      class="modal fade"
+      data-test-id="modal"
+    >
+      <div :class="['modal-dialog', ` modal-${modalSize}`]">
+        <div class="modal-content">
+          <div class="modal-body">
+            <slot />
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </teleport>
 </template>
 
 <script lang="ts" setup>
@@ -62,3 +64,28 @@ onMounted(() => {
 })
 
 </script>
+
+<style lang="scss">
+.modal-content {
+  background: var(--color-background-secondary);
+}
+
+.modal {
+  &__title {
+    font-size: 40px;
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  &__subtitle {
+    font-size: 30px;
+    margin-bottom: 15px;
+  }
+
+  hr {
+    border: 1px solid var(--color-border-primary);
+    margin: 15px 0 30px;
+    width: 100%;
+  }
+}
+</style>

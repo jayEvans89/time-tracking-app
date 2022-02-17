@@ -4,19 +4,17 @@
     <h1 class="modal__title">
       Create a New Client
     </h1>
-    <div class="modal__body">
-      <h2 class="modal__subtitle">
-        Client Info
-      </h2>
-      <client-info ref="clientInfoComponent" />
-      <hr>
-      <h2 class="modal__subtitle">
-        Contact Info
-      </h2>
-      <contact-info ref="contactInfoComponent" />
-    </div>
-    <div class="modal__button-container">
-      <button class="btn btn--secondary" data-bs-close>
+    <h2 class="modal__subtitle">
+      Client Info
+    </h2>
+    <client-info ref="clientInfoComponent" />
+    <hr>
+    <h2 class="modal__subtitle">
+      Contact Info
+    </h2>
+    <contact-info ref="contactInfoComponent" />
+    <div class="button-container button-container--margin-top">
+      <button class="btn btn--secondary" data-bs-dismiss="modal">
         Cancel
       </button>
       <button class="btn btn--primary" @click="validate">
@@ -27,7 +25,7 @@
 </template>
 
 <script lang="ts" setup>
-import Modal from '@/components/shared/modal/Modal.vue'
+import Modal from '@/modules/shared/modal/ModalComponent.vue'
 import ClientInfo from '@/modules/client/components/modals/create-client-form-sections/ClientInfo.vue'
 import ContactInfo from '@/modules/client/components/modals/create-client-form-sections/ContactInfo.vue'
 import ClientService from '@/services/client/clientService'
