@@ -17,8 +17,6 @@ export default class LoginController {
     const userExists = await UserModel.findOne({ email: email})
 
     if (userExists) {
-      const saltRounds = 10
-      const hashPassword = await bcrypt.hash(body.password, saltRounds)
 
       if (await bcrypt.compare(password, userExists.password)) {
         try {
@@ -51,11 +49,13 @@ export default class LoginController {
     }
 
     try {
-      token = await this.sessionController.createJWT(user.id, user.company_id)
+      token = await this.sessionController.createJWT(user.id)
     } catch (error) {
       console.log(error)
     }
-    console.log('session: ', session)
+    
+    const { password, ...strippedData } = user.toObject()
+
     if (session !== false) {
       return res.cookie('refreshToken', session,  {
         expires: session.expiry,
@@ -64,7 +64,7 @@ export default class LoginController {
       }).status(200).send({
         status: 'success',
         message: 'Login accepted',
-        data: user,
+        data: strippedData,
         token: token
       })
     }

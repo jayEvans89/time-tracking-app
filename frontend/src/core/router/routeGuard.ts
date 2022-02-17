@@ -24,6 +24,8 @@ export async function routeGuard(to: RouteLocationNormalized, from: RouteLocatio
       return
     }
 
+    authStore.setUserId(res.userId)
+
     if (to.fullPath !== '/login') {
       next()
       return

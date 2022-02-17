@@ -70,6 +70,9 @@ import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
 import LoginService from '@/services/login/loginService'
 import router from '@/core/router'
+import { useAuthStore } from '@/core/store/authStore'
+
+const authStore = useAuthStore()
 
 const loginDetails = reactive({
   email: '',
@@ -117,6 +120,7 @@ async function login() {
   try {
     const res = await LoginService.login(loginDetails)
     if (res.status === 'success') {
+      authStore.setUserId(res.data._id)
       router.push('/')
       return
     }

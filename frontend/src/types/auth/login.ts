@@ -1,4 +1,5 @@
 import { BaseResponse } from '../http/baseResponse'
+import { User } from '../user/user'
 
 export interface LoginData {
   /** The users email */
@@ -9,5 +10,5 @@ export interface LoginData {
 }
 
 export interface LoginResponse extends BaseResponse {
-  data?: object; // TODO: Add correct type
+  data: User;
 }

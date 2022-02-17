@@ -15,7 +15,7 @@ const clientSchema: Schema = new Schema ({
   description: {
     type: String
   },
-  companyId: {
+  userId: {
     type: String,
     required: true
   },

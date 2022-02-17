@@ -19,8 +19,7 @@ login.post('/auth', (req, res) => {
         message: response.message,
         token: response.token,
         response: {
-          userId: req.cookies.refreshToken.userId,
-          companyId: req.cookies.refreshToken.companyId
+          userId: req.cookies.refreshToken.userId
         }
       })
     } else {

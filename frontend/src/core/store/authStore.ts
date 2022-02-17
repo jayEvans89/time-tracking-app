@@ -4,7 +4,8 @@ import { defineStore } from 'pinia'
 export const useAuthStore = defineStore('authStore', {
   state: () => {
     return {
-      token: ''
+      token: '',
+      userId: ''
     }
   },
   actions: {
@@ -12,8 +13,12 @@ export const useAuthStore = defineStore('authStore', {
       this.token = token
       http.defaults.headers.common.Authorization = 'Bearer ' + token
     },
+    setUserId(userId: string) {
+      this.userId = userId
+    },
     logout() {
       this.token = ''
+      this.userId = ''
     }
   }
 })

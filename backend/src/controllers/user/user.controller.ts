@@ -98,8 +98,7 @@ export default class UserController {
     await UserModel.findByIdAndUpdate({ _id: id }, {
       first_name: body.firstName,
       last_name: body.lastName,
-      email: body.email,
-      company_id: body.company_id
+      email: body.email
     },
       {
         new: true,

@@ -15,7 +15,7 @@ export default class ClientController {
       address: body.address,
       description: body.description,
       contacts: body.contacts,
-      companyId: body.companyId
+      userId: body.userId
     })
 
     const newClient = await ClientModel.create(client)
@@ -90,7 +90,7 @@ export default class ClientController {
    */
   async getAllFull(req: Request, res: Response) {
     const id = req.params.id
-    const clients = await ClientModel.find({ companyId: id })
+    const clients = await ClientModel.find({ userId: id })
     res.status(200).send({
       status: 'success',
       message: 'Got all clients',
@@ -105,7 +105,7 @@ export default class ClientController {
    */
   async getAllNames(req: Request, res: Response) {
     const id = req.params.id
-    const clients = await ClientModel.find({ companyId: id }, { name: 1, _id: 1 })
+    const clients = await ClientModel.find({ userId: id }, { name: 1, _id: 1 })
     res.status(200).send({
       status: 'success',
       message: 'Got all clients',

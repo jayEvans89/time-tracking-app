@@ -32,11 +32,9 @@
 // import CustomerIcon from '@/components/shared/icons/CustomerIcon.vue'
 import LoginService from '@/services/login/loginService'
 import { computed } from 'vue'
-import { useRouter } from 'vue-router'
 import { useAuthStore } from '../store/authStore'
 
 const authStore = useAuthStore()
-const router = useRouter()
 
 const isAuthed = computed(() => {
   return authStore.token !== ''
@@ -44,9 +42,9 @@ const isAuthed = computed(() => {
 
 async function logout() {
   const res = await LoginService.logout()
-  if (res.status === 'Success') {
+  if (res.status === 'success') {
     authStore.logout()
-    router.push('/login')
+    window.location.reload()
   }
 }
 </script>

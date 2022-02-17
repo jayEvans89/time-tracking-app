@@ -1,37 +1,28 @@
-import CompanyController from '../../controllers/company/company.controller'
 import UserController from '../../controllers/user/user.controller'
 import SessionController from '../../controllers/auth/session.controller'
 import { User } from '../../types/user/user'
-import { Company } from '../../types/company/company'
 import { Request, Response } from 'express'
 import { UserModel } from '../../models/user/user.model'
 
-const companyController  = new CompanyController()
 const userController = new UserController()
 const sessionController = new SessionController()
 
 export default class SignupController {
   /**
-   * Create a new user and company
+   * Create a new user
    * @param req 
    * @param res 
    */
   async createNewUser(req: Request, res: Response) {
     const user = req.body as User
-    // const company = req.body.company as Company
   
     const userResponse = await userController.createUser(user)
 
     if (userResponse.status === 'success') {
-      // const newCompany = await companyController.createCompany(company, userResponse.data._id)
-
-      // const updatedUser = await UserModel.findOneAndUpdate({ _id: userResponse.data._id }, { company_id: newCompany.data._id }, { new: true })
-      const updatedUser = await UserModel.findOneAndUpdate({ _id: userResponse.data._id }, { new: true })
-
-      const session = await sessionController.createSession(updatedUser)
+      const session = await sessionController.createSession(user)
 
       if (session !== false) {
-        const jwt = await sessionController.createJWT(updatedUser._id, updatedUser.company_id)
+        const jwt = await sessionController.createJWT(user._id)
   
         return res.cookie('refreshToken', session,  {
           expires: session.expiry,
@@ -52,10 +43,10 @@ export default class SignupController {
    * @param req 
    * @param res 
    */
-  async checkUserExsists(req: Request, res: Response) {
+  async checkUserExists(req: Request, res: Response) {
     const email = req.body.email
-    const userExsits = await UserModel.findOne({ email: email })
-    if (!userExsits) {
+    const userExits = await UserModel.findOne({ email: email })
+    if (!userExits) {
       res.status(200).send({
         status: 'success',
         message: "User doesn't exists"

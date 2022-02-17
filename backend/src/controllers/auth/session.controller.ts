@@ -4,9 +4,7 @@ import { Session, SessionValidation } from '../../types/auth/session'
 import { SessionModel } from '../../models/auth/refreshToken'
 import { User } from '../../types/user/user'
 import jwt from 'jsonwebtoken'
-import util from 'util'
 import { Request, Response } from 'express'
-import { company } from '@/routes/company/company'
 
 export default class SessionController {
 
@@ -15,7 +13,6 @@ export default class SessionController {
    * @param user The user to create a session for
    */
   async createSession(user: User) {
-    console.log('create new session: ', user)
     let token = randomString.generate({ length: 12 })
     token = await bcrypt.hash(token, 10)
 
@@ -124,7 +121,7 @@ export default class SessionController {
    * Creates a new JWT
    * @param userId The user id to create a new JWT 
    */
-  async createJWT(userId: string, companyId?: string) {
+  async createJWT(userId: string) {
     const payload = {
       user: {
         id: userId

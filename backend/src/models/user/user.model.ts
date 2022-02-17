@@ -19,10 +19,6 @@ const userSchema: Schema = new Schema ({
   password: {
     type: String,
     required: true
-  },
-  company_id: {
-    type: String,
-    required: false
   }
 },
 {
