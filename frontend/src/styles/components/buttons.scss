@@ -58,6 +58,10 @@ button,
 .button-container {
   display: flex;
 
+  &--margin-top {
+    margin-top: 30px;
+  }
+
   > * {
     flex-basis: 100%;
 
