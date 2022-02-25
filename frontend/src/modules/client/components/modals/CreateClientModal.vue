@@ -1,6 +1,6 @@
 
 <template>
-  <modal modal-id="createClient">
+  <modal modal-id="createClient" @modal-mounted="modalMounted">
     <h1 class="modal__title">
       Create a New Client
     </h1>
@@ -31,11 +31,20 @@ import ContactInfo from '@/modules/client/components/modals/create-client-form-s
 import ClientService from '@/services/client/clientService'
 import { NewClient } from '@/types/client/newClient'
 import { ref } from 'vue'
+import { useAuthStore } from '@/core/store/authStore'
+import { Modal as ModalType } from 'bootstrap'
 
-const emits = defineEmits(['client-data-saved'])
+const emits = defineEmits(['new-client-created'])
 
+const authStore = useAuthStore()
+
+const createClientModal = ref<ModalType>()
 const clientInfoComponent = ref<InstanceType<typeof ClientInfo> | null>(null)
 const contactInfoComponent = ref<InstanceType<typeof ContactInfo> | null>(null)
+
+function modalMounted(modal: ModalType) {
+  createClientModal.value = modal
+}
 
 async function validate() {
   const clientInfo = await clientInfoComponent.value?.validate()
@@ -49,8 +58,9 @@ async function validate() {
       address: address,
       description: '',
       contacts: [contactInfo.data],
-      companyId: ''
+      userId: authStore.userId
     }
+    console.log(newClient)
     createClient(newClient)
   }
 }
@@ -62,6 +72,7 @@ async function createClient(data: NewClient) {
     return
   }
 
-  emits('client-data-saved')
+  emits('new-client-created')
+  createClientModal.value?.hide()
 }
 </script>

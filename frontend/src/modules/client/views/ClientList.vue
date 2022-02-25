@@ -1,25 +1,24 @@
 
 <template>
   <div>
-    <h1 @click="click">
-      Client List {{ test }}
+    <h1>
+      Client List
     </h1>
-    <router-link to="/clients/1234">
-      Details
-    </router-link>
+    <div v-show="clientNames.length > 0">
+      <p v-for="client in clientNames" :key="client.id">
+        {{ client.name }}
+      </p>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-
-const emits = defineEmits(['getting-data', 'got-data'])
-
-const test = ref(false)
-
-function click() {
-  test.value = !test.value
+import { ClientNames } from '@/types/client/clientModel'
+interface Props {
+  clientNames: ClientNames[]
 }
+
+defineProps<Props>()
 </script>
 
 <script lang="ts">
