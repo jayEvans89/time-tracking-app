@@ -1,11 +1,13 @@
 
 <template>
-  <sidebar v-if="isAuthed" />
-  <router-view v-slot="{ Component }">
-    <transition name="fade" mode="out-in">
-      <component :is="Component" />
-    </transition>
-  </router-view>
+  <div class="content">
+    <sidebar v-if="isAuthed" />
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -19,3 +21,10 @@ const isAuthed = computed(() => {
   return authStore.token !== ''
 })
 </script>
+
+<style lang="scss" scoped>
+.content {
+  display: flex;
+  flex: 1;
+}
+</style>
