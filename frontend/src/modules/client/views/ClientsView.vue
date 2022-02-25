@@ -1,14 +1,17 @@
 
 <template>
-  <div class="main__content">
+  <div>
+    <transition name="fade">
+      <div v-show="gettingData" class="spinner">
+        <p>Getting clients...</p>
+      </div>
+    </transition>
     <transition name="fade">
       <no-data v-if="!hasClients && !gettingData" />
     </transition>
     <router-view v-slot="{ Component }">
       <transition name="fade" mode="out-in">
-        <keep-alive include="ClientList" max="2">
-          <component :is="Component" :client-names="clientNames" />
-        </keep-alive>
+        <component :is="Component" v-if="!gettingData && hasClients" :client-names="clientNames" />
       </transition>
     </router-view>
     <create-client-modal @new-client-created="getClientList" />
@@ -22,8 +25,7 @@ import { computed, onMounted, ref } from 'vue'
 import clientService from '@/services/client/clientService'
 import { ClientNames } from '@/types/client/clientModel'
 
-const gettingData = ref(false)
-const gotData = ref(false)
+const gettingData = ref(true)
 const clientNames = ref<ClientNames[]>([])
 
 const hasClients = computed(() => {
@@ -38,7 +40,6 @@ async function getClientList() {
   gettingData.value = true
   try {
     const res = await clientService.getClientNames()
-    gotData.value = true
     clientNames.value = res.data
   } catch (error) {
     console.log(error)

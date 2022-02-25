@@ -47,7 +47,7 @@ export interface Client {
 
 export interface ClientNames {
   name: string;
-  id: string;
+  _id: string;
 }
 
 export interface ClientNamesResponse extends BaseResponse {

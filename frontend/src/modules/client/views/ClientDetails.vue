@@ -24,16 +24,16 @@ const clientDetails = ref<Client>({} as Client)
 const gotData = ref(false)
 
 onMounted(async () => {
-  // try {
-  //   const res = await clientService.getClient(props.id)
-  //   if (res.status !== 'success') {
-  //     return
-  //   }
+  try {
+    const res = await clientService.getClient(props.id)
+    if (res.status !== 'success') {
+      return
+    }
 
-  //   clientDetails.value = res.data
-  //   gotData.value = true
-  // } catch (error) {
-  //   console.log(error)
-  // }
+    clientDetails.value = res.data
+    gotData.value = true
+  } catch (error) {
+    console.log(error)
+  }
 })
 </script>
