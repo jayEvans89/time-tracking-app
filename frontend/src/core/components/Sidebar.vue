@@ -74,12 +74,6 @@ async function logout() {
 
     &:hover {
       color: var(--color-button-primary);
-
-      .navbar__item-icon {
-        path {
-          fill: var(--color-button-primary);
-        }
-      }
     }
 
     &--active {
@@ -88,12 +82,6 @@ async function logout() {
 
       &:hover {
         color: var(--color-text-primary);
-
-        .navbar__item-icon {
-          path {
-            fill: var(--color-text-primary);
-          }
-        }
       }
     }
   }
