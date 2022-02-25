@@ -45,8 +45,8 @@ export interface NewClient {
   /** List of contacts for the client */
   contacts: Array<ClientContactInfo>;
 
-  /** The id of the company the client belongs to */
-  companyId: number | string;
+  /** The id of the user the client belongs to */
+  userId: number | string;
 }
 
 export interface NewClientResponse extends BaseResponse {

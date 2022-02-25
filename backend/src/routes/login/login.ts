@@ -18,7 +18,7 @@ login.post('/auth', (req, res) => {
         status: response.status,
         message: response.message,
         token: response.token,
-        response: {
+        data: {
           userId: req.cookies.refreshToken.userId
         }
       })
