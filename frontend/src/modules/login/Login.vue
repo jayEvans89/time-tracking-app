@@ -8,39 +8,31 @@
         </h1>
       </div>
       <form data-test-id="loginForm" @submit.prevent="validateForm">
-        <div class="input-group">
-          <label :class="{ 'label--error': v$.email.$error || errors.userError }" for="email">Email</label>
-          <input
-            id="email"
-            v-model="loginDetails.email"
-            data-test-id="emailInput"
-            :class="{ 'input--error': v$.email.$error || errors.userError }"
-            type="email"
-            name="email"
-            placeholder="Enter email"
-          >
-          <div v-show="v$.email.$error || errors.userError" class="input__error-box" data-test-id="emailError">
-            <p class="input__error-box-text">
-              {{ emailError }}
-            </p>
-          </div>
-        </div>
-        <div class="input-group">
-          <label :class="{ 'label--error': v$.password.$error || errors.passwordError }" for="password">Password</label>
-          <input
-            id="password"
-            v-model="loginDetails.password"
-            data-test-id="passwordInput"
-            :class="{ 'input--error': v$.password.$error || errors.passwordError }"
-            type="password"
-            name="password"
-            placeholder="Enter password"
-          >
-          <div v-show="v$.password.$error || errors.passwordError" class="input__error-box" data-test-id="passwordError">
-            <p class="input__error-box-text">
-              {{ passwordError }}
-            </p>
-          </div>
+        <input-component
+          v-model="loginDetails.email"
+          :has-error="v$.email.$error || errors.userError"
+          label="Email"
+          name="email"
+          test-id="email"
+          type="email"
+          :error-messages="v$.email.$errors"
+        />
+        <input-component
+          v-model="loginDetails.password"
+          :has-error="v$.password.$error || errors.passwordError"
+          label="Password"
+          name="password"
+          test-id="password"
+          type="password"
+          :error-messages="v$.password.$errors"
+        />
+        <div v-show="errors.passwordError || errors.userError" class="input__error-box">
+          <p v-if="errors.passwordError">
+            {{ errors.passwordError }}
+          </p>
+          <p v-if="errors.userError">
+            {{ errors.userError }}
+          </p>
         </div>
         <div v-show="errors.fatalError" class="input__error-box" data-test-id="fatalError">
           <p>A fatal error has occurred please try again later</p>
@@ -65,12 +57,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, reactive } from 'vue'
+import { reactive } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
 import LoginService from '@/services/login/loginService'
 import router from '@/core/router'
 import { useAuthStore } from '@/core/store/authStore'
+import InputComponent from '../shared/InputComponent.vue'
 
 const authStore = useAuthStore()
 
@@ -90,20 +83,6 @@ const errors = reactive({
   userError: false,
   userErrorMessage: '',
   fatalError: false
-})
-
-const passwordError = computed(() => {
-  if (errors.passwordErrorMessage !== '') {
-    return errors.passwordErrorMessage
-  }
-  return v$.value.password.required.$message
-})
-
-const emailError = computed(() => {
-  if (errors.userErrorMessage !== '') {
-    return errors.userErrorMessage
-  }
-  return v$.value.email.email.$message
 })
 
 const v$ = useVuelidate(rules, loginDetails)
