@@ -1,12 +1,12 @@
 import InputComponent from '@/modules/shared/InputComponent.vue'
-import { enableAutoUnmount, shallowMount, VueWrapper } from '@vue/test-utils'
+import { enableAutoUnmount, mount, VueWrapper } from '@vue/test-utils'
 
 let props = {
   hasError: false,
   label: 'test',
   name: 'test',
-  testId: 'testInput',
-  inputType: 'text',
+  testId: 'test',
+  type: 'text',
   errorMessages: [
     {
       $message: 'test error message'
@@ -19,15 +19,15 @@ let wrapper: VueWrapper<any>
 enableAutoUnmount(afterEach)
 
 const setupWrapper = (data: any) => {
-  wrapper = shallowMount(InputComponent, {
+  wrapper = mount(InputComponent, {
     ...data
   })
 }
 
 const findInput = () => wrapper.find('[data-test-id="testInput"]')
-const findInputError = () => wrapper.find('[data-test-id="testInputError"]')
-const findInputErrorText = () => wrapper.find('[data-test-id="testInputErrorText-0"]')
-const findInputLabel = () => wrapper.find('[data-test-id="testInputLabel"]')
+const findInputError = () => wrapper.find('[data-test-id="testError"]')
+const findInputErrorText = () => wrapper.find('[data-test-id="testErrorText-0"]')
+const findInputLabel = () => wrapper.find('[data-test-id="testLabel"]')
 
 describe('input component', () => {
   afterEach(() => {
@@ -35,8 +35,8 @@ describe('input component', () => {
       hasError: false,
       label: 'test',
       name: 'test',
-      testId: 'testInput',
-      inputType: 'text',
+      testId: 'test',
+      type: 'text',
       errorMessages: [
         {
           $message: 'test error message'
