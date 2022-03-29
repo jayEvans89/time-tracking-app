@@ -5,7 +5,7 @@
     <input
       :id="name"
       :value="modelValue"
-      :data-test-id="testId"
+      :data-test-id="`${testId}Input`"
       :class="{ 'input--error': hasError }"
       :type="type"
       :name="name"

@@ -45,7 +45,7 @@ interface Props {
   modalSize?: string;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   center: true,
   static: null,
   modalSize: 'lg'
@@ -59,6 +59,7 @@ const modalContainer = ref<Element | null>(null)
 const { onModalMounted } = modalMounted(emits, modalContainer)
 
 onMounted(() => {
+  console.log(props.modalId)
   const modal = new Modal(modalContainer.value as Element)
   onModalMounted(modal)
 })

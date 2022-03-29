@@ -1,7 +1,7 @@
 import Login from '@/modules/login/Login.vue'
-import LoginService from '@/services/login/loginService'
+import loginService from '@/services/login/loginService'
 import { createTestingPinia } from '@pinia/testing'
-import { enableAutoUnmount, flushPromises, RouterLinkStub, shallowMount, VueWrapper } from '@vue/test-utils'
+import { enableAutoUnmount, flushPromises, mount, RouterLinkStub, VueWrapper } from '@vue/test-utils'
 import { nextTick } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -26,7 +26,7 @@ div.id = 'root'
 document.body.appendChild(div)
 
 const setupWrapper = async () => {
-  wrapper = shallowMount(Login, {
+  wrapper = mount(Login, {
     attachTo: '#root',
     global: {
       plugins: [createTestingPinia(), router],
@@ -66,7 +66,7 @@ describe('Login page view', () => {
   })
 
   it('should show incorrect password error', async () => {
-    LoginService.login = jest.fn().mockResolvedValue({ status: 'Password Error', message: 'wrong password' })
+    loginService.login = jest.fn().mockResolvedValue({ status: 'Password Error', message: 'wrong password' })
     setupWrapper()
 
     await fillOutFields()
@@ -78,7 +78,7 @@ describe('Login page view', () => {
   })
 
   it('should show user does not exist error', async () => {
-    LoginService.login = jest.fn().mockResolvedValue({ status: 'User Error', message: 'user does not exist' })
+    loginService.login = jest.fn().mockResolvedValue({ status: 'User Error', message: 'user does not exist' })
     setupWrapper()
 
     await fillOutFields()
@@ -90,7 +90,7 @@ describe('Login page view', () => {
   })
 
   it('should navigate to root page', async () => {
-    LoginService.login = jest.fn().mockResolvedValue({ status: 'success' })
+    loginService.login = jest.fn().mockResolvedValue({ status: 'success' })
     const push = jest.spyOn(router, 'push')
     setupWrapper()
 
@@ -113,7 +113,7 @@ describe('Login page view', () => {
   })
 
   it('should show the fatal error message', async () => {
-    LoginService.login = jest.fn().mockRejectedValue({})
+    loginService.login = jest.fn().mockRejectedValue({})
     setupWrapper()
 
     await fillOutFields()
