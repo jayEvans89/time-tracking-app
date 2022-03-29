@@ -1,8 +1,9 @@
 import http from '@/services/http'
 import loginService from '@/services/login/loginService'
 import { flushPromises } from '@vue/test-utils'
+import { vi } from 'vitest'
 
-const mock = jest.spyOn(http, 'post')
+const mock = vi.spyOn(http, 'post')
 
 const createResponse = (data: any) => {
   return {

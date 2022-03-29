@@ -1,10 +1,11 @@
 import NewUser from '@/modules/login/components/NewUser.vue'
 import UserService from '@/services/user/userService'
 import { enableAutoUnmount, flushPromises, shallowMount, VueWrapper } from '@vue/test-utils'
+import { vi } from 'vitest'
 import { nextTick } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
-jest.mock('@/services/user/userService')
+vi.mock('@/services/user/userService')
 
 let wrapper: VueWrapper<any>
 enableAutoUnmount(afterEach)
@@ -48,7 +49,7 @@ const setupUserData = () => {
 
 describe('New User component', () => {
   it('should check a user exists', async () => {
-    UserService.checkExists = jest.fn().mockResolvedValue({ status: 'error' })
+    UserService.checkExists = vi.fn().mockResolvedValue({ status: 'error' })
     setupWrapper()
     setupUserData()
 
