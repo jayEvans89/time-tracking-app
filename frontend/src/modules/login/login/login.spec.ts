@@ -1,4 +1,4 @@
-import Login from '@/modules/login/Login.vue'
+import Login from '@/modules/login/login/Login.vue'
 import loginService from '@/services/login/loginService'
 import { createTestingPinia } from '@pinia/testing'
 import { enableAutoUnmount, flushPromises, mount, RouterLinkStub, VueWrapper } from '@vue/test-utils'
@@ -17,7 +17,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'Login',
-      component: () => import('@/modules/login/Login.vue')
+      component: () => import('@/modules/login/login/Login.vue')
     }
   ]
 })

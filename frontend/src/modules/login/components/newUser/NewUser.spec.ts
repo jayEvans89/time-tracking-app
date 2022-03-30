@@ -1,4 +1,4 @@
-import NewUser from '@/modules/login/components/NewUser.vue'
+import NewUser from '@/modules/login/components/newUser/NewUser.vue'
 import UserService from '@/services/user/userService'
 import { enableAutoUnmount, flushPromises, shallowMount, VueWrapper } from '@vue/test-utils'
 import { vi } from 'vitest'

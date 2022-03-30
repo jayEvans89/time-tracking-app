@@ -62,8 +62,8 @@ import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
 import LoginService from '@/services/login/loginService'
 import router from '@/core/router'
-import { useAuthStore } from '@/core/store/authStore'
-import InputComponent from '../shared/InputComponent.vue'
+import { useAuthStore } from '@/core/store/authStore/authStore'
+import InputComponent from '@/components/shared/inputComponent/InputComponent.vue'
 
 const authStore = useAuthStore()
 

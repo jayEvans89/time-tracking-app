@@ -1,7 +1,7 @@
 import loginService from '@/services/login/loginService'
 import { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 
-import { useAuthStore } from '../store/authStore'
+import { useAuthStore } from '../store/authStore/authStore'
 
 export async function routeGuard(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) {
   const authStore = useAuthStore()

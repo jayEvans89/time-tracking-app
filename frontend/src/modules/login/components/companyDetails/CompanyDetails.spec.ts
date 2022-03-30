@@ -1,4 +1,4 @@
-import CompanyDetails from '@/modules/login/components/CompanyDetails.vue'
+import CompanyDetails from '@/modules/login/components/companyDetails/CompanyDetails.vue'
 import { enableAutoUnmount, flushPromises, mount, VueWrapper } from '@vue/test-utils'
 import { nextTick } from 'vue'
 

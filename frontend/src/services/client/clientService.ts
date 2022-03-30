@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/core/store/authStore'
+import { useAuthStore } from '@/core/store/authStore/authStore'
 import http from '@/services/http'
 import { ClientDetailsResponse, ClientNamesResponse } from '@/types/client/clientModel'
 import { NewClient, NewClientResponse } from '@/types/client/newClient'
