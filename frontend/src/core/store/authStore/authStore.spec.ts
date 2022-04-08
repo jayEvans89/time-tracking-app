@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/core/store/authStore'
+import { useAuthStore } from '@/core/store/authStore/authStore'
 import { createPinia, setActivePinia } from 'pinia'
 
 describe('setup root store', () => {

@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import NewUser from './components/NewUser.vue'
+import NewUser from './components/newUser/NewUser.vue'
 </script>
 
 <style lang="scss" scoped>

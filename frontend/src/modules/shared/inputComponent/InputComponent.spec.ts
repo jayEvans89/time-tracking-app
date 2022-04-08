@@ -1,4 +1,4 @@
-import InputComponent from '@/modules/shared/InputComponent.vue'
+import InputComponent from '@/modules/shared/inputComponent/InputComponent.vue'
 import { enableAutoUnmount, mount, VueWrapper } from '@vue/test-utils'
 
 let props = {
