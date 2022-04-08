@@ -71,7 +71,7 @@
 import { reactive } from 'vue'
 import { required } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
-import InputComponent from '@/modules/shared/InputComponent.vue'
+import InputComponent from '@/modules/shared/inputComponent/InputComponent.vue'
 import { FormResponse } from '@/types/form/formResponse'
 import { NewClientInfo } from '@/types/client/newClient'
 

@@ -62,7 +62,7 @@ import { computed, reactive, toRef } from 'vue'
 import { required, email, sameAs, minLength, helpers } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 import userService from '@/services/user/userService'
-import InputComponent from '@/modules/shared/InputComponent.vue'
+import InputComponent from '@/modules/shared/inputComponent/InputComponent.vue'
 import router from '@/core/router'
 
 const userExists = {

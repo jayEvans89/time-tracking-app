@@ -1,11 +1,12 @@
-import Login from '@/modules/login/Login.vue'
+import Login from '@/modules/login/login/Login.vue'
 import loginService from '@/services/login/loginService'
 import { createTestingPinia } from '@pinia/testing'
 import { enableAutoUnmount, flushPromises, mount, RouterLinkStub, VueWrapper } from '@vue/test-utils'
+import { fn, vi } from 'vitest'
 import { nextTick } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
-jest.mock('@/services/login/loginService')
+vi.mock('@/services/login/loginService')
 
 let wrapper: VueWrapper<any>
 enableAutoUnmount(afterEach)
@@ -16,7 +17,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'Login',
-      component: () => import('@/modules/login/Login.vue')
+      component: () => import('@/modules/login/login/Login.vue')
     }
   ]
 })
@@ -29,7 +30,9 @@ const setupWrapper = async () => {
   wrapper = mount(Login, {
     attachTo: '#root',
     global: {
-      plugins: [createTestingPinia(), router],
+      plugins: [createTestingPinia({
+        createSpy: fn
+      }), router],
       stubs: {
         RouterLink: RouterLinkStub
       }
@@ -66,7 +69,7 @@ describe('Login page view', () => {
   })
 
   it('should show incorrect password error', async () => {
-    loginService.login = jest.fn().mockResolvedValue({ status: 'Password Error', message: 'wrong password' })
+    loginService.login = vi.fn().mockResolvedValue({ status: 'Password Error', message: 'wrong password' })
     setupWrapper()
 
     await fillOutFields()
@@ -78,7 +81,7 @@ describe('Login page view', () => {
   })
 
   it('should show user does not exist error', async () => {
-    loginService.login = jest.fn().mockResolvedValue({ status: 'User Error', message: 'user does not exist' })
+    loginService.login = vi.fn().mockResolvedValue({ status: 'User Error', message: 'user does not exist' })
     setupWrapper()
 
     await fillOutFields()
@@ -90,8 +93,8 @@ describe('Login page view', () => {
   })
 
   it('should navigate to root page', async () => {
-    loginService.login = jest.fn().mockResolvedValue({ status: 'success' })
-    const push = jest.spyOn(router, 'push')
+    loginService.login = vi.fn().mockResolvedValue({ status: 'success' })
+    const push = vi.spyOn(router, 'push')
     setupWrapper()
 
     await fillOutFields()
@@ -113,7 +116,7 @@ describe('Login page view', () => {
   })
 
   it('should show the fatal error message', async () => {
-    loginService.login = jest.fn().mockRejectedValue({})
+    loginService.login = vi.fn().mockRejectedValue({})
     setupWrapper()
 
     await fillOutFields()
