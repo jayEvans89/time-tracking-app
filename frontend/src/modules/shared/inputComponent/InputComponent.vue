@@ -9,6 +9,7 @@
       :class="{ 'input--error': hasError }"
       :type="type"
       :name="name"
+      :placeholder="placeholder"
       @input="emitValue"
     >
     <div v-show="hasError" class="input__error-box" :data-test-id="`${testId}Error`">
