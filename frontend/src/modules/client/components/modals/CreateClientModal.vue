@@ -31,7 +31,7 @@ import ContactInfo from '@/modules/client/components/modals/create-client-form-s
 import ClientService from '@/services/client/clientService'
 import { NewClient } from '@/types/client/newClient'
 import { ref } from 'vue'
-import { useAuthStore } from '@/core/store/authStore'
+import { useAuthStore } from '@/core/store/authStore/authStore'
 import { Modal as ModalType } from 'bootstrap'
 
 const emits = defineEmits(['new-client-created'])
