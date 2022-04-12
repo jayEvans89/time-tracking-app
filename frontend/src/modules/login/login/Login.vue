@@ -64,6 +64,7 @@ import LoginService from '@/services/login/loginService'
 import router from '@/core/router'
 import { useAuthStore } from '@/core/store/authStore/authStore'
 import InputComponent from '@/modules/shared/inputComponent/InputComponent.vue'
+import { LoginResponse } from '@/types/auth/login'
 
 const authStore = useAuthStore()
 
@@ -98,22 +99,26 @@ async function login() {
   clearErrors()
   try {
     const res = await LoginService.login(loginDetails)
-    if (res.status === 'success') {
-      authStore.setUserId(res.data._id)
-      router.push('/')
+    if (res.status !== 'success') {
+      loginError(res)
       return
     }
 
-    if (res.status === 'Password Error') {
-      errors.passwordError = true
-      errors.passwordErrorMessage = res.message
-    } else {
-      errors.userError = true
-      errors.userErrorMessage = res.message
-    }
+    authStore.setUserId(res.data._id)
+    router.push('/')
   } catch (error) {
     console.log(error)
     errors.fatalError = true
+  }
+}
+
+function loginError(res: LoginResponse) {
+  if (res.status === 'Password Error') {
+    errors.passwordError = true
+    errors.passwordErrorMessage = res.message
+  } else {
+    errors.userError = true
+    errors.userErrorMessage = res.message
   }
 }
 
