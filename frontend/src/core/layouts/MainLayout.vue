@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useAuthStore } from '@/core/store/authStore'
+import { useAuthStore } from '@/core/store/authStore/authStore'
 import Sidebar from '@/core/components/Sidebar.vue'
 
 const authStore = useAuthStore()

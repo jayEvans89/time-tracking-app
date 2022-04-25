@@ -32,7 +32,7 @@
 // import CustomerIcon from '@/components/shared/icons/CustomerIcon.vue'
 import LoginService from '@/services/login/loginService'
 import { computed } from 'vue'
-import { useAuthStore } from '../store/authStore'
+import { useAuthStore } from '../store/authStore/authStore'
 
 const authStore = useAuthStore()
 

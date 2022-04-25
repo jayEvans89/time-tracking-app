@@ -1,7 +1,7 @@
 
 <template>
   <teleport to="body">
-    <div
+    <dialog
       :id="modalId"
       ref="modalContainer"
       class="modal fade"
@@ -14,7 +14,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </dialog>
   </teleport>
 </template>
 

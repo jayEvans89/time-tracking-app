@@ -6,18 +6,21 @@
       :id="name"
       :value="modelValue"
       :data-test-id="`${testId}Input`"
-      :class="{ 'input--error': hasError }"
+      :class="{ 'input-error': hasError }"
       :type="type"
       :name="name"
       :placeholder="placeholder"
       @input="emitValue"
     >
-    <div v-show="hasError" class="input__error-box" :data-test-id="`${testId}Error`">
-      <div class="input__error-box-text">
-        <p v-for="(error, index) in errorMessages" :key="error.$uid" :data-test-id="`${testId}ErrorText-${index}`">
-          {{ error.$message }}
-        </p>
-      </div>
+    <div v-show="hasError && errorMessages.length > 0" class="input-error__box" :data-test-id="`${testId}Error`">
+      <p
+        v-for="(error, index) in errorMessages"
+        :key="error.$uid"
+        class="input-error__text"
+        :data-test-id="`${testId}ErrorText-${index}`"
+      >
+        {{ error.$message }}
+      </p>
     </div>
   </div>
 </template>
@@ -51,7 +54,6 @@ function emitValue(event: Event) {
 </script>
 
 <style lang="scss" scoped>
-
 label {
   display: block;
   margin-bottom: 15px;
@@ -96,21 +98,7 @@ input {
   }
 }
 
-.input {
-  &--error {
-    border-color: var(--color-border-error);
-  }
-
-  &__error-box {
-    background: var(--color-background-error);
-    border-radius: 6px;
-    padding: 15px;
-    margin-top: 15px;
-  }
-
-  &__error-box-text {
-    color: var(--color-text-error);
-  }
+.input-error {
+  border-color: var(--color-border-error);
 }
-
 </style>

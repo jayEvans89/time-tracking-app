@@ -26,16 +26,18 @@
           type="password"
           :error-messages="v$.password.$errors"
         />
-        <div v-show="errors.passwordError || errors.userError" class="input__error-box">
-          <p v-if="errors.passwordError">
-            {{ errors.passwordError }}
+        <div v-show="errors.passwordError || errors.userError" class="input-error__box input-error__box--margin-bottom">
+          <p v-if="errors.passwordError" class="input-error__text">
+            {{ errors.passwordErrorMessage }}
           </p>
-          <p v-if="errors.userError">
-            {{ errors.userError }}
+          <p v-if="errors.userError" class="input-error__text">
+            {{ errors.userErrorMessage }}
           </p>
         </div>
-        <div v-show="errors.fatalError" class="input__error-box" data-test-id="fatalError">
-          <p>A fatal error has occurred please try again later</p>
+        <div v-show="errors.fatalError" class="input-error__box" data-test-id="fatalError">
+          <p class="input-error__text">
+            A fatal error has occurred please try again later
+          </p>
         </div>
         <button class="btn btn--primary" data-test-id="submitButton">
           Submit
@@ -100,8 +102,7 @@ async function login() {
   try {
     const res = await LoginService.login(loginDetails)
     if (res.status !== 'success') {
-      loginError(res)
-      return
+      return loginError(res)
     }
 
     authStore.setUserId(res.data._id)
